@@ -5,12 +5,13 @@ import logo from '../assets/logost.png';
 
 const Navbar = () => {
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 p-4">
       <div className="flex justify-between items-center max-w-7xl mx-auto relative">
         {/* Liens de gauche */}
-        <div className="flex gap-8 text-white mt-6"> {/* Ajout de mt-6 pour décaler vers le bas */}
+        <div className="flex gap-8 text-white mt-6">
           <Link 
             to="/events" 
             className={`hover:text-gray-300 transition-colors text-lg ${
@@ -29,20 +30,24 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Logo avec espace supplémentaire */}
+        {/* Logo avec taille conditionnelle */}
         <Link 
           to="/" 
-          className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-full"
+          className={`absolute left-1/2 transform -translate-x-1/2 ${
+            isHomePage ? '-translate-y-1/2 top-full' : 'top-1/2 -translate-y-1/2'
+          }`}
         >
           <img 
             src={logo} 
             alt="STST Logo" 
-            className="h-40 w-auto hover:scale-105 transition-transform duration-300" 
+            className={`${
+              isHomePage ? 'h-40' : 'h-16'
+            } w-auto hover:scale-105 transition-transform duration-300`}
           />
         </Link>
 
         {/* Liens de droite */}
-        <div className="flex gap-8 text-white mt-6"> {/* Ajout de mt-6 pour décaler vers le bas */}
+        <div className="flex gap-8 text-white mt-6">
           <Link 
             to="/wiki" 
             className={`hover:text-gray-300 transition-colors text-lg ${
