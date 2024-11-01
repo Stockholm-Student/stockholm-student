@@ -1,12 +1,28 @@
+// App.tsx
 import React from 'react';
-  import ItemList from './components/ItemList';
-  
-  const App: React.FC = () => {
-    return (
-      <div className="min-h-screen bg-gray-100">
-        <ItemList />
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Events from './pages/Events';
+import Community from './pages/Community';
+import Wiki from './pages/Wiki';
+import More from './pages/More';
+
+function App() {
+  return (
+    <Router>
+      <div className="relative min-h-screen">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/wiki" element={<Wiki />} />
+          <Route path="/more" element={<More />} />
+        </Routes>
       </div>
-    );
-  };
-  
-  export default App;
+    </Router>
+  );
+}
+
+export default App;
