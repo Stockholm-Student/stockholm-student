@@ -1,7 +1,15 @@
 // pages/Wiki.tsx
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaSearch, FaBook, FaHome, FaMoneyBill, FaUtensils, FaSubway, FaUniversity } from 'react-icons/fa';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  FaSearch,
+  FaBook,
+  FaHome,
+  FaMoneyBill,
+  FaUtensils,
+  FaSubway,
+  FaUniversity,
+} from "react-icons/fa";
 
 // Catégories des informations
 const wikiCategories = [
@@ -13,7 +21,7 @@ const wikiCategories = [
       "Finding an Apartment",
       "Housing Contracts",
       "Rental Rules in Sweden",
-    ]
+    ],
   },
   {
     title: "Student Life",
@@ -23,7 +31,7 @@ const wikiCategories = [
       "Study Tips",
       "Campus Facilities",
       "Student Rights",
-    ]
+    ],
   },
   {
     title: "Money & Banking",
@@ -33,7 +41,7 @@ const wikiCategories = [
       "Student Discounts",
       "Scholarships",
       "Part-time Jobs",
-    ]
+    ],
   },
   {
     title: "Food & Shopping",
@@ -43,7 +51,7 @@ const wikiCategories = [
       "Grocery Shopping",
       "Budget Tips",
       "Swedish Food Culture",
-    ]
+    ],
   },
   {
     title: "Transportation",
@@ -53,7 +61,7 @@ const wikiCategories = [
       "Student Travel Card",
       "Biking in Stockholm",
       "Night Transportation",
-    ]
+    ],
   },
   {
     title: "Academic Info",
@@ -63,12 +71,12 @@ const wikiCategories = [
       "Exam Rules",
       "Libraries",
       "Academic Calendar",
-    ]
-  }
+    ],
+  },
 ];
 
 const Wiki: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#A698C5] to-white">
@@ -79,9 +87,7 @@ const Wiki: React.FC = () => {
           animate={{ y: 0, opacity: 1 }}
           className="max-w-4xl mx-auto px-4"
         >
-          <h1 className="text-4xl font-bold text-white mb-8">
-            Student Wiki
-          </h1>
+          <h1 className="text-4xl font-bold text-white mb-8">Student Wiki</h1>
           <div className="relative max-w-2xl mx-auto">
             <input
               type="text"
@@ -121,7 +127,9 @@ const Wiki: React.FC = () => {
                   <li key={topic}>
                     <button
                       onClick={() => {
-                        const topicId = topic.toLowerCase().replace(/\s+/g, '-');
+                        const topicId = topic
+                          .toLowerCase()
+                          .replace(/\s+/g, "-");
                         window.location.hash = topicId;
                       }}
                       className="text-gray-600 hover:text-[#A698C5] transition-colors
@@ -145,9 +153,17 @@ const Wiki: React.FC = () => {
         className="bg-[#A698C5]/10 py-16"
       >
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center mb-8">Most Searched Topics</h2>
+          <h2 className="text-2xl font-bold text-center mb-8">
+            Most Searched Topics
+          </h2>
           <div className="flex flex-wrap justify-center gap-4">
-            {["Finding Housing", "SL Card", "Bank Account", "Course Registration", "Student Discounts"].map((topic) => (
+            {[
+              "Finding Housing",
+              "SL Card",
+              "Bank Account",
+              "Course Registration",
+              "Student Discounts",
+            ].map((topic) => (
               <motion.button
                 key={topic}
                 whileHover={{ scale: 1.05 }}
@@ -170,7 +186,9 @@ const Wiki: React.FC = () => {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-gray-600 mb-4">Can't find what you're looking for?</p>
+          <p className="text-gray-600 mb-4">
+            Can't find what you're looking for?
+          </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
