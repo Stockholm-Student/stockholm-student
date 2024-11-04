@@ -1,8 +1,8 @@
 // components/ScrollSection.tsx
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import backgroundImage from '../assets/stock.jpg'; // Import correct de l'image
+import React from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import backgroundImage from "../assets/stock.jpg"; // Import correct de l'image
 
 const ScrollSection = () => {
   const navigate = useNavigate();
@@ -45,11 +45,11 @@ const ScrollSection = () => {
             className="space-y-6 max-w-2xl"
           >
             <p className="text-xl text-gray-800">
-              Browse our wiki to find useful Information and Tips on common topics 
-              that make your Student life easier!
+              Browse our wiki to find useful Information and Tips on common
+              topics that make your Student life easier!
             </p>
             <motion.button
-              onClick={() => navigate('/wiki')}
+              onClick={() => navigate("/wiki")}
               className="relative overflow-hidden bg-black text-white px-8 py-3 rounded-full text-lg
                        flex items-center gap-2 transition-all
                        shadow-[0_0_15px_rgba(0,0,0,0.2)]
@@ -65,8 +65,6 @@ const ScrollSection = () => {
               <span className="relative z-10 text-xl">→</span>
             </motion.button>
           </motion.div>
-
-          
         </div>
       </div>
     </section>

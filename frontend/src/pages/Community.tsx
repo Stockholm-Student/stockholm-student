@@ -1,7 +1,7 @@
 // pages/Community.tsx
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaInstagram, FaEnvelope, FaLinkedin } from 'react-icons/fa';
+import React from "react";
+import { motion } from "framer-motion";
+import { FaInstagram, FaEnvelope, FaLinkedin } from "react-icons/fa";
 
 const teamMembers = [
   {
@@ -12,8 +12,8 @@ const teamMembers = [
     contact: {
       email: "Johannes@stockholmstudent.com",
       instagram: "@johannesbrix",
-      linkedin: "johannesbrix"
-    }
+      linkedin: "johannesbrix",
+    },
   },
   {
     name: "Marco Rossi",
@@ -23,8 +23,8 @@ const teamMembers = [
     contact: {
       email: "marco@stockholmstudent.com",
       instagram: "@marco_sthlm",
-      linkedin: "marcorossi"
-    }
+      linkedin: "marcorossi",
+    },
   },
   {
     name: "Yuki Tanaka",
@@ -34,35 +34,35 @@ const teamMembers = [
     contact: {
       email: "yuki@stockholmstudent.com",
       instagram: "@yuki_sthlm",
-      linkedin: "yukitanaka"
-    }
-  }
+      linkedin: "yukitanaka",
+    },
+  },
 ];
 
 const Community = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#A698C5] to-white">
       {/* Hero Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="pt-32 pb-20 text-white text-center"
       >
         <div className="max-w-4xl mx-auto px-4">
-          <motion.h1 
+          <motion.h1
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             className="text-5xl font-bold mb-6"
           >
             Welcome to Our Community
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-xl leading-relaxed"
           >
-            Where international students from different cultures come together 
+            Where international students from different cultures come together
             to create unforgettable experiences in Stockholm.
           </motion.p>
         </div>
@@ -79,9 +79,10 @@ const Community = () => {
         >
           <h2 className="text-3xl font-bold mb-8">Our Mission</h2>
           <p className="text-xl text-gray-700 leading-relaxed">
-            We're here to transform the international student experience in Stockholm. 
-            Through crazy events, cultural exchanges, and meaningful connections, 
-            we're building a vibrant community where every student feels at home.
+            We're here to transform the international student experience in
+            Stockholm. Through crazy events, cultural exchanges, and meaningful
+            connections, we're building a vibrant community where every student
+            feels at home.
           </p>
         </motion.section>
 
@@ -102,17 +103,23 @@ const Community = () => {
                   <div className="absolute bottom-4 left-4 right-4">
                     <h3 className="text-xl font-semibold">{member.name}</h3>
                     <p className="text-sm text-gray-800">{member.role}</p>
-                    <p className="text-sm text-gray-600">From: {member.country}</p>
+                    <p className="text-sm text-gray-600">
+                      From: {member.country}
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <FaEnvelope className="text-gray-600" />
-                    <span className="text-sm text-gray-600">{member.contact.email}</span>
+                    <span className="text-sm text-gray-600">
+                      {member.contact.email}
+                    </span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <FaInstagram className="text-gray-600" />
-                    <span className="text-sm text-gray-600">{member.contact.instagram}</span>
+                    <span className="text-sm text-gray-600">
+                      {member.contact.instagram}
+                    </span>
                   </div>
                 </div>
               </motion.div>
@@ -129,7 +136,8 @@ const Community = () => {
           <div className="text-center space-y-6">
             <h2 className="text-3xl font-bold">Join Our Next Adventure!</h2>
             <p className="text-xl text-gray-700">
-              Follow us on Instagram to stay updated with our latest events and activities!
+              Follow us on Instagram to stay updated with our latest events and
+              activities!
             </p>
             <motion.a
               href="https://instagram.com/your_community"
@@ -155,8 +163,8 @@ const Community = () => {
         >
           <h2 className="text-3xl font-bold">Get Involved!</h2>
           <p className="text-xl text-gray-700">
-            Want to join our team or collaborate on an event? 
-            We're always looking for enthusiastic students to join our community!
+            Want to join our team or collaborate on an event? We're always
+            looking for enthusiastic students to join our community!
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}

@@ -1,11 +1,11 @@
 // App.tsx
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Navbar from '../../frontend/src/components/Navbar';
-import Community from '../../frontend/src/pages/Community';
-import Events from '../../frontend/src/pages/Events';
-import Home from '../../frontend/src/pages/Home';
-import More from '../../frontend/src/pages/More';
-import Wiki from '../../frontend/src/pages/Wiki';
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Navbar from "../../frontend/src/components/Navbar";
+import Community from "../../frontend/src/pages/Community";
+import Events from "../../frontend/src/pages/Events";
+import Home from "../../frontend/src/pages/Home";
+import More from "../../frontend/src/pages/More";
+import Wiki from "../../frontend/src/pages/Wiki";
 
 function App() {
   return (
