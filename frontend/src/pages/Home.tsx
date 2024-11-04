@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ScrollSection from '../components/ScrollSection';
 
@@ -116,7 +116,7 @@ const Home = () => {
 
           {/* Enhanced Scroll Indicator */}
           <motion.div
-            className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-12 left-1/2 transform translate-x-1/2"
             animate={{ 
               y: [0, 10, 0],
               opacity: [0.6, 1, 0.6],
