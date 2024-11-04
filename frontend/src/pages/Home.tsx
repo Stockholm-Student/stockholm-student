@@ -2,17 +2,18 @@ import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StockholmImage from '../assets/stockholm-night-day.jpeg'
-import ScrollSection from '../components/ScrollSection'
+import HomeEventsSection from '../components/HomeEventsSection'
+import HomeQuestionsSection from '../components/HomeQuestionsSection'
 
 const Home = () => {
   const navigate = useNavigate()
-  const [scrollY, setScrollY] = useState(0);
+  const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div className="relative min-h-screen scroll-smooth">
@@ -20,16 +21,15 @@ const Home = () => {
       <div className="relative h-screen overflow-hidden">
         <motion.div
           className={`absolute inset-0 transition-all ${scrollY == 0 ? 'p-8' : 'p-0'}`}
-          style={{ y: scrollY * 0.5}}
+          style={{ y: scrollY * 0.5 }}
         >
-          {/* <div className="absolute inset-0 z-10 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-900/20" /> */}
           <img
             src={StockholmImage}
             alt="Stockholm"
-            className={`h-full w-full  object-cover ${scrollY == 0 ? 'rounded-xl' : ''}`}
+            className={`h-full w-full object-cover ${scrollY == 0 ? 'rounded-xl' : ''}`}
           />
         </motion.div>
-        
+
         {/* Enhanced Main content */}
         <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 text-white">
           <motion.div
@@ -64,7 +64,7 @@ const Home = () => {
             >
               <motion.button
                 onClick={() => navigate('/events')}
-                className="group relative overflow-hidden rounded-lg border border-white/10 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 px-10 py-4 backdrop-blur-sm transition-all duration-500 ease-out hover:from-blue-500/30 hover:to-emerald-500/30"
+                className="rounded-lg border border-white/10 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 px-10 py-4 backdrop-blur-sm transition-all duration-500 ease-out hover:from-blue-500/30 hover:to-emerald-500/30"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -124,7 +124,9 @@ const Home = () => {
           </motion.div>
         </div>
       </div>
-      <ScrollSection />
+      <div className="relative -mt-2 h-10 w-full rounded-t-2xl bg-white"></div>
+      <HomeEventsSection />
+      <HomeQuestionsSection />
 
       {/* Enhanced gradient overlay */}
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/30 to-transparent" />

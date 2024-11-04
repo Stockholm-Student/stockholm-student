@@ -1,13 +1,15 @@
 // components/Navbar.tsx
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import logo from '../assets/logo/horizontal_logo.svg'
+import logo from '../assets/logo/horizontal-logo.svg'
 
 const Navbar = () => {
   const location = useLocation()
   const isHomePage = location.pathname === '/'
 
   const [scrollY, setScrollY] = useState(0)
+
+  let height = screen.height - 200; 
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -17,7 +19,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed left-0 right-0 z-50 p-4 transition-all ${scrollY == 0 ? 'top-8' : 'top-0'}`}
+      className={`fixed left-0 right-0 z-50 p-4 transition-all backdrop-blur-md ${scrollY < height && isHomePage && 'backdrop-blur-none'} ${scrollY == 0 ? 'top-8' : 'top-0'} `}
     >
       {/* Table with all nva links to make all items have same width regardless of content (except logo) */}
       <table className="mx-auto w-full max-w-screen-xl text-center">
@@ -25,8 +27,8 @@ const Navbar = () => {
           <td className="w-1/6">
             <Link
               to="/events"
-              className={`font-serif text-xl font-bold transition-all hover:underline ${
-                location.pathname === '/events' ? 'underline' : 'text-white'
+              className={`font-serif text-xl font-bold transition-all hover:underline ${isHomePage && scrollY < height && 'invert'} ${
+                location.pathname === '/events' ? 'underline' : 'text-black'
               }`}
             >
               Events
@@ -35,8 +37,8 @@ const Navbar = () => {
           <td className="w-1/6">
             <Link
               to="/community"
-              className={`font-serif text-xl font-bold transition-all hover:underline ${
-                location.pathname === '/community' ? 'underline' : 'text-white'
+              className={`font-serif text-xl font-bold transition-all hover:underline ${isHomePage && scrollY < height && 'invert'} ${
+                location.pathname === '/community' ? 'underline' : 'text-black'
               }`}
             >
               Community
@@ -48,16 +50,16 @@ const Navbar = () => {
                 src={logo}
                 alt="STST Logo"
                 className={`${
-                  isHomePage && scrollY == 0 ? 'h-24' : 'h-16'
-                } px-4 mx-auto w-auto transition-all duration-300 hover:scale-105`}
+                  isHomePage && scrollY == 0 ? 'h-24' : 'h-16' 
+                } ${isHomePage && scrollY < height && 'invert'} mx-auto w-auto px-4 transition-all duration-300 hover:scale-105`}
               />
             </Link>
           </td>
           <td className="w-1/6">
             <Link
               to="/wiki"
-              className={`font-serif text-xl font-bold transition-all hover:underline ${
-                location.pathname === '/wiki' ? 'underline' : 'text-white'
+              className={`font-serif text-xl font-bold transition-all hover:underline ${isHomePage && scrollY < height && 'invert'} ${
+                location.pathname === '/wiki' ? 'underline' : 'text-black'
               }`}
             >
               Wiki
@@ -66,8 +68,8 @@ const Navbar = () => {
           <td className="w-1/6">
             <Link
               to="/more"
-              className={`font-serif text-xl font-bold transition-all hover:underline ${
-                location.pathname === '/more' ? 'underline' : 'text-white'
+              className={`font-serif text-xl font-bold transition-all hover:underline ${isHomePage && scrollY < height && 'invert'} ${
+                location.pathname === '/more' ? 'underline' : 'text-black'
               }`}
             >
               More

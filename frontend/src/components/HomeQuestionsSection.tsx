@@ -1,21 +1,20 @@
 // components/ScrollSection.tsx
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import backgroundImage from '../assets/stock.jpg'; // Import correct de l'image
 
 const ScrollSection = () => {
   const navigate = useNavigate()
 
   return (
-    <section className="relative flex min-h-screen items-center">
+    <section className="relative flex min-h-screen max-w-screen-xl items-center justify-center">
       {/* Content */}
-      <div className="relative mx-auto max-w-5xl px-6 py-20">
+      <div className="relative px-6 py-20">
         <div className="flex flex-col items-start space-y-16">
           {/* Title Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.4 }}
             className="max-w-2xl space-y-4"
           >
             <h2 className="text-5xl font-bold text-black">
@@ -30,7 +29,7 @@ const ScrollSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="max-w-2xl space-y-6"
           >
             <p className="text-xl text-gray-800">
@@ -43,7 +42,7 @@ const ScrollSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="relative z-10">Wiki</span>
+              <span className="relative z-10 font-semibold text-2xl">Wiki</span>
               <span className="relative z-10 text-xl">→</span>
             </motion.button>
           </motion.div>

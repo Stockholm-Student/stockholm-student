@@ -3,8 +3,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: [''],
-        serif: ['PlayfairDisplay-Regular'],
+        sans: ['Afacad'],
+        serif: ['PlayfairDisplay'],
       },
     },
   },
