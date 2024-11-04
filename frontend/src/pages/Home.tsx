@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ScrollSection from "../components/ScrollSection";
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import StockholmImage from '../assets/stockholm-night-day.jpeg'
+import ScrollSection from '../components/ScrollSection'
 
 const Home = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -14,51 +15,44 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-black">
+    <div className="relative min-h-screen scroll-smooth">
       {/* Background with parallax effect */}
       <div className="relative h-screen overflow-hidden">
-        <motion.div className="absolute inset-0" style={{ y: scrollY * 0.5 }}>
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-900/20 z-10" />
+        <motion.div
+          className={`absolute inset-0 transition-all ${scrollY == 0 ? 'p-8' : 'p-0'}`}
+          style={{ y: scrollY * 0.5}}
+        >
+          {/* <div className="absolute inset-0 z-10 bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-900/20" /> */}
           <img
-            src="/stockholm-day-night.jpg"
+            src={StockholmImage}
             alt="Stockholm"
-            className="w-full h-full object-cover"
+            className={`h-full w-full  object-cover ${scrollY == 0 ? 'rounded-xl' : ''}`}
           />
         </motion.div>
-
+        
         {/* Enhanced Main content */}
-        <div className="relative z-20 h-full flex flex-col items-center justify-center text-white px-4">
+        <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 text-white">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center space-y-6"
+            className="space-y-6 text-center"
           >
             {/* Main Heading with enhanced animation */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{
-                duration: 1,
-                type: "spring",
+                duration: 2,
+                delay: 0.4,
+                type: 'spring',
                 stiffness: 100,
               }}
               className="space-y-4"
             >
-              <h1
-                className="text-4xl md:text-5xl font-bold tracking-wider text-shadow-lg
-                           bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text"
-              >
-                Your Student Life
-              </h1>
-              <div className="h-0.5 w-24 bg-white/30 mx-auto rounded-full" />
-              <motion.h2
-                className="text-2xl md:text-3xl font-light tracking-widest text-white/90"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-              >
+              <h2 className="text-shadow-lg bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text font-serif text-4xl font-semibold tracking-wider md:text-5xl">
+                Your Student Life <br />
                 in one place
-              </motion.h2>
+              </h2>
             </motion.div>
 
             {/* Enhanced Button Design */}
@@ -69,23 +63,15 @@ const Home = () => {
               className="mt-16"
             >
               <motion.button
-                onClick={() => navigate("/events")}
-                className="group relative overflow-hidden px-10 py-4 rounded-lg
-                         bg-gradient-to-r from-blue-500/20 to-emerald-500/20
-                         hover:from-blue-500/30 hover:to-emerald-500/30
-                         border border-white/10 backdrop-blur-sm
-                         transition-all duration-500 ease-out"
+                onClick={() => navigate('/events')}
+                className="group relative overflow-hidden rounded-lg border border-white/10 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 px-10 py-4 backdrop-blur-sm transition-all duration-500 ease-out hover:from-blue-500/30 hover:to-emerald-500/30"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <motion.span
-                  className="relative z-10 text-lg font-medium tracking-[0.2em] uppercase
-                           bg-gradient-to-r from-white to-gray-100 bg-clip-text
-                           inline-flex items-center gap-3"
-                >
+                <motion.span className="relative z-10 inline-flex items-center gap-3 bg-gradient-to-r from-white to-gray-100 bg-clip-text text-lg font-medium uppercase tracking-[0.2em]">
                   <span>Discover Events</span>
                   <motion.svg
-                    className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                    className="h-5 w-5 transform transition-transform group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -115,15 +101,15 @@ const Home = () => {
 
           {/* Enhanced Scroll Indicator */}
           <motion.div
-            className="absolute bottom-12 left-1/2 transform translate-x-1/2"
+            className="absolute bottom-12 left-1/2 translate-x-1/2 transform"
             animate={{
               y: [0, 10, 0],
               opacity: [0.6, 1, 0.6],
             }}
             transition={{
-              repeat: Infinity,
+              repeat: 3,
               duration: 2.5,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             }}
           >
             <motion.div
@@ -133,7 +119,7 @@ const Home = () => {
               <span className="text-sm font-light tracking-[0.5em] text-white/70">
                 SCROLL
               </span>
-              <div className="w-px h-8 bg-gradient-to-b from-white/70 to-transparent" />
+              <div className="h-8 w-px bg-gradient-to-b from-white/70 to-transparent" />
             </motion.div>
           </motion.div>
         </div>
@@ -143,7 +129,7 @@ const Home = () => {
       {/* Enhanced gradient overlay */}
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/30 to-transparent" />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

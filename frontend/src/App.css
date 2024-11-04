@@ -1,7 +1,7 @@
 /* App.css */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 body {
   margin: 0;
@@ -54,7 +54,7 @@ body {
 }
 
 .btn-hover-effect::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

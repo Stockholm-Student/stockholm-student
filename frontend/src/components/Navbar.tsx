@@ -1,77 +1,82 @@
 // components/Navbar.tsx
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import logo from "../assets/logost.png";
+import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import logo from '../assets/logo/horizontal_logo.svg'
 
 const Navbar = () => {
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
+  const location = useLocation()
+  const isHomePage = location.pathname === '/'
+
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 p-4">
-      <div className="flex justify-between items-center max-w-7xl mx-auto relative">
-        {/* Liens de gauche */}
-        <div className="flex gap-8 text-white mt-6">
-          <Link
-            to="/events"
-            className={`hover:text-gray-300 transition-colors text-lg ${
-              location.pathname === "/events" ? "text-white" : "text-gray-300"
-            }`}
-          >
-            Events
-          </Link>
-          <Link
-            to="/community"
-            className={`hover:text-gray-300 transition-colors text-lg ${
-              location.pathname === "/community"
-                ? "text-white"
-                : "text-gray-300"
-            }`}
-          >
-            Community
-          </Link>
-        </div>
-
-        {/* Logo avec taille conditionnelle */}
-        <Link
-          to="/"
-          className={`absolute left-1/2 transform -translate-x-1/2 ${
-            isHomePage
-              ? "-translate-y-1/2 top-full"
-              : "top-1/2 -translate-y-1/2"
-          }`}
-        >
-          <img
-            src={logo}
-            alt="STST Logo"
-            className={`${
-              isHomePage ? "h-40" : "h-16"
-            } w-auto hover:scale-105 transition-transform duration-300`}
-          />
-        </Link>
-
-        {/* Liens de droite */}
-        <div className="flex gap-8 text-white mt-6">
-          <Link
-            to="/wiki"
-            className={`hover:text-gray-300 transition-colors text-lg ${
-              location.pathname === "/wiki" ? "text-white" : "text-gray-300"
-            }`}
-          >
-            Wiki
-          </Link>
-          <Link
-            to="/more"
-            className={`hover:text-gray-300 transition-colors text-lg ${
-              location.pathname === "/more" ? "text-white" : "text-gray-300"
-            }`}
-          >
-            More
-          </Link>
-        </div>
-      </div>
+    <nav
+      className={`fixed left-0 right-0 z-50 p-4 transition-all ${scrollY == 0 ? 'top-8' : 'top-0'}`}
+    >
+      {/* Table with all nva links to make all items have same width regardless of content (except logo) */}
+      <table className="mx-auto w-full max-w-screen-xl text-center">
+        <tr>
+          <td className="w-1/6">
+            <Link
+              to="/events"
+              className={`font-serif text-xl font-bold transition-all hover:underline ${
+                location.pathname === '/events' ? 'underline' : 'text-white'
+              }`}
+            >
+              Events
+            </Link>
+          </td>
+          <td className="w-1/6">
+            <Link
+              to="/community"
+              className={`font-serif text-xl font-bold transition-all hover:underline ${
+                location.pathname === '/community' ? 'underline' : 'text-white'
+              }`}
+            >
+              Community
+            </Link>
+          </td>
+          <td className="w-2/6">
+            <Link to="/" className="">
+              <img
+                src={logo}
+                alt="STST Logo"
+                className={`${
+                  isHomePage && scrollY == 0 ? 'h-24' : 'h-16'
+                } px-4 mx-auto w-auto transition-all duration-300 hover:scale-105`}
+              />
+            </Link>
+          </td>
+          <td className="w-1/6">
+            <Link
+              to="/wiki"
+              className={`font-serif text-xl font-bold transition-all hover:underline ${
+                location.pathname === '/wiki' ? 'underline' : 'text-white'
+              }`}
+            >
+              Wiki
+            </Link>
+          </td>
+          <td className="w-1/6">
+            <Link
+              to="/more"
+              className={`font-serif text-xl font-bold transition-all hover:underline ${
+                location.pathname === '/more' ? 'underline' : 'text-white'
+              }`}
+            >
+              More
+            </Link>
+          </td>
+        </tr>
+      </table>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

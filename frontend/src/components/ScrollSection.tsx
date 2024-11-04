@@ -1,33 +1,22 @@
 // components/ScrollSection.tsx
-import React from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import backgroundImage from "../assets/stock.jpg"; // Import correct de l'image
+import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
+import backgroundImage from '../assets/stock.jpg'; // Import correct de l'image
 
 const ScrollSection = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
-    <section className="min-h-screen relative flex items-center">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <img
-          src={backgroundImage}
-          alt="Background"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-white/45" /> {/* Opacité réduite */}
-      </div>
-
+    <section className="relative flex min-h-screen items-center">
       {/* Content */}
-      <div className="relative max-w-5xl mx-auto px-6 py-20">
+      <div className="relative mx-auto max-w-5xl px-6 py-20">
         <div className="flex flex-col items-start space-y-16">
           {/* Title Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-4 max-w-2xl"
+            className="max-w-2xl space-y-4"
           >
             <h2 className="text-5xl font-bold text-black">
               So many questions...
@@ -42,22 +31,15 @@ const ScrollSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6 max-w-2xl"
+            className="max-w-2xl space-y-6"
           >
             <p className="text-xl text-gray-800">
               Browse our wiki to find useful Information and Tips on common
               topics that make your Student life easier!
             </p>
             <motion.button
-              onClick={() => navigate("/wiki")}
-              className="relative overflow-hidden bg-black text-white px-8 py-3 rounded-full text-lg
-                       flex items-center gap-2 transition-all
-                       shadow-[0_0_15px_rgba(0,0,0,0.2)]
-                       hover:shadow-[0_0_20px_rgba(0,0,0,0.3)]
-                       before:absolute before:inset-0 before:bg-gradient-to-r 
-                       before:from-transparent before:via-white/20 before:to-transparent
-                       before:translate-x-[-200%] hover:before:translate-x-[200%]
-                       before:transition-transform before:duration-1000"
+              onClick={() => navigate('/wiki')}
+              className="relative flex items-center gap-2 overflow-hidden rounded-lg bg-black px-8 py-3 text-lg text-white shadow-[0_0_15px_rgba(0,0,0,0.2)] transition-all before:absolute before:inset-0 before:translate-x-[-200%] before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-1000 hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:before:translate-x-[200%]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -68,7 +50,7 @@ const ScrollSection = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ScrollSection;
+export default ScrollSection

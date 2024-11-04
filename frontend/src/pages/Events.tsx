@@ -1,6 +1,6 @@
 // pages/Events.tsx
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   FaCalendar,
   FaList,
@@ -10,97 +10,97 @@ import {
   FaClock,
   FaMapMarkerAlt,
   FaUsers,
-} from "react-icons/fa";
+} from 'react-icons/fa'
 
 interface Event {
-  id: number;
-  title: string;
-  date: string;
-  time: string;
-  image: string;
-  location: string;
-  category: string;
-  attendees: number;
-  description: string;
+  id: number
+  title: string
+  date: string
+  time: string
+  image: string
+  location: string
+  category: string
+  attendees: number
+  description: string
 }
 
 const sampleEvents: Event[] = [
   {
     id: 1,
-    title: "Student Welcome Party",
-    date: "2024-02-10",
-    time: "19:00",
-    image: "/event-images/party.jpg",
-    location: "KTH Campus Main Hall",
-    category: "Party",
+    title: 'Student Welcome Party',
+    date: '2024-02-10',
+    time: '19:00',
+    image: '/event-images/party.jpg',
+    location: 'KTH Campus Main Hall',
+    category: 'Party',
     attendees: 120,
-    description: "Join us for the biggest welcome party of the semester!",
+    description: 'Join us for the biggest welcome party of the semester!',
   },
   {
     id: 2,
-    title: "International Food Festival",
-    date: "2024-02-15",
-    time: "12:00",
-    image: "/event-images/food.jpg",
-    location: "Student Union Building",
-    category: "Culture",
+    title: 'International Food Festival',
+    date: '2024-02-15',
+    time: '12:00',
+    image: '/event-images/food.jpg',
+    location: 'Student Union Building',
+    category: 'Culture',
     attendees: 200,
     description:
-      "Taste dishes from around the world prepared by international students.",
+      'Taste dishes from around the world prepared by international students.',
   },
   // Ajoutez plus d'événements ici
-];
+]
 
-type ViewType = "calendar" | "list" | "map";
+type ViewType = 'calendar' | 'list' | 'map'
 
 const Events = () => {
-  const [currentView, setCurrentView] = useState<ViewType>("list");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [currentView, setCurrentView] = useState<ViewType>('list')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
   const categories = [
-    "All",
-    "Party",
-    "Culture",
-    "Sports",
-    "Academic",
-    "Workshop",
-  ];
+    'All',
+    'Party',
+    'Culture',
+    'Sports',
+    'Academic',
+    'Workshop',
+  ]
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#A698C5]/10 to-white pt-24">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="mx-auto max-w-7xl px-4">
         {/* Header Section */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          <h1 className="mb-4 text-4xl font-bold text-gray-800 md:text-5xl">
             Upcoming Events
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-gray-600">
             Discover exciting events happening in the Stockholm student
             community
           </p>
         </motion.div>
 
         {/* View Toggle and Search Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
+        <div className="mb-8 rounded-2xl bg-white p-6 shadow-lg">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             {/* View Toggle Buttons */}
-            <div className="flex bg-gray-100 rounded-xl p-1">
+            <div className="flex rounded-xl bg-gray-100 p-1">
               {[
-                { type: "calendar", icon: FaCalendar, label: "Calendar" },
-                { type: "list", icon: FaList, label: "List" },
-                { type: "map", icon: FaMapMarked, label: "Map" },
+                { type: 'calendar', icon: FaCalendar, label: 'Calendar' },
+                { type: 'list', icon: FaList, label: 'List' },
+                { type: 'map', icon: FaMapMarked, label: 'Map' },
               ].map((view) => (
                 <motion.button
                   key={view.type}
                   onClick={() => setCurrentView(view.type as ViewType)}
-                  className={`px-6 py-3 rounded-lg flex items-center gap-2 transition-all ${
+                  className={`flex items-center gap-2 rounded-lg px-6 py-3 transition-all ${
                     currentView === view.type
-                      ? "bg-[#A698C5] text-white shadow-md"
-                      : "text-gray-600 hover:bg-gray-200"
+                      ? 'bg-[#A698C5] text-white shadow-md'
+                      : 'text-gray-600 hover:bg-gray-200'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -112,12 +112,12 @@ const Events = () => {
             </div>
 
             {/* Search Bar */}
-            <div className="relative flex-1 max-w-md">
-              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <div className="relative max-w-md flex-1">
+              <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 transform text-gray-400" />
               <input
                 type="text"
                 placeholder="Search events..."
-                className="w-full pl-12 pr-4 py-3 rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#A698C5]/50"
+                className="w-full rounded-xl bg-gray-100 py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-[#A698C5]/50"
               />
             </div>
           </div>
@@ -128,10 +128,10 @@ const Events = () => {
               <motion.button
                 key={category}
                 onClick={() => setSelectedCategory(category.toLowerCase())}
-                className={`px-4 py-2 rounded-full text-sm transition-all ${
+                className={`rounded-full px-4 py-2 text-sm transition-all ${
                   selectedCategory === category.toLowerCase()
-                    ? "bg-[#A698C5] text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? 'bg-[#A698C5] text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -144,38 +144,38 @@ const Events = () => {
 
         {/* Events Content */}
         <AnimatePresence mode="wait">
-          {currentView === "list" && (
+          {currentView === 'list' && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              className="grid grid-cols-1 gap-6 md:grid-cols-2"
             >
               {sampleEvents.map((event) => (
                 <motion.div
                   key={event.id}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                  className="overflow-hidden rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-xl"
                   whileHover={{ y: -5 }}
                 >
                   {/* Event Image */}
-                  <div className="h-48 bg-gradient-to-r from-[#A698C5] to-[#8B7BA5] relative">
-                    <div className="absolute inset-0 flex items-center justify-center text-white text-opacity-30 text-6xl font-bold">
+                  <div className="relative h-48 bg-gradient-to-r from-[#A698C5] to-[#8B7BA5]">
+                    <div className="absolute inset-0 flex items-center justify-center text-6xl font-bold text-white text-opacity-30">
                       STST
                     </div>
                   </div>
 
                   {/* Event Details */}
                   <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
+                    <div className="mb-4 flex items-start justify-between">
                       <h3 className="text-xl font-bold text-gray-800">
                         {event.title}
                       </h3>
-                      <span className="px-3 py-1 bg-[#A698C5]/10 text-[#A698C5] rounded-full text-sm">
+                      <span className="rounded-full bg-[#A698C5]/10 px-3 py-1 text-sm text-[#A698C5]">
                         {event.category}
                       </span>
                     </div>
 
-                    <p className="text-gray-600 mb-4">{event.description}</p>
+                    <p className="mb-4 text-gray-600">{event.description}</p>
 
                     <div className="space-y-2 text-sm text-gray-500">
                       <div className="flex items-center gap-2">
@@ -193,8 +193,7 @@ const Events = () => {
                     </div>
 
                     <motion.button
-                      className="mt-6 w-full py-3 bg-[#A698C5] text-white rounded-xl font-medium
-                               hover:bg-[#8B7BA5] transition-colors"
+                      className="mt-6 w-full rounded-xl bg-[#A698C5] py-3 font-medium text-white transition-colors hover:bg-[#8B7BA5]"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -206,31 +205,30 @@ const Events = () => {
             </motion.div>
           )}
 
-          {currentView === "calendar" && (
+          {currentView === 'calendar' && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-white rounded-2xl shadow-lg p-8"
+              className="rounded-2xl bg-white p-8 shadow-lg"
             >
               <div className="grid grid-cols-7 gap-4">
-                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(
                   (day) => (
                     <div
                       key={day}
-                      className="text-center font-medium text-gray-600 py-2"
+                      className="py-2 text-center font-medium text-gray-600"
                     >
                       {day}
                     </div>
-                  ),
+                  )
                 )}
                 {Array(35)
                   .fill(null)
                   .map((_, i) => (
                     <motion.div
                       key={i}
-                      className="aspect-square border rounded-xl p-2 hover:bg-[#A698C5]/5 cursor-pointer
-                             flex flex-col items-center justify-center"
+                      className="flex aspect-square cursor-pointer flex-col items-center justify-center rounded-xl border p-2 hover:bg-[#A698C5]/5"
                       whileHover={{ scale: 1.05 }}
                     >
                       <span className="text-gray-700">{i + 1}</span>
@@ -240,14 +238,14 @@ const Events = () => {
             </motion.div>
           )}
 
-          {currentView === "map" && (
+          {currentView === 'map' && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-white rounded-2xl shadow-lg p-8 h-[600px]"
+              className="h-[600px] rounded-2xl bg-white p-8 shadow-lg"
             >
-              <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center text-gray-500">
+              <div className="flex h-full w-full items-center justify-center rounded-xl bg-gray-100 text-gray-500">
                 Interactive Map Coming Soon
               </div>
             </motion.div>
@@ -255,7 +253,7 @@ const Events = () => {
         </AnimatePresence>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Events;
+export default Events
