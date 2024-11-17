@@ -1,7 +1,8 @@
 // components/ScrollSection.tsx
+import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import { ArrowRightIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../../components/ui/button'
 import image from '../assets/stockholm-gamla-stan-0.jpeg'
 
 const ScrollSection = () => {
@@ -27,7 +28,6 @@ const ScrollSection = () => {
               <h3 className="text-4xl text-black">We got you covered!</h3>
             </motion.div>
 
-            {/* Event Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -40,17 +40,9 @@ const ScrollSection = () => {
                 WhatsApp groups, Websites, Newsletters and Instagram posts to
                 stay up to date. Find the events that you are looking for.
               </p>
-              <motion.button
-                onClick={() => navigate('/events')}
-                className="relative flex items-center gap-2 overflow-hidden rounded-lg bg-black px-8 py-3 text-lg text-white shadow-[0_0_15px_rgba(0,0,0,0.2)] transition-all before:absolute before:inset-0 before:translate-x-[-200%] before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-1000 hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:before:translate-x-[200%]"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="relative z-10 text-2xl font-semibold">
-                  Events
-                </span>
-                <span className="relative z-10 text-xl">→</span>
-              </motion.button>
+              <Button size={'xl'} onClick={() => navigate('/events')}>
+                Events <ArrowRightIcon />
+              </Button>
             </motion.div>
           </div>
           <div className="h-full w-full lg:w-4/12">
