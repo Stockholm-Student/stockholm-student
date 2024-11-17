@@ -1,10 +1,10 @@
+import HomeEventsSection from '@/components/home-events-section'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRightIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StockholmImage from '../assets/stockholm-night-day.jpeg'
-import HomeEventsSection from '../components/HomeEventsSection'
 
 // const MotionButton = motion(Button)
 
@@ -19,7 +19,7 @@ const Home = () => {
   }, [])
 
   return (
-    <div className="relative min-h-screen scroll-smooth bg-gray-100">
+    <div className="relative min-h-screen scroll-smooth bg-background">
       {/* Background with parallax effect */}
       <div className="relative h-screen overflow-hidden">
         <motion.div
@@ -71,7 +71,6 @@ const Home = () => {
       <HomeEventsSection />
       {/* <HomeQuestionsSection /> */}
 
-      
       <div className="flex flex-col justify-center p-10">
         <span className="text-2xl">Components Showcase:</span>
         <span className="mb-2 mt-5 text-lg">Buttons:</span>
@@ -90,6 +89,156 @@ const Home = () => {
           <Button variant={'link'}>Link</Button>
           <Button variant={'destructive'}>Destructive</Button>
         </div>
+        <span className="my-4 text-lg">Colors:</span>
+        <table className="flex space-x-4">
+          <div className="bg-white p-5 text-black">
+            <span>Lightmode:</span>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-background"></div>
+              <span>background</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-foreground"></div>{' '}
+              <span>foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-card"></div> <span>card</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-card-foreground"></div>{' '}
+              <span>card-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-popover"></div>
+              <span>popover</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-popover-foreground"></div>{' '}
+              <span>popover-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-primary"></div> <span>primary</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-primary-foreground"></div>{' '}
+              <span>primary-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-secondary"></div>{' '}
+              <span>secondary</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-secondary-foreground"></div>
+              <span>secondary-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-muted"></div> <span>muted</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-muted-foreground"></div>{' '}
+              <span>muted-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-accent"></div> <span>accent</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-accent-foreground"></div>{' '}
+              <span>accent-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-destructive"></div>{' '}
+              <span>destructive</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-destructive-foreground"></div>{' '}
+              <span>destructive-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-border"></div>
+              <span>border</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-input"></div> <span>input</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="h-5 w-5 bg-ring"></div> <span>ring</span>
+            </div>
+          </div>
+          <div className="bg-neutral-900 p-5 text-white">
+            <span>Darkmode:</span>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-background"></div>
+              <span>background</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-foreground"></div>{' '}
+              <span>foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-card"></div> <span>card</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-card-foreground"></div>{' '}
+              <span>card-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-popover"></div>
+              <span>popover</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-popover-foreground"></div>{' '}
+              <span>popover-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-primary"></div>{' '}
+              <span>primary</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-primary-foreground"></div>{' '}
+              <span>primary-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-secondary"></div>{' '}
+              <span>secondary</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-secondary-foreground"></div>
+              <span>secondary-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-muted"></div> <span>muted</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-muted-foreground"></div>{' '}
+              <span>muted-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-accent"></div> <span>accent</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-accent-foreground"></div>{' '}
+              <span>accent-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-destructive"></div>{' '}
+              <span>destructive</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-destructive-foreground"></div>{' '}
+              <span>destructive-foreground</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-border"></div>
+              <span>border</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-input"></div> <span>input</span>
+            </div>
+            <div className="flex space-x-2">
+              <div className="dark h-5 w-5 bg-ring"></div> <span>ring</span>
+            </div>
+          </div>
+        </table>
       </div>
       {/* Enhanced gradient overlay */}
       {/* <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/30 to-transparent" /> */}

@@ -1,11 +1,12 @@
 // pages/Events.tsx
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   CalendarIcon,
   Clock12Icon,
   ListIcon,
   MapPinIcon,
-  SearchIcon,
   UsersIcon,
 } from 'lucide-react'
 import { useState } from 'react'
@@ -89,43 +90,23 @@ const Events = () => {
               { type: 'list', icon: ListIcon, label: 'List' },
               { type: 'map', icon: MapPinIcon, label: 'Map' },
             ].map((view) => (
-              <motion.button
+              <Button
+                variant={currentView === view.type ? 'default' : 'ghost'}
                 key={view.type}
                 onClick={() => setCurrentView(view.type as ViewType)}
-                className={`flex items-center gap-2 rounded-lg px-6 py-3 transition-all ${
-                  currentView === view.type
-                    ? 'bg-black text-white shadow-md'
-                    : 'text-gray-600 hover:bg-gray-200'
-                }`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
               >
                 <view.icon />
                 {view.label}
-              </motion.button>
+              </Button>
             ))}
           </div>
         </div>
         {/* View Toggle and Search Section */}
         <div className="mb-8 rounded-2xl bg-white p-6 shadow-lg">
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            {/* View Toggle Buttons */}
-
-            {/* Search Bar */}
-            <div className="relative max-w-md flex-1">
-              <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 transform text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search events..."
-                className="w-full rounded-xl bg-gray-100 py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-black/50"
-              />
-            </div>
-          </div>
-
           {/* Category Filters */}
           <div className="mt-6 flex flex-wrap gap-2">
             {categories.map((category) => (
-              <motion.button
+              <Badge
                 key={category}
                 onClick={() => setSelectedCategory(category.toLowerCase())}
                 className={`rounded-full px-4 py-2 text-sm transition-all ${
@@ -133,11 +114,9 @@ const Events = () => {
                     ? 'bg-black text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 {category}
-              </motion.button>
+              </Badge>
             ))}
           </div>
         </div>
