@@ -1,9 +1,11 @@
+import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StockholmImage from '../assets/stockholm-night-day.jpeg'
 import HomeEventsSection from '../components/HomeEventsSection'
-import HomeQuestionsSection from '../components/HomeQuestionsSection'
+
+// const MotionButton = motion(Button)
 
 const Home = () => {
   const navigate = useNavigate()
@@ -16,7 +18,7 @@ const Home = () => {
   }, [])
 
   return (
-    <div className="relative min-h-screen scroll-smooth">
+    <div className="relative min-h-screen scroll-smooth bg-gray-100">
       {/* Background with parallax effect */}
       <div className="relative h-screen overflow-hidden">
         <motion.div
@@ -98,38 +100,22 @@ const Home = () => {
               </motion.button>
             </motion.div>
           </motion.div>
-
-          {/* Enhanced Scroll Indicator */}
-          <motion.div
-            className="absolute bottom-12 left-1/2 translate-x-1/2 transform"
-            animate={{
-              y: [0, 10, 0],
-              opacity: [0.6, 1, 0.6],
-            }}
-            transition={{
-              repeat: 3,
-              duration: 2.5,
-              ease: 'easeInOut',
-            }}
-          >
-            <motion.div
-              className="flex flex-col items-center gap-3"
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="text-sm font-light tracking-[0.5em] text-white/70">
-                SCROLL
-              </span>
-              <div className="h-8 w-px bg-gradient-to-b from-white/70 to-transparent" />
-            </motion.div>
-          </motion.div>
         </div>
       </div>
-      <div className="relative -mt-2 h-10 w-full rounded-t-2xl bg-white"></div>
-      <HomeEventsSection />
-      <HomeQuestionsSection />
 
+      <HomeEventsSection />
+      {/* <HomeQuestionsSection /> */}
+      <div className="flex w-full justify-around p-10">
+        {/* <Button size={'xl'}>Default</Button> */}
+        <Button variant={'outline'}>Outline</Button>
+        {/* <Button variant={'transparent'}>Transparent</Button> */}
+        <Button variant={'secondary'}>Secondary</Button>
+        <Button variant={'ghost'}>Ghost</Button>
+        <Button variant={'link'}>Link</Button>
+        <Button variant={'destructive'}>Destructive</Button>
+      </div>
       {/* Enhanced gradient overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/30 to-transparent" />
+      {/* <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/30 to-transparent" /> */}
     </div>
   )
 }

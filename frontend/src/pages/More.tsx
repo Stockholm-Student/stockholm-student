@@ -1,7 +1,6 @@
 // pages/More.tsx
-import React from 'react'
 import { motion } from 'framer-motion'
-import { FaEnvelope, FaLinkedin, FaArrowRight } from 'react-icons/fa'
+import { ArrowRightIcon, MailIcon } from 'lucide-react'
 
 const partners = [
   {
@@ -119,7 +118,7 @@ export default function More() {
                 className="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 <div className="relative mb-4 flex h-12 items-center justify-start">
-                  <FaEnvelope className="absolute left-0 text-xl text-[#A698C5]" />
+                  <MailIcon className="absolute left-0 text-xl text-[#A698C5]" />
                   <h3 className="ml-8 text-xl font-semibold">
                     {contact.title}
                   </h3>
@@ -130,7 +129,7 @@ export default function More() {
                     className="flex items-center gap-2"
                   >
                     {contact.email}
-                    <FaArrowRight className="text-sm" />
+                    <ArrowRightIcon className="text-sm" />
                   </a>
                 </p>
                 <p className="text-sm text-gray-500">
@@ -160,7 +159,7 @@ export default function More() {
             whileTap={{ scale: 0.95 }}
           >
             <span>Become a Partner</span>
-            <FaArrowRight className="text-sm" />
+            <ArrowRightIcon className="text-sm" />
           </motion.button>
         </motion.section>
       </div>

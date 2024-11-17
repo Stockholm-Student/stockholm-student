@@ -1,16 +1,14 @@
 // pages/Events.tsx
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  FaCalendar,
-  FaList,
-  FaMapMarked,
-  FaFilter,
-  FaSearch,
-  FaClock,
-  FaMapMarkerAlt,
-  FaUsers,
-} from 'react-icons/fa'
+  CalendarIcon,
+  Clock12Icon,
+  ListIcon,
+  MapPinIcon,
+  SearchIcon,
+  UsersIcon,
+} from 'lucide-react'
+import { useState } from 'react'
 
 interface Event {
   id: number
@@ -67,57 +65,59 @@ const Events = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A698C5]/10 to-white pt-24">
-      <div className="mx-auto max-w-7xl px-4">
+    <div className="min-h-screen bg-gray-100 pt-48">
+      <div className="px-4">
         {/* Header Section */}
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="mb-12 text-center"
-        >
-          <h1 className="mb-4 text-4xl font-bold text-gray-800 md:text-5xl">
-            Upcoming Events
-          </h1>
-          <p className="mx-auto max-w-2xl text-gray-600">
-            Discover exciting events happening in the Stockholm student
-            community
-          </p>
-        </motion.div>
+        <div className="flex justify-between">
+          <motion.div
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="mb-6"
+          >
+            <h1 className="mb-0 font-serif text-5xl font-bold text-gray-800">
+              Events
+            </h1>
+            <p className="text-gray-600">
+              Discover exciting events happening in the Stockholm student
+              community
+            </p>
+          </motion.div>
 
+          <div className="flex h-fit gap-2 rounded-xl bg-white p-2">
+            {[
+              { type: 'calendar', icon: CalendarIcon, label: 'Calendar' },
+              { type: 'list', icon: ListIcon, label: 'List' },
+              { type: 'map', icon: MapPinIcon, label: 'Map' },
+            ].map((view) => (
+              <motion.button
+                key={view.type}
+                onClick={() => setCurrentView(view.type as ViewType)}
+                className={`flex items-center gap-2 rounded-lg px-6 py-3 transition-all ${
+                  currentView === view.type
+                    ? 'bg-black text-white shadow-md'
+                    : 'text-gray-600 hover:bg-gray-200'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <view.icon />
+                {view.label}
+              </motion.button>
+            ))}
+          </div>
+        </div>
         {/* View Toggle and Search Section */}
         <div className="mb-8 rounded-2xl bg-white p-6 shadow-lg">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             {/* View Toggle Buttons */}
-            <div className="flex rounded-xl bg-gray-100 p-1">
-              {[
-                { type: 'calendar', icon: FaCalendar, label: 'Calendar' },
-                { type: 'list', icon: FaList, label: 'List' },
-                { type: 'map', icon: FaMapMarked, label: 'Map' },
-              ].map((view) => (
-                <motion.button
-                  key={view.type}
-                  onClick={() => setCurrentView(view.type as ViewType)}
-                  className={`flex items-center gap-2 rounded-lg px-6 py-3 transition-all ${
-                    currentView === view.type
-                      ? 'bg-[#A698C5] text-white shadow-md'
-                      : 'text-gray-600 hover:bg-gray-200'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <view.icon />
-                  {view.label}
-                </motion.button>
-              ))}
-            </div>
 
             {/* Search Bar */}
             <div className="relative max-w-md flex-1">
-              <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 transform text-gray-400" />
+              <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 transform text-gray-400" />
               <input
                 type="text"
                 placeholder="Search events..."
-                className="w-full rounded-xl bg-gray-100 py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-[#A698C5]/50"
+                className="w-full rounded-xl bg-gray-100 py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-black/50"
               />
             </div>
           </div>
@@ -130,7 +130,7 @@ const Events = () => {
                 onClick={() => setSelectedCategory(category.toLowerCase())}
                 className={`rounded-full px-4 py-2 text-sm transition-all ${
                   selectedCategory === category.toLowerCase()
-                    ? 'bg-[#A698C5] text-white'
+                    ? 'bg-black text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -158,7 +158,7 @@ const Events = () => {
                   whileHover={{ y: -5 }}
                 >
                   {/* Event Image */}
-                  <div className="relative h-48 bg-gradient-to-r from-[#A698C5] to-[#8B7BA5]">
+                  <div className="relative h-48 bg-gradient-to-r from-black to-[#8B7BA5]">
                     <div className="absolute inset-0 flex items-center justify-center text-6xl font-bold text-white text-opacity-30">
                       STST
                     </div>
@@ -170,7 +170,7 @@ const Events = () => {
                       <h3 className="text-xl font-bold text-gray-800">
                         {event.title}
                       </h3>
-                      <span className="rounded-full bg-[#A698C5]/10 px-3 py-1 text-sm text-[#A698C5]">
+                      <span className="rounded-full bg-black/10 px-3 py-1 text-sm text-black">
                         {event.category}
                       </span>
                     </div>
@@ -179,21 +179,21 @@ const Events = () => {
 
                     <div className="space-y-2 text-sm text-gray-500">
                       <div className="flex items-center gap-2">
-                        <FaClock className="text-[#A698C5]" />
+                        <Clock12Icon className="text-black" />
                         {event.date} at {event.time}
                       </div>
                       <div className="flex items-center gap-2">
-                        <FaMapMarkerAlt className="text-[#A698C5]" />
+                        <MapPinIcon className="text-black" />
                         {event.location}
                       </div>
                       <div className="flex items-center gap-2">
-                        <FaUsers className="text-[#A698C5]" />
+                        <UsersIcon className="text-black" />
                         {event.attendees} attendees
                       </div>
                     </div>
 
                     <motion.button
-                      className="mt-6 w-full rounded-xl bg-[#A698C5] py-3 font-medium text-white transition-colors hover:bg-[#8B7BA5]"
+                      className="mt-6 w-full rounded-xl bg-black py-3 font-medium text-white transition-colors hover:bg-[#8B7BA5]"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -228,7 +228,7 @@ const Events = () => {
                   .map((_, i) => (
                     <motion.div
                       key={i}
-                      className="flex aspect-square cursor-pointer flex-col items-center justify-center rounded-xl border p-2 hover:bg-[#A698C5]/5"
+                      className="flex aspect-square cursor-pointer flex-col items-center justify-center rounded-xl border p-2 hover:bg-black/5"
                       whileHover={{ scale: 1.05 }}
                     >
                       <span className="text-gray-700">{i + 1}</span>

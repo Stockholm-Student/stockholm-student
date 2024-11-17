@@ -1,7 +1,6 @@
 // pages/Community.tsx
-import React from 'react'
 import { motion } from 'framer-motion'
-import { FaInstagram, FaEnvelope, FaLinkedin } from 'react-icons/fa'
+import { InstagramIcon, MailIcon } from 'lucide-react'
 
 const teamMembers = [
   {
@@ -110,13 +109,13 @@ const Community = () => {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
-                    <FaEnvelope className="text-gray-600" />
+                    <MailIcon className="text-gray-600" />
                     <span className="text-sm text-gray-600">
                       {member.contact.email}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <FaInstagram className="text-gray-600" />
+                    <InstagramIcon className="text-gray-600" />
                     <span className="text-sm text-gray-600">
                       {member.contact.instagram}
                     </span>
@@ -147,7 +146,7 @@ const Community = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <FaInstagram size={24} />
+              <InstagramIcon size={24} />
               <span>Follow Our Instagram</span>
             </motion.a>
           </div>

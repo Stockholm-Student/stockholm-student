@@ -1,21 +1,21 @@
 // pages/Wiki.tsx
-import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  FaSearch,
-  FaBook,
-  FaHome,
-  FaMoneyBill,
-  FaUtensils,
-  FaSubway,
-  FaUniversity,
-} from 'react-icons/fa'
+  BookIcon,
+  BusFrontIcon,
+  HomeIcon,
+  ReceiptIcon,
+  SearchIcon,
+  ShoppingBasketIcon,
+  UniversityIcon,
+} from 'lucide-react'
+import React, { useState } from 'react'
 
 // Catégories des informations
 const wikiCategories = [
   {
     title: 'Housing',
-    icon: <FaHome className="text-2xl" />,
+    icon: <HomeIcon className="text-2xl" />,
     topics: [
       'Student Housing Options',
       'Finding an Apartment',
@@ -25,7 +25,7 @@ const wikiCategories = [
   },
   {
     title: 'Student Life',
-    icon: <FaBook className="text-2xl" />,
+    icon: <BookIcon className="text-2xl" />,
     topics: [
       'Student Unions',
       'Study Tips',
@@ -35,7 +35,7 @@ const wikiCategories = [
   },
   {
     title: 'Money & Banking',
-    icon: <FaMoneyBill className="text-2xl" />,
+    icon: <ReceiptIcon className="text-2xl" />,
     topics: [
       'Swedish Bank Account',
       'Student Discounts',
@@ -45,7 +45,7 @@ const wikiCategories = [
   },
   {
     title: 'Food & Shopping',
-    icon: <FaUtensils className="text-2xl" />,
+    icon: <ShoppingBasketIcon className="text-2xl" />,
     topics: [
       'Student Restaurants',
       'Grocery Shopping',
@@ -55,7 +55,7 @@ const wikiCategories = [
   },
   {
     title: 'Transportation',
-    icon: <FaSubway className="text-2xl" />,
+    icon: <BusFrontIcon className="text-2xl" />,
     topics: [
       'SL Card',
       'Student Travel Card',
@@ -65,7 +65,7 @@ const wikiCategories = [
   },
   {
     title: 'Academic Info',
-    icon: <FaUniversity className="text-2xl" />,
+    icon: <UniversityIcon className="text-2xl" />,
     topics: [
       'Course Registration',
       'Exam Rules',
@@ -96,7 +96,7 @@ const Wiki: React.FC = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-full border-2 border-white/50 bg-white/90 px-6 py-4 text-lg text-gray-800 shadow-lg outline-none backdrop-blur-sm transition-all focus:border-white focus:shadow-xl"
             />
-            <FaSearch className="absolute right-6 top-1/2 -translate-y-1/2 transform text-gray-400" />
+            <SearchIcon className="absolute right-6 top-1/2 -translate-y-1/2 transform text-gray-400" />
           </div>
         </motion.div>
       </div>

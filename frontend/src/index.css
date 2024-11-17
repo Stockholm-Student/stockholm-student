@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer base {
-  html {
-    font-family: 'Proxima Nova', system-ui, sans-serif;
-  }
-} */
-
 @font-face {
   font-family: 'PlayfairDisplay';
   src:
@@ -20,4 +14,10 @@
   src:
     local('Afacad'),
     url('./assets/fonts/Afacad/Afacad-VariableFont_wght.ttf') format('truetype');
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
 }
