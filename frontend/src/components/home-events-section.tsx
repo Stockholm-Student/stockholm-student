@@ -10,7 +10,8 @@ const ScrollSection = () => {
 
   return (
     <>
-      <div className="relative -mt-4 h-10 w-full rounded-t-2xl bg-gray-100"></div>
+      <div className="relative -mt-4 h-10 w-full rounded-t-2xl bg-background"></div>
+
       <section className="relative flex min-h-screen items-center justify-center">
         {/* Content */}
         <div className="mx-auto flex w-full max-w-screen-xl flex-row space-x-12 px-6 py-20">
@@ -22,10 +23,10 @@ const ScrollSection = () => {
               transition={{ duration: 0.4 }}
               className="max-w-2xl space-y-4"
             >
-              <h2 className="text-5xl font-bold text-black">
+              <h2 className="text-5xl font-bold text-foreground">
                 Having a hard time to keep track of all the Events?
               </h2>
-              <h3 className="text-4xl text-black">We got you covered!</h3>
+              <h3 className="text-4xl text-foreground">We got you covered!</h3>
             </motion.div>
 
             <motion.div
@@ -34,7 +35,7 @@ const ScrollSection = () => {
               transition={{ duration: 0.4, delay: 0.1 }}
               className="max-w-2xl space-y-6"
             >
-              <p className="text-xl text-gray-800">
+              <p className="text-xl text-foreground">
                 We teamed up with the organizers of the major student events to
                 collect all the Events in one place. No need for countless
                 WhatsApp groups, Websites, Newsletters and Instagram posts to

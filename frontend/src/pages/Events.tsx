@@ -1,4 +1,5 @@
 // pages/Events.tsx
+import EventCalendar from '@/components/event-calender'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -53,7 +54,7 @@ const sampleEvents: Event[] = [
 type ViewType = 'calendar' | 'list' | 'map'
 
 const Events = () => {
-  const [currentView, setCurrentView] = useState<ViewType>('list')
+  const [currentView, setCurrentView] = useState<ViewType>('calendar')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
   const categories = [
@@ -66,25 +67,23 @@ const Events = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-100 pt-48">
+    <div className="min-h-screen bg-background pt-48">
       <div className="px-4">
         {/* Header Section */}
-        <div className="flex justify-between">
+        <div className="flex justify-between text-foreground">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             className="mb-6"
           >
-            <h1 className="mb-0 font-serif text-5xl font-bold text-gray-800">
-              Events
-            </h1>
-            <p className="text-gray-600">
+            <h1 className="mb-0 font-serif text-5xl font-bold">Events</h1>
+            <p>
               Discover exciting events happening in the Stockholm student
               community
             </p>
           </motion.div>
 
-          <div className="flex h-fit gap-2 rounded-xl bg-white p-2">
+          <div className="flex h-fit gap-2 rounded-xl bg-muted p-2">
             {[
               { type: 'calendar', icon: CalendarIcon, label: 'Calendar' },
               { type: 'list', icon: ListIcon, label: 'List' },
@@ -93,6 +92,7 @@ const Events = () => {
               <Button
                 variant={currentView === view.type ? 'default' : 'ghost'}
                 key={view.type}
+                size={'lg'}
                 onClick={() => setCurrentView(view.type as ViewType)}
               >
                 <view.icon />
@@ -102,7 +102,7 @@ const Events = () => {
           </div>
         </div>
         {/* View Toggle and Search Section */}
-        <div className="mb-8 rounded-2xl bg-white p-6 shadow-lg">
+        <div className="mb-8 rounded-2xl bg-muted p-6 shadow-lg">
           {/* Category Filters */}
           <div className="mt-6 flex flex-wrap gap-2">
             {categories.map((category) => (
@@ -111,7 +111,7 @@ const Events = () => {
                 onClick={() => setSelectedCategory(category.toLowerCase())}
                 className={`rounded-full px-4 py-2 text-sm transition-all ${
                   selectedCategory === category.toLowerCase()
-                    ? 'bg-black text-white'
+                    ? 'bg-background text-foreground'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -184,38 +184,7 @@ const Events = () => {
             </motion.div>
           )}
 
-          {currentView === 'calendar' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="rounded-2xl bg-white p-8 shadow-lg"
-            >
-              <div className="grid grid-cols-7 gap-4">
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(
-                  (day) => (
-                    <div
-                      key={day}
-                      className="py-2 text-center font-medium text-gray-600"
-                    >
-                      {day}
-                    </div>
-                  )
-                )}
-                {Array(35)
-                  .fill(null)
-                  .map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex aspect-square cursor-pointer flex-col items-center justify-center rounded-xl border p-2 hover:bg-black/5"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <span className="text-gray-700">{i + 1}</span>
-                    </motion.div>
-                  ))}
-              </div>
-            </motion.div>
-          )}
+          {currentView === 'calendar' && <EventCalendar />}
 
           {currentView === 'map' && (
             <motion.div

@@ -6,7 +6,8 @@
   font-family: 'PlayfairDisplay';
   src:
     local('PlayfairDisplay'),
-    url('./assets/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
+    url('./assets/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf')
+      format('truetype');
 }
 
 @font-face {
@@ -78,5 +79,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.event-calendar {
+  .rbc-toolbar-label {
+    @apply text-3xl;
   }
 }
