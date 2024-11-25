@@ -34,7 +34,7 @@ export default function EventCalendar({ localizer = mLocalizer, ...props }) {
 
   return (
     <Fragment>
-      <div className="event-calendar h-[90vh]" {...props}>
+      <div className="event-calendar h-[80vh]" {...props}>
         <Calendar
           defaultDate={defaultDate}
           events={events}

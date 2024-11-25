@@ -40,16 +40,16 @@ const CalendarToolbar = (props: ToolbarProps) => {
   //   }
 
   return (
-    <div className="flex content-center items-center justify-between pb-2 text-center">
+    <div className="flex content-center items-center justify-between pb-2 text-center ml-12">
       <div className="flex h-fit space-x-6">
         <Button className="" variant={'outline'} onClick={goToToday}>
           Today
         </Button>
         <div className="space-x-2">
-          <Button className="h-10 w-10" variant={'icon'} onClick={goToBack}>
+          <Button variant={'icon'} size={'icon'} onClick={goToBack}>
             <ChevronLeftIcon />
           </Button>
-          <Button className="h-10 w-10" variant={'icon'} onClick={goToNext}>
+          <Button variant={'icon'} size={'icon'} onClick={goToNext}>
             <ChevronRightIcon />
           </Button>
         </div>
@@ -57,7 +57,7 @@ const CalendarToolbar = (props: ToolbarProps) => {
           {moment(props.date).format('MMMM YYYY')}
         </span>
       </div>
-      <div className="w-fit space-x-2 rounded-lg bg-muted p-2">
+      <div className="w-fit space-x-2">
         <Button onClick={goToMonthView}>month</Button>
         <Button onClick={goToWeekView}>week</Button>
         <Button onClick={goToDayView}>day</Button>

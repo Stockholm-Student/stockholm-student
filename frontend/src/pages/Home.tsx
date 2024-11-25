@@ -91,7 +91,7 @@ const Home = () => {
         </div>
         <span className="my-4 text-lg">Colors:</span>
         <table className="flex space-x-4">
-          <div className="bg-white p-5 text-black">
+          <div className="bg-white p-5 text-black rounded-xl">
             <span>Lightmode:</span>
             <div className="flex space-x-2">
               <div className="h-5 w-5 bg-background"></div>
@@ -164,7 +164,7 @@ const Home = () => {
               <div className="h-5 w-5 bg-ring"></div> <span>ring</span>
             </div>
           </div>
-          <div className="bg-neutral-900 p-5 text-white">
+          <div className="bg-neutral-900 p-5 text-white rounded-xl">
             <span>Darkmode:</span>
             <div className="flex space-x-2">
               <div className="dark h-5 w-5 bg-background"></div>

@@ -1,6 +1,6 @@
 // pages/Events.tsx
+import CategoryFilter from '@/components/category-filter'
 import EventCalendar from '@/components/event-calender'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
@@ -8,6 +8,8 @@ import {
   Clock12Icon,
   ListIcon,
   MapPinIcon,
+  PanelLeftCloseIcon,
+  PanelLeftOpenIcon,
   UsersIcon,
 } from 'lucide-react'
 import { useState } from 'react'
@@ -56,6 +58,7 @@ type ViewType = 'calendar' | 'list' | 'map'
 const Events = () => {
   const [currentView, setCurrentView] = useState<ViewType>('calendar')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
 
   const categories = [
     'All',
@@ -101,104 +104,109 @@ const Events = () => {
             ))}
           </div>
         </div>
-        {/* View Toggle and Search Section */}
-        <div className="mb-8 rounded-2xl bg-muted p-6 shadow-lg">
-          {/* Category Filters */}
-          <div className="mt-6 flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Badge
-                key={category}
-                onClick={() => setSelectedCategory(category.toLowerCase())}
-                className={`rounded-full px-4 py-2 text-sm transition-all ${
-                  selectedCategory === category.toLowerCase()
-                    ? 'bg-background text-foreground'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {category}
-              </Badge>
-            ))}
+
+        <div className="relative flex rounded-lg bg-muted p-6">
+          <div className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}>
+            <CategoryFilter></CategoryFilter>
           </div>
-        </div>
-
-        {/* Events Content */}
-        <AnimatePresence mode="wait">
-          {currentView === 'list' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="grid grid-cols-1 gap-6 md:grid-cols-2"
+          <div className="z-10">
+            <Button
+              variant={'icon'}
+              size={'icon'}
+              onClick={() => setDrawerOpen(!drawerOpen)}
+              className="-mr-12"
             >
-              {sampleEvents.map((event) => (
+              <PanelLeftCloseIcon
+                className={`${drawerOpen ? 'block' : 'hidden'}`}
+              />
+              <PanelLeftOpenIcon
+                className={`${drawerOpen ? 'hidden' : 'block'}`}
+              />
+            </Button>
+          </div>
+          {/* Events Content */}
+          <div className={`${drawerOpen ? 'w-4/5' : 'w-full'}`}>
+            <AnimatePresence mode="wait">
+              {currentView === 'list' && (
                 <motion.div
-                  key={event.id}
-                  className="overflow-hidden rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-xl"
-                  whileHover={{ y: -5 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="grid grid-cols-1 gap-6 md:grid-cols-2"
                 >
-                  {/* Event Image */}
-                  <div className="relative h-48 bg-gradient-to-r from-black to-[#8B7BA5]">
-                    <div className="absolute inset-0 flex items-center justify-center text-6xl font-bold text-white text-opacity-30">
-                      STST
-                    </div>
-                  </div>
-
-                  {/* Event Details */}
-                  <div className="p-6">
-                    <div className="mb-4 flex items-start justify-between">
-                      <h3 className="text-xl font-bold text-gray-800">
-                        {event.title}
-                      </h3>
-                      <span className="rounded-full bg-black/10 px-3 py-1 text-sm text-black">
-                        {event.category}
-                      </span>
-                    </div>
-
-                    <p className="mb-4 text-gray-600">{event.description}</p>
-
-                    <div className="space-y-2 text-sm text-gray-500">
-                      <div className="flex items-center gap-2">
-                        <Clock12Icon className="text-black" />
-                        {event.date} at {event.time}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPinIcon className="text-black" />
-                        {event.location}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <UsersIcon className="text-black" />
-                        {event.attendees} attendees
-                      </div>
-                    </div>
-
-                    <motion.button
-                      className="mt-6 w-full rounded-xl bg-black py-3 font-medium text-white transition-colors hover:bg-[#8B7BA5]"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                  {sampleEvents.map((event) => (
+                    <motion.div
+                      key={event.id}
+                      className="overflow-hidden rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-xl"
+                      whileHover={{ y: -5 }}
                     >
-                      Join Event
-                    </motion.button>
+                      {/* Event Image */}
+                      <div className="relative h-48 bg-gradient-to-r from-black to-[#8B7BA5]">
+                        <div className="absolute inset-0 flex items-center justify-center text-6xl font-bold text-white text-opacity-30">
+                          STST
+                        </div>
+                      </div>
+
+                      {/* Event Details */}
+                      <div className="p-6">
+                        <div className="mb-4 flex items-start justify-between">
+                          <h3 className="text-xl font-bold text-gray-800">
+                            {event.title}
+                          </h3>
+                          <span className="rounded-full bg-black/10 px-3 py-1 text-sm text-black">
+                            {event.category}
+                          </span>
+                        </div>
+
+                        <p className="mb-4 text-gray-600">
+                          {event.description}
+                        </p>
+
+                        <div className="space-y-2 text-sm text-gray-500">
+                          <div className="flex items-center gap-2">
+                            <Clock12Icon className="text-black" />
+                            {event.date} at {event.time}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <MapPinIcon className="text-black" />
+                            {event.location}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <UsersIcon className="text-black" />
+                            {event.attendees} attendees
+                          </div>
+                        </div>
+
+                        <motion.button
+                          className="mt-6 w-full rounded-xl bg-black py-3 font-medium text-white transition-colors hover:bg-[#8B7BA5]"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          Join Event
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+
+              {currentView === 'calendar' && <EventCalendar />}
+
+              {currentView === 'map' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="h-[600px] rounded-2xl bg-white p-8 shadow-lg"
+                >
+                  <div className="flex h-full w-full items-center justify-center">
+                    Interactive Map Coming Soon
                   </div>
                 </motion.div>
-              ))}
-            </motion.div>
-          )}
-
-          {currentView === 'calendar' && <EventCalendar />}
-
-          {currentView === 'map' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="h-[600px] rounded-2xl bg-white p-8 shadow-lg"
-            >
-              <div className="flex h-full w-full items-center justify-center rounded-xl bg-gray-100 text-gray-500">
-                Interactive Map Coming Soon
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </div>
   )
