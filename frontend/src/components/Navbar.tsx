@@ -1,10 +1,8 @@
 // components/Navbar.tsx
-import { UserIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/logo/horizontal-logo.svg'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import { Button } from './ui/button'
+import { LoginMenu } from './login-menu'
 
 const Navbar = () => {
   const location = useLocation()
@@ -81,20 +79,7 @@ const Navbar = () => {
             </td>
 
             <td>
-              <Button
-                className={`fixed rounded-full p-0 ${isHomePage && scrollY == 0 ? 'right-12 top-12' : 'right-4 top-3'}`}
-              >
-                <Avatar>
-                  <AvatarImage src="" />
-                  <AvatarFallback
-                    className={`${isHomePage && scrollY < height && '!bg-background'}`}
-                  >
-                    <UserIcon
-                      className={`text-background ${isHomePage && scrollY < height && '!text-foreground'}`}
-                    ></UserIcon>
-                  </AvatarFallback>
-                </Avatar>{' '}
-              </Button>
+              <LoginMenu isHomePage={isHomePage} scrollY={scrollY} height={height}/>
             </td>
           </tr>
         </tbody>
