@@ -1,27 +1,32 @@
 // App.tsx
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Navbar from "../../frontend/src/components/Navbar";
-import Community from "../../frontend/src/pages/Community";
-import Events from "../../frontend/src/pages/Events";
-import Home from "../../frontend/src/pages/Home";
-import More from "../../frontend/src/pages/More";
-import Wiki from "../../frontend/src/pages/Wiki";
+import Navbar from '@/components/Navbar'
+import { ThemeProvider } from '@/components/theme-provider'
+import Community from '@/pages/Community'
+import Events from '@/pages/Events'
+import Home from '@/pages/Home'
+import More from '@/pages/More'
+import Wiki from '@/pages/Wiki'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import Footer from './components/Footer'
 
 function App() {
   return (
-    <Router>
-      <div className="relative min-h-screen">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/wiki" element={<Wiki />} />
-          <Route path="/more" element={<More />} />
-        </Routes>
-      </div>
-    </Router>
-  );
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <Router>
+        <div className="relative min-h-screen">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/wiki" element={<Wiki />} />
+            <Route path="/more" element={<More />} />
+          </Routes>
+          <Footer></Footer>
+        </div>
+      </Router>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
