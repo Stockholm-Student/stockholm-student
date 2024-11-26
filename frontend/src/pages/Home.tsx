@@ -90,7 +90,7 @@ const Home = () => {
           <Button variant={'destructive'}>Destructive</Button>
         </div>
         <span className="my-4 text-lg">Colors:</span>
-        <table className="flex space-x-4">
+        <div className="flex space-x-4">
           <div className="bg-white p-5 text-black rounded-xl">
             <span>Lightmode:</span>
             <div className="flex space-x-2">
@@ -238,7 +238,7 @@ const Home = () => {
               <div className="dark h-5 w-5 bg-ring"></div> <span>ring</span>
             </div>
           </div>
-        </table>
+        </div>
       </div>
       {/* Enhanced gradient overlay */}
       {/* <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/30 to-transparent" /> */}
