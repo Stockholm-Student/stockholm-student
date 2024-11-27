@@ -5,6 +5,7 @@ import { ArrowRightIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StockholmImage from '../assets/stockholm-night-day.jpeg'
+import BasicDialog from '@/components/basic-dialog'
 
 // const MotionButton = motion(Button)
 
@@ -65,6 +66,7 @@ const Home = () => {
               Discover Events <ArrowRightIcon />
             </Button>
           </motion.div>
+          <BasicDialog />
         </div>
       </div>
 
