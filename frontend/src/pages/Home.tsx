@@ -5,7 +5,6 @@ import { ArrowRightIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StockholmImage from '../assets/stockholm-night-day.jpeg'
-import BasicDialog from '@/components/basic-dialog'
 
 // const MotionButton = motion(Button)
 
@@ -66,7 +65,6 @@ const Home = () => {
               Discover Events <ArrowRightIcon />
             </Button>
           </motion.div>
-          <BasicDialog />
         </div>
       </div>
 
@@ -93,7 +91,7 @@ const Home = () => {
         </div>
         <span className="my-4 text-lg">Colors:</span>
         <div className="flex space-x-4">
-          <div className="bg-white p-5 text-black rounded-xl">
+          <div className="rounded-xl bg-white p-5 text-black">
             <span>Lightmode:</span>
             <div className="flex space-x-2">
               <div className="h-5 w-5 bg-background"></div>
@@ -166,7 +164,7 @@ const Home = () => {
               <div className="h-5 w-5 bg-ring"></div> <span>ring</span>
             </div>
           </div>
-          <div className="bg-neutral-900 p-5 text-white rounded-xl">
+          <div className="rounded-xl bg-neutral-900 p-5 text-white">
             <span>Darkmode:</span>
             <div className="flex space-x-2">
               <div className="dark h-5 w-5 bg-background"></div>

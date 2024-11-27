@@ -1,6 +1,7 @@
 // pages/Events.tsx
 import CategoryFilter from '@/components/category-filter'
 import EventCalendar from '@/components/event-calender'
+import EventDialog from '@/components/event-dialog'
 import { Button } from '@/components/ui/button'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
@@ -70,7 +71,10 @@ const Events = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-background pt-48">
+    <div className="min-h-screen bg-background pt-36">
+      <div className="fixed bottom-6 right-6 z-20">
+        <EventDialog />
+      </div>
       <div className="px-4">
         {/* Header Section */}
         <div className="flex justify-between text-foreground">
@@ -106,7 +110,9 @@ const Events = () => {
         </div>
 
         <div className="relative flex rounded-lg bg-muted p-6">
-          <div className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}>
+          <div
+            className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
+          >
             <CategoryFilter></CategoryFilter>
           </div>
           <div className="z-10">
