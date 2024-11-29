@@ -7,7 +7,7 @@ import { Navigate, ToolbarProps } from 'react-big-calendar'
 import { Button } from './ui/button'
 
 const CalendarToolbar = (props: ToolbarProps) => {
-  const [viewState, setViewState] = useState('month')
+  const [, setViewState] = useState('month')
 
   const goToDayView = () => {
     props.onView('day')
