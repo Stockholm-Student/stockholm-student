@@ -33,14 +33,14 @@ export default function EventDialog() {
               className="w-1/2"
               onClick={() => setCurrentPage(1)}
             >
-              Basic Info
+             1. Basic Info
             </Button>
             <Button
               variant={currentPage === 2 ? 'default' : 'ghost'}
               className="w-1/2"
               onClick={() => setCurrentPage(2)}
             >
-              Additional Details
+             2. Additional Details
             </Button>
           </div>
         </div>
