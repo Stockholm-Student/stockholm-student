@@ -11,11 +11,36 @@ import { Button } from './ui/button'
 
 const CategoryFilter = () => {
   const [categories, setCategories] = useState([
-    { id: 1, name: 'Technology', icon: <CpuIcon className='mr-2 w-6'/>, active: false },
-    { id: 2, name: 'Science', icon: <FlaskConicalIcon className='mr-2 w-6'/>, active: false },
-    { id: 3, name: 'Art', icon: <VenetianMaskIcon className='mr-2 w-6'/>, active: false },
-    { id: 4, name: 'Sports', icon: <BikeIcon className='mr-2 w-6'/>, active: false },
-    { id: 5, name: 'Music', icon: <MusicIcon className='mr-2 w-6'/>, active: false },
+    {
+      id: 1,
+      name: 'Technology',
+      icon: <CpuIcon className="mr-2 w-6" />,
+      active: false,
+    },
+    {
+      id: 2,
+      name: 'Science',
+      icon: <FlaskConicalIcon className="mr-2 w-6" />,
+      active: false,
+    },
+    {
+      id: 3,
+      name: 'Art',
+      icon: <VenetianMaskIcon className="mr-2 w-6" />,
+      active: false,
+    },
+    {
+      id: 4,
+      name: 'Sports',
+      icon: <BikeIcon className="mr-2 w-6" />,
+      active: false,
+    },
+    {
+      id: 5,
+      name: 'Music',
+      icon: <MusicIcon className="mr-2 w-6" />,
+      active: false,
+    },
   ])
 
   const toggleCategory = (id: number) => {

@@ -106,7 +106,9 @@ const Events = () => {
         </div>
 
         <div className="relative flex rounded-lg bg-muted p-6">
-          <div className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}>
+          <div
+            className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
+          >
             <CategoryFilter></CategoryFilter>
           </div>
           <div className="z-10">

@@ -79,7 +79,11 @@ const Navbar = () => {
             </td>
 
             <td>
-              <LoginMenu isHomePage={isHomePage} scrollY={scrollY} height={height}/>
+              <LoginMenu
+                isHomePage={isHomePage}
+                scrollY={scrollY}
+                height={height}
+              />
             </td>
           </tr>
         </tbody>
