@@ -58,17 +58,7 @@ type ViewType = 'calendar' | 'list' | 'map'
 
 const Events = () => {
   const [currentView, setCurrentView] = useState<ViewType>('calendar')
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
-
-  const categories = [
-    'All',
-    'Party',
-    'Culture',
-    'Sports',
-    'Academic',
-    'Workshop',
-  ]
 
   return (
     <div className="min-h-screen bg-background pt-36">

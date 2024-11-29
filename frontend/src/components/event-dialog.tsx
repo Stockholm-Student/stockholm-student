@@ -1,6 +1,8 @@
+import CategoryFilter from '@/components/category-filter.tsx'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -12,14 +14,23 @@ import { Label } from '@/components/ui/label'
 import { PlusIcon } from 'lucide-react'
 
 import { useState } from 'react'
+import { ScrollArea } from './ui/scroll-area'
+import { Switch } from './ui/switch'
 
 export default function EventDialog() {
   const [currentPage, setCurrentPage] = useState(1)
+  const [isPublished, setIsPublished] = useState(true)
+
+  function setEvent() {
+    // Add event to database
+  }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default" size={'xl'}><PlusIcon/> Add new Event</Button>
+        <Button variant="default" size={'xl'}>
+          <PlusIcon /> Add new Event
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -27,20 +38,20 @@ export default function EventDialog() {
         </DialogHeader>
 
         <div>
-          <div className="mb-4 flex w-full rounded-lg justify-center gap-4 bg-muted p-2">
+          <div className="mb-4 flex w-full justify-center gap-4 rounded-lg bg-muted p-2">
             <Button
               variant={currentPage === 1 ? 'default' : 'ghost'}
               className="w-1/2"
               onClick={() => setCurrentPage(1)}
             >
-             1. Basic Info
+              1. Basic Info
             </Button>
             <Button
               variant={currentPage === 2 ? 'default' : 'ghost'}
               className="w-1/2"
               onClick={() => setCurrentPage(2)}
             >
-             2. Additional Details
+              2. Additional Details
             </Button>
           </div>
         </div>
@@ -61,7 +72,6 @@ export default function EventDialog() {
                 <Label htmlFor="description" className="text-right">
                   Description
                 </Label>
-
                 <textarea
                   id="description"
                   placeholder="Event Description (max 500 characters)"
@@ -99,16 +109,9 @@ export default function EventDialog() {
                 <Label htmlFor="category" className="text-right">
                   Category
                 </Label>
-                <select
-                  id="category"
-                  className="col-span-3 rounded-md border p-2"
-                  multiple
-                >
-                  <option value="sports">Sports</option>
-                  <option value="culture">Culture</option>
-                  <option value="education">Education</option>
-                  <option value="social">Social</option>
-                </select>
+                <ScrollArea className="col-span-3 h-[7.5Rem] rounded-md border p-1.5 pb-0">
+                  <CategoryFilter showTitleBar={false} />
+                </ScrollArea>
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="maxAttendees" className="text-right">
@@ -130,17 +133,18 @@ export default function EventDialog() {
                   type="file"
                   multiple
                   accept="image/*"
-                  className="col-span-3"
+                  className="col-span-3 hover:cursor-pointer hover:bg-primary/10"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="isPublished" className="text-right">
                   Publish
                 </Label>
-                <Input
+                <Switch
                   id="isPublished"
-                  type="checkbox"
-                  className="col-span-3 h-6 w-6"
+                  className="col-span-3"
+                  defaultChecked
+                  onCheckedChange={(checked) => setIsPublished(checked)}
                 />
               </div>
             </>
@@ -152,7 +156,11 @@ export default function EventDialog() {
           {currentPage === 1 ? (
             <Button onClick={() => setCurrentPage(2)}>Next</Button>
           ) : (
-            <Button type="submit">Save changes</Button>
+            <DialogClose asChild>
+              <Button type="submit" onSubmit={() => setEvent()}>
+                Save changes
+              </Button>
+            </DialogClose>
           )}
         </DialogFooter>
       </DialogContent>
