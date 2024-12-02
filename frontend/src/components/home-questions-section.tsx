@@ -42,7 +42,7 @@ const ScrollSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="relative z-10 font-semibold text-2xl">Wiki</span>
+              <span className="relative z-10 text-2xl font-semibold">Wiki</span>
               <span className="relative z-10 text-xl">→</span>
             </motion.button>
           </motion.div>

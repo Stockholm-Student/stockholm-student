@@ -57,17 +57,7 @@ type ViewType = 'calendar' | 'list' | 'map'
 
 const Events = () => {
   const [currentView, setCurrentView] = useState<ViewType>('calendar')
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
-
-  const categories = [
-    'All',
-    'Party',
-    'Culture',
-    'Sports',
-    'Academic',
-    'Workshop',
-  ]
 
   return (
     <div className="min-h-screen bg-background pt-48">
@@ -106,7 +96,9 @@ const Events = () => {
         </div>
 
         <div className="relative flex rounded-lg bg-muted p-6">
-          <div className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}>
+          <div
+            className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
+          >
             <CategoryFilter></CategoryFilter>
           </div>
           <div className="z-10">

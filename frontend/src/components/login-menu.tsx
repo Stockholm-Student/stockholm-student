@@ -1,5 +1,4 @@
 import {
-  Calendar1Icon,
   CalendarHeartIcon,
   LaptopIcon,
   LogOutIcon,
