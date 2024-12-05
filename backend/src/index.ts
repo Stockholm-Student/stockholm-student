@@ -1,19 +1,22 @@
-import express from 'express';
 import mongoose from 'mongoose';
-import cors from 'cors';
 import dotenv from 'dotenv';
-import itemRoutes from './routes/items';
+import express, {Response, Request} from "express";
+import { routing } from "./routes/routing";
+import cors from 'cors'
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const ENV_PORT = process.env.ENV_PORT || 5000;
+const ENV_DOMAIN = process.env.ENV_DOMAIN || `http://localhost:${ENV_PORT}`
+
+
+
+
+// * mongoose docs: https://mongoosejs.com/docs/async-await.html
+// Enhanced MongoDB connection with better logging
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/fullstack-app';
 
-app.use(cors());
-app.use(express.json());
-
-// Enhanced MongoDB connection with better logging
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('✅ MongoDB Connection Successful!');
@@ -36,20 +39,22 @@ mongoose.connection.on('error', (error) => {
   console.error('❌ MongoDB Error:', error);
 });
 
-// Basic route to test API
-app.get('/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    dbConnection: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-    timestamp: new Date()
-  });
-});
 
-// Routes
-app.use('/api/items', itemRoutes);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`🔗 API URL: http://localhost:${PORT}`);
-  console.log(`💉 Health check: http://localhost:${PORT}/health`);
+
+app.use(cors({ origin: [ENV_DOMAIN] }))
+app.use(express.json())
+app.use(routing)
+
+
+
+
+app.route('*').get((_, res: Response) => {res.send(`<h1>404 - Nothing here</h1>\n<p>Try <a href=\"${ENV_DOMAIN}/api/public/events\">${ENV_DOMAIN}/api/public/events</a> instead<p>`)})
+
+
+
+
+app.listen(ENV_PORT, () => {
+  console.log(`🔗 API URL: ${ENV_DOMAIN}`);
+  // console.log(`💉 Health check: http://localhost:${ENV_PORT}/health`);
 });
