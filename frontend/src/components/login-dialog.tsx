@@ -10,62 +10,11 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 import { account, ID, } from '@/lib/appwrite'
-import { Account } from 'appwrite'
-
-
-
-
-
-
-// interface IUsers {
-
-//   ObjectId: String,
-//   email: String,
-//   hashedPwd: String,
-//   firstName: String, 
-//   LastName: String 
-//   Stnng 
-//   university 
-//   Suing 
-//   Date 
-//   Interests 
-//   Array 
-//   anencleeSsents 
-//   Array 
-// } 
-// create:Eve. 
-
-// wr e 
-// Cr...Ben& 
-// Events 
-// Partners °Medici Id Notifications String name Obreolle Stnng °Neale Unn0 String ,Pd Stnng Stn^. tele MOS contact Stnng Array events Boolean Date PartnershipSted Object data Boolean rsActee create. 
-// MOUS ObjectId creatorie WikiANcles String suing descent. Dispute je Date date String Sting SMng content Stnng location String  awry Sting cabers, CONolld euMorld maxAtlendees Array cootributors Amy Images Date Boolean create:Mt IsPublisned 
-// Id 
-
-// authorld 
-// Eventrittenclees 
-// Ohjeetle 
-// °Neale 
-// evened 
-// Ofiedle 
-// userld 
-// Story 
-// status 
-// DaN 
-// regsteredAt 
-// SwAttereled 
-
-
-
-
-
-
-
-
+import { Models } from 'appwrite'
 
 
 
@@ -75,19 +24,34 @@ import { Account } from 'appwrite'
 export default function LogInDialog() {
 
   const [isLogin, setIsLogin] = useState<boolean>(true); 
-
-
-  const [loggedInUser, setLoggedInUser] = useState<any>(null); // !
+  const [loggedInUser, setLoggedInUser] = useState<Models.Preferences | null>(null); // !
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [infoText, setInfoText] = useState<string | null>(null)
+
+
+
+
+  useEffect(() => {
+    account.get()
+      .then(val => {
+        setLoggedInUser(val)
+      })
+      .catch(() => console.log("no session active"))
+  }, [])
+
+  useEffect(() => {
+    console.log('Logged in user: ', loggedInUser)
+  }, [loggedInUser])
 
 
 
 
   async function login(email: string, password: string) {
-    await account.createEmailPasswordSession(email, password);
-    setLoggedInUser(await account.get());
+    account.createEmailPasswordSession(email, password)
+      .then(async () => setLoggedInUser(await account.get()))
+      .catch(err => setInfoText(err.message)) 
   }
 
 
@@ -97,26 +61,23 @@ export default function LogInDialog() {
   }
 
 
+  const logout = async () => {
+    account.deleteSession('current').then(() => setLoggedInUser(null))
+  }
+
+
   const handleSubmit = () => {
-
-    // console.log("sdf")
-
-    // console.log("hey",  { email, password, name })
-
     isLogin 
       ? login(email, password)
       : registerNewUser(email, password, name)
   }
 
 
-  if (loggedInUser != null){
-    return (
-      <div>
-        You're already logged in
-      </div>
-    )
-  }
 
+
+  if (loggedInUser != null){
+    return (<Button onClick={logout}>logOut</Button>)
+  }
 
   return (
     <Dialog>
@@ -177,6 +138,7 @@ export default function LogInDialog() {
           )}
 
         <DialogFooter>
+          {infoText != null && <div>{infoText}</div>}
 
           <button onClick={()=> setIsLogin(prev => !prev)}>{isLogin ? "sign up" : "log in" }</button>
 
