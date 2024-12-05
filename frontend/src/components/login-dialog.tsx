@@ -29,10 +29,12 @@ export default function LogInDialog() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [infoText, setInfoText] = useState<string | null>(null)
+  const [showPwd, setShowPwd] = useState<boolean>(false)
 
 
 
 
+  // Checking if session is already active
   useEffect(() => {
     account.get()
       .then(val => {
@@ -40,7 +42,7 @@ export default function LogInDialog() {
       })
       .catch(() => console.log("no session active"))
   }, [])
-
+  // Just debug
   useEffect(() => {
     console.log('Logged in user: ', loggedInUser)
   }, [loggedInUser])
@@ -56,13 +58,16 @@ export default function LogInDialog() {
 
 
   const registerNewUser = async (email: string, password: string, name: string) => {
-    await account.create(ID.unique(), email, password, name);
-    login(email, password);
+    account.create(ID.unique(), email, password, name)
+      .then(async () => login(email, password))
+      .catch(err => setInfoText(err.message)) 
   }
 
 
   const logout = async () => {
-    account.deleteSession('current').then(() => setLoggedInUser(null))
+    account.deleteSession('current')
+      .then(() => setLoggedInUser(null))
+      .catch(err => setInfoText(err.message))
   }
 
 
@@ -76,7 +81,7 @@ export default function LogInDialog() {
 
 
   if (loggedInUser != null){
-    return (<Button onClick={logout}>logOut</Button>)
+    return (<Button onClick={logout}>loguut</Button>)
   }
 
   return (
@@ -98,7 +103,6 @@ export default function LogInDialog() {
             </Label>
             <Input
               id="email"
-              // defaultValue="@abs.."
               className="col-span-3"
               type="email"
               onChange={({currentTarget}) => setEmail(currentTarget.value)}
@@ -113,12 +117,12 @@ export default function LogInDialog() {
             </Label>
             <Input
               id="pwd"
-              //defaultValue=""
               className="col-span-3"
-              type='password'
+              type={showPwd ? "text" : 'password'}
               onChange={({currentTarget}) => setPassword(currentTarget.value)}
               value={password}
             />
+            <button onClick={() => setShowPwd(prev => !prev)}>{showPwd ? "Hide pwd" : "Show pwd"}</button>
           </div>
 
           {!isLogin && (
@@ -128,7 +132,6 @@ export default function LogInDialog() {
               </Label>
               <Input
                 id="username"
-                //defaultValue="username"
                 className="col-span-3"
                 type="text"
                 onChange={({currentTarget}) => setName(currentTarget.value)}
@@ -137,14 +140,13 @@ export default function LogInDialog() {
             </div>
           )}
 
-        <DialogFooter>
           {infoText != null && <div>{infoText}</div>}
+        <DialogFooter>
 
           <button onClick={()=> setIsLogin(prev => !prev)}>{isLogin ? "sign up" : "log in" }</button>
 
           <Button 
             type="submit" 
-            //onSubmit={handleSubmit} 
             onClick={handleSubmit}>
               {isLogin ? "Log in": "Sign up" }
           </Button>
