@@ -30,6 +30,7 @@ interface NavMenuProps {
   scrollY: number
   height: number
   setLoginOpen: React.Dispatch<SetStateAction<boolean>>
+  setIsLogin: React.Dispatch<SetStateAction<boolean>>
 }
 //TODO: Add a login form link, add link to profile page, replace Temporary state logedIn with real state provider when authentication available
 
@@ -38,6 +39,7 @@ export function NavMenu({
   scrollY,
   height,
   setLoginOpen: setLoginDialogOpen,
+  setIsLogin,
 }: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
@@ -108,7 +110,12 @@ export function NavMenu({
           ) : (
             <>
               {/* <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}> */}
-              <DropdownMenuItem onClick={() => setLoginDialogOpen(true)}>
+              <DropdownMenuItem
+                onClick={() => {
+                  setLoginDialogOpen(true)
+                  setIsLogin(false)
+                }}
+              >
                 <UserPlusIcon />
                 <span>Sign up</span>
               </DropdownMenuItem>

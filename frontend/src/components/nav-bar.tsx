@@ -10,6 +10,7 @@ const Navbar = () => {
   const location = useLocation()
   const isHomePage = location.pathname === '/'
   const [loginOpen, setLoginOpen] = useState<boolean>(false)
+  const [isLogin, setIsLogin] = useState<boolean>(true)
 
   const [scrollY, setScrollY] = useState(0)
 
@@ -24,10 +25,10 @@ const Navbar = () => {
   return (
     <>
       <ResponsiveDialog
-        children={<LoginForm isOpen={loginOpen} setIsOpen={setLoginOpen} />}
+        children={<LoginForm setIsLogin={setIsLogin} isLogin={isLogin} />}
         isOpen={loginOpen}
         setIsOpen={setLoginOpen}
-        title="Log In"
+        title={isLogin ? 'Log in' : 'Sign up'}
       ></ResponsiveDialog>
       <nav
         className={`fixed left-0 right-0 z-50 px-4 py-2 text-foreground backdrop-blur-md transition-all ${scrollY < height && isHomePage && 'text-white backdrop-blur-none'} ${scrollY == 0 ? 'top-8' : 'top-0'} `}
@@ -94,6 +95,7 @@ const Navbar = () => {
                   scrollY={scrollY}
                   height={height}
                   setLoginOpen={setLoginOpen}
+                  setIsLogin={setIsLogin}
                 />
               </td>
             </tr>

@@ -1,6 +1,4 @@
-import BasicDialog from '@/components/basic-dialog'
 import HomeEventsSection from '@/components/home-events-section'
-import LogInDialog from '@/components/login-form'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRightIcon } from 'lucide-react'
@@ -67,8 +65,6 @@ const Home = () => {
               Discover Events <ArrowRightIcon />
             </Button>
           </motion.div>
-          <LogInDialog />
-          <BasicDialog />
         </div>
       </div>
 

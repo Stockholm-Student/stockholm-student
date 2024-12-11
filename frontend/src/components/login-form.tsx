@@ -3,18 +3,17 @@ import { SetStateAction, useEffect, useState } from 'react'
 
 import { account, ID } from '@/lib/appwrite'
 import { Models } from 'appwrite'
-import { ResponsiveDialog } from './responsive-dialog'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import { DialogFooter } from './ui/dialog'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 
 interface LoginFormProps {
-  isOpen: boolean
-  setIsOpen: React.Dispatch<SetStateAction<boolean>>
+  isLogin: boolean //saves if it is log in or sign up form to show
+  setIsLogin: React.Dispatch<SetStateAction<boolean>>
 }
 
-export default function LoginForm({ isOpen, setIsOpen }: LoginFormProps) {
-  const [isLogin, setIsLogin] = useState<boolean>(true)
+export default function LoginForm({ isLogin, setIsLogin }: LoginFormProps) {
   const [loggedInUser, setLoggedInUser] = useState<Models.Preferences | null>(
     null
   ) // !
@@ -72,13 +71,13 @@ export default function LoginForm({ isOpen, setIsOpen }: LoginFormProps) {
   }
 
   if (loggedInUser != null) {
-    return <Button onClick={logout}>loguut</Button>
+    return <Button onClick={logout}>log out</Button>
   }
 
   return (
-    <ResponsiveDialog isOpen={isOpen} setIsOpen={setIsOpen} title="Log in">
+    <div className="mt-4">
       {/** Email */}
-      <div className="grid grid-cols-4 items-center gap-4">
+      <div className="mb-4 grid grid-cols-4 items-center gap-4">
         <Label htmlFor="email" className="text-right">
           Email
         </Label>
@@ -90,24 +89,9 @@ export default function LoginForm({ isOpen, setIsOpen }: LoginFormProps) {
           value={email}
         />
       </div>
-      {/** Pwd */}
-      <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor="pwd" className="text-right">
-          Password
-        </Label>
-        <Input
-          id="pwd"
-          className="col-span-3"
-          type={showPwd ? 'text' : 'password'}
-          onChange={({ currentTarget }) => setPassword(currentTarget.value)}
-          value={password}
-        />
-        <button onClick={() => setShowPwd((prev) => !prev)}>
-          {showPwd ? 'Hide pwd' : 'Show pwd'}
-        </button>
-      </div>
-      {!isLogin && (
-        <div className="grid grid-cols-4 items-center gap-4">
+      {/* Username */}
+      {isLogin && (
+        <div className="mb-4 grid grid-cols-4 items-center gap-4">
           <Label htmlFor="username" className="text-right">
             Username
           </Label>
@@ -120,15 +104,44 @@ export default function LoginForm({ isOpen, setIsOpen }: LoginFormProps) {
           />
         </div>
       )}
+      {/** Pwd */}
+      <div className="mb-4 grid grid-cols-4 items-center gap-4">
+        <Label htmlFor="pwd" className="text-right">
+          Password
+        </Label>
+        <div className="row col-span-3 flex">
+          <Input
+            id="pwd"
+            type={showPwd ? 'text' : 'password'}
+            className="mr-2"
+            onChange={({ currentTarget }) => setPassword(currentTarget.value)}
+            value={password}
+          />
+          <Button
+            variant={'outline'}
+            onClick={() => setShowPwd((prev) => !prev)}
+          >
+            {showPwd ? <EyeIcon /> : <EyeOffIcon />}
+          </Button>
+        </div>
+      </div>
+
       {infoText != null && <div>{infoText}</div>}
-      <DialogFooter>
-        <button onClick={() => setIsLogin((prev) => !prev)}>
-          {isLogin ? 'sign up' : 'log in'}
-        </button>
-        <Button type="submit" onClick={handleSubmit}>
+
+      <DialogFooter className="mt-6 flex flex-wrap gap-4">
+        <Button type="submit" onClick={handleSubmit} className="w-full">
           {isLogin ? 'Log in' : 'Sign up'}
         </Button>
+        <Button
+          className="w-full"
+          variant={'ghost'}
+          onClick={() => setIsLogin(!isLogin)}
+        >
+          {isLogin
+            ? 'Don`t have an account? Sign up'
+            : 'Already have an account? Log in'}
+        </Button>
       </DialogFooter>
-    </ResponsiveDialog>
+    </div>
   )
 }
