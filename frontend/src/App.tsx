@@ -1,5 +1,5 @@
 // App.tsx
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/nav-bar'
 import { ThemeProvider } from '@/components/theme-provider'
 import Community from '@/pages/Community'
 import Events from '@/pages/Events'

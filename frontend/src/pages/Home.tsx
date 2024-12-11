@@ -1,12 +1,12 @@
+import BasicDialog from '@/components/basic-dialog'
 import HomeEventsSection from '@/components/home-events-section'
+import LogInDialog from '@/components/login-form'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRightIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StockholmImage from '../assets/stockholm-night-day.jpeg'
-import BasicDialog from '@/components/basic-dialog'
-import LogInDialog from '@/components/login-dialog'
 
 // const MotionButton = motion(Button)
 
@@ -67,7 +67,7 @@ const Home = () => {
               Discover Events <ArrowRightIcon />
             </Button>
           </motion.div>
-          <LogInDialog/>
+          <LogInDialog />
           <BasicDialog />
         </div>
       </div>

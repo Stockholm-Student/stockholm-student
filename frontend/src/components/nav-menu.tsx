@@ -22,23 +22,29 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import { Button } from './ui/button'
 
-interface LoginMenuProps {
+interface NavMenuProps {
   isHomePage: boolean
   scrollY: number
   height: number
+  setLoginOpen: React.Dispatch<SetStateAction<boolean>>
 }
 //TODO: Add a login form link, add link to profile page, replace Temporary state logedIn with real state provider when authentication available
 
-export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
+export function NavMenu({
+  isHomePage,
+  scrollY,
+  height,
+  setLoginOpen: setLoginDialogOpen,
+}: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
-  const [logedIn, setLogedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
           size={'icon'}
@@ -56,7 +62,7 @@ export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {logedIn && (
+        {loggedIn && (
           <>
             <DropdownMenuItem>
               <UserIcon />
@@ -94,18 +100,19 @@ export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {logedIn ? (
-            <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}>
+          {loggedIn ? (
+            <DropdownMenuItem onClick={() => setLoggedIn(!loggedIn)}>
               <LogOutIcon />
               <span>Log out</span>
             </DropdownMenuItem>
           ) : (
             <>
-              <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}>
+              {/* <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}> */}
+              <DropdownMenuItem onClick={() => setLoginDialogOpen(true)}>
                 <UserPlusIcon />
                 <span>Sign up</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}>
+              <DropdownMenuItem onClick={() => setLoginDialogOpen(!loggedIn)}>
                 <LogOutIcon />
                 <span>Log in</span>
               </DropdownMenuItem>
