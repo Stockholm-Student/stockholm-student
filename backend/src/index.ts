@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import express, {Response, Request} from "express";
 import { routing } from "./routes/routing";
 import cors from 'cors'
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -40,7 +40,7 @@ const domain = process.env.ENV_DOMAIN || `http://localhost:${port}`
 
 
 
-app.use(cors({ origin: [domain] }))
+app.use(cors(/** { origin: [domain] } */))
 app.use(express.json())
 app.use(routing)
 

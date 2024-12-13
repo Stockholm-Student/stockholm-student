@@ -12,6 +12,7 @@
     "format-check": "prettier --check \"**/*.{css,scss,json,js,jsx,ts,tsx,md}\""
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
