@@ -24,8 +24,6 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import { useState } from 'react'
 import { Button } from './ui/button'
-import LoginButton from './LoginBtn'
-import { useAuth0 } from '@auth0/auth0-react'
 
 interface LoginMenuProps {
   isHomePage: boolean
@@ -38,34 +36,6 @@ export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
   const { setTheme, theme } = useTheme()
 
   const [ logedIn, setLogedIn ] = useState(false)
-
-
-  // Testing fetching protected route
-  const { user, getAccessTokenSilently } = useAuth0();
-
-  const fetchEvents = async () => { 
-    try { 
-      const token = await getAccessTokenSilently({
-        authorizationParams: {
-          audience: import.meta.env.VITE_API_AUDIENCE,
-          scope: import.meta.env.VITE_PROVIDER_ALLOWED_SCOPES,
-        },
-      })
-
-
-      fetch(
-        `${import.meta.env.VITE_API_DOMAIN}/secure/events`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then(data => data.json())
-      .then(json => console.log(json)); 
-
-    } catch (error) { console.error(error); }
-  }
-
-  if (user)
-    fetchEvents()
-
 
   return (
     <DropdownMenu>
@@ -86,13 +56,11 @@ export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-            <DropdownMenuItem>
-              <UserIcon />
-              <span>Test</span>
-              <LoginButton/>
-            </DropdownMenuItem>
+        <DropdownMenuItem>
+          <UserIcon />
+          <span>Test</span>
+        </DropdownMenuItem>
         
-
         {logedIn && (
           <>
             <DropdownMenuItem>

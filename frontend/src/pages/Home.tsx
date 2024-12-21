@@ -5,6 +5,7 @@ import { ArrowRightIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StockholmImage from '../assets/stockholm-night-day.jpeg'
+import PreliminaryFEAuth from '@/components/PreliminaryFEAuth'
 
 // const MotionButton = motion(Button)
 
@@ -64,6 +65,7 @@ const Home = () => {
             >
               Discover Events <ArrowRightIcon />
             </Button>
+            <PreliminaryFEAuth/>
           </motion.div>
         </div>
       </div>
