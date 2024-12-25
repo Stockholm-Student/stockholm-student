@@ -7,7 +7,6 @@ import { Auth0Provider } from '@auth0/auth0-react'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-
 root.render(
   <React.StrictMode>
     <Auth0Provider
@@ -16,7 +15,7 @@ root.render(
       authorizationParams={{
         redirect_uri: window.location.origin,
         audience: import.meta.env.VITE_API_AUDIENCE,
-        scope: import.meta.env.VITE_ALLOWED_SCOPES
+        scope: import.meta.env.VITE_ALLOWED_SCOPES,
       }}
     >
       <App />

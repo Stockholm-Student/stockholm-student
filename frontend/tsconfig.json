@@ -5,7 +5,7 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "noUnusedLocals": false,                /* Report errors on unused locals. */
+    "noUnusedLocals": false /* Report errors on unused locals. */,
     "noUnusedParameters": false,
     "baseUrl": ".",
     "paths": {

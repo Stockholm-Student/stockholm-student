@@ -35,7 +35,7 @@ interface LoginMenuProps {
 export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
   const { setTheme, theme } = useTheme()
 
-  const [ logedIn, setLogedIn ] = useState(false)
+  const [logedIn, setLogedIn] = useState(false)
 
   return (
     <DropdownMenu>
@@ -60,7 +60,7 @@ export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
           <UserIcon />
           <span>Test</span>
         </DropdownMenuItem>
-        
+
         {logedIn && (
           <>
             <DropdownMenuItem>

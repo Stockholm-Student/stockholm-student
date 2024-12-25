@@ -65,7 +65,7 @@ const Home = () => {
             >
               Discover Events <ArrowRightIcon />
             </Button>
-            <PreliminaryFEAuth/>
+            <PreliminaryFEAuth />
           </motion.div>
         </div>
       </div>
