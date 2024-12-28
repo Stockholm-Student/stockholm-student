@@ -24,12 +24,12 @@ const Navbar = () => {
 
   return (
     <>
-      <ResponsiveDialog
+      {/* <ResponsiveDialog
         children={<LoginForm setIsLogin={setIsLogin} isLogin={isLogin} />}
         isOpen={loginOpen}
         setIsOpen={setLoginOpen}
         title={isLogin ? 'Log in' : 'Sign up'}
-      ></ResponsiveDialog>
+      ></ResponsiveDialog> */}
       <nav
         className={`fixed left-0 right-0 z-50 px-4 py-2 text-foreground backdrop-blur-md transition-all ${scrollY < height && isHomePage && 'text-white backdrop-blur-none'} ${scrollY == 0 ? 'top-8' : 'top-0'} `}
       >
