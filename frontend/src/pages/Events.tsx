@@ -136,7 +136,7 @@ const Events = () => {
             </Button>
           </div>
           <div
-            className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
+            className={`mr-4 w-[250px] border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
           >
             <div className="sticky top-20">
               <div className="flex flex-row items-center gap-2 pb-4">

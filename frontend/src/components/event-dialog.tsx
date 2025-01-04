@@ -28,7 +28,7 @@ export default function EventDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default" size={'xl'}>
+        <Button variant="default" size={'lg'}>
           <PlusIcon /> Add new Event
         </Button>
       </DialogTrigger>
