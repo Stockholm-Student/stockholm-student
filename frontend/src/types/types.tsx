@@ -1,12 +1,12 @@
 import {
-  BookOpenIcon,
+  BriefcaseBusinessIcon,
+  ClapperboardIcon,
   CpuIcon,
   DnaIcon,
   DramaIcon,
   DumbbellIcon,
   GlobeIcon,
   GraduationCap,
-  HeartHandshakeIcon,
   LeafIcon,
   MusicIcon,
   PaletteIcon,
@@ -39,11 +39,11 @@ export const categoriesMap: Record<string, JSX.Element> = {
   technology: <CpuIcon key="technology" className="h-5 w-5" />,
   health: <DnaIcon key="health" className="h-5 w-5" />,
   nature: <LeafIcon key="nature" className="h-5 w-5" />,
-  education: <BookOpenIcon key="education" className="h-5 w-5" />,
-  networking: <UsersIcon key="networking" className="h-5 w-5" />,
-  charity: <HeartHandshakeIcon key="charity" className="h-5 w-5" />,
+  social: <UsersIcon key="networking" className="h-5 w-5" />,
+  career: <BriefcaseBusinessIcon key="career" className="h-5 w-5" />,
   art: <PaletteIcon key="art" className="h-5 w-5" />,
   travel: <GlobeIcon key="travel" className="h-5 w-5" />,
+  entertainment: <ClapperboardIcon key="entertainment" className="h-5 w-5" />,
 }
 
 export const organizationsMap: Record<string, JSX.Element> = {

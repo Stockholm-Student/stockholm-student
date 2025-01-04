@@ -1,8 +1,6 @@
 import { Types } from 'mongoose'
 import { Role } from './types'
 
-
-
 //interfaces for the different mongodb collections
 
 export interface Event {

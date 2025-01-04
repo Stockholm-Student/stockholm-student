@@ -19,9 +19,9 @@ const sampleEvents: Event[] = [
     title: 'Student Welcome Party',
     start: new Date('2025-09-01T21:00:00'),
     imageUrl:
-      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/samples/man-on-a-street.jpg',
+      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/cld-sample-3.jpg',
     location: 'KTH Campus Main Hall',
-    categories: ['party', 'networking', 'education', 'art', 'travel'],
+    categories: ['party', 'social', 'university', 'art', 'travel'],
     description:
       "Join us for the biggest welcome party of the semester! Meet new friends, enjoy great music, and dance the night away. There will be food and drinks available. Don't miss out on this unforgettable event!",
   },
@@ -34,6 +34,46 @@ const sampleEvents: Event[] = [
     categories: ['culture', 'food', 'health'],
     description:
       'Taste dishes from around the world prepared by international students.',
+  },
+  {
+    title: 'Tech Talk: Future of AI',
+    start: new Date('2025-03-15T10:00:00'),
+    imageUrl:
+      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/samples/woman-on-a-football-field.jpg',
+    location: 'KTH Innovation Hub',
+    categories: ['technology', 'university'],
+    description:
+      'Join us for an insightful talk on the future of AI and its impact on various industries.',
+  },
+  {
+    title: 'Outdoor Movie Night',
+    start: new Date('2025-06-20T20:00:00'),
+    imageUrl:
+      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/samples/man-portrait.jpg',
+    location: 'KTH Campus Lawn',
+    categories: ['entertainment', 'social'],
+    description:
+      'Enjoy a classic movie under the stars with friends. Popcorn and drinks will be provided.',
+  },
+  {
+    title: 'Career Fair 2025',
+    start: new Date('2025-04-10T09:00:00'),
+    imageUrl:
+      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/cld-sample-2.jpg',
+    location: 'Student Union Building',
+    categories: ['career', 'social'],
+    description:
+      'Meet potential employers and learn about job opportunities in various fields.',
+  },
+  {
+    title: 'Art Exhibition: Modern Art',
+    start: new Date('2025-05-05T17:00:00'),
+    imageUrl:
+      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/samples/coffee.jpg',
+    location: 'KTH Art Gallery',
+    categories: ['art', 'culture'],
+    description:
+      'Explore the latest trends in modern art at our annual art exhibition.',
   },
   // Add more events here
 ]
@@ -105,7 +145,7 @@ const Events = () => {
           <div className={`${drawerOpen ? 'w-4/5' : 'w-full'}`}>
             <AnimatePresence mode="wait">
               {currentView === 'list' && (
-                <div className="grid grid-cols-3">
+                <div className="grid grid-cols-3 gap-4">
                   {sampleEvents.map((event) => (
                     <EventCard
                       title={event.title}

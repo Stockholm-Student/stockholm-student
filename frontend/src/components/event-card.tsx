@@ -21,7 +21,7 @@ export function EventCard({
   description,
 }: Event) {
   return (
-    <Card className="w-full max-w-sm overflow-hidden p-3 transition-all hover:shadow-lg">
+    <Card className="w-full max-w-md overflow-hidden p-3 transition-all hover:shadow-lg">
       {imageUrl && (
         <>
           <div className="relative h-48 w-full overflow-clip rounded-sm">
@@ -73,7 +73,7 @@ export function EventCard({
       <CardContent className="px-3">
         <CardDescription>{description}</CardDescription>
       </CardContent>
-      <CardFooter className="flex-auto flex-grow items-end justify-end pb-4">
+      <CardFooter className="flex-auto flex-grow items-end justify-center pb-0">
         <Button>More info</Button>
       </CardFooter>
     </Card>
