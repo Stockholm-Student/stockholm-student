@@ -19,7 +19,7 @@ import { Switch } from './ui/switch'
 
 export default function EventDialog() {
   const [currentPage, setCurrentPage] = useState(1)
-  const [isPublished, setIsPublished] = useState(true)
+  const [, setIsPublished] = useState(true)
 
   function setEvent() {
     // Add event to database
@@ -110,8 +110,10 @@ export default function EventDialog() {
                   Category
                 </Label>
                 <ScrollArea className="col-span-3 h-[7.5Rem] rounded-md border p-1.5 pb-0">
-                  <CategoryFilter showTitleBar={false} />
+                  <CategoryFilter/>
+                  
                 </ScrollArea>
+
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="maxAttendees" className="text-right">
