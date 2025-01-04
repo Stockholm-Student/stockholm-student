@@ -1,55 +1,55 @@
-import express from 'express';
 import mongoose from 'mongoose';
-import cors from 'cors';
+import express, {Response, Request} from "express";
+import { routing } from "./routes/routing";
+import cors from 'cors'
 import dotenv from 'dotenv';
-import itemRoutes from './routes/items';
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/fullstack-app';
+const port = process.env.ENV_PORT || 5000;
+const domain = process.env.ENV_DOMAIN || `http://localhost:${port}`
 
-app.use(cors());
-app.use(express.json());
 
+
+// * mongoose docs: https://mongoosejs.com/docs/async-await.html
 // Enhanced MongoDB connection with better logging
-mongoose.connect(MONGODB_URI)
-  .then(() => {
-    console.log('✅ MongoDB Connection Successful!');
-    console.log(`📦 Connected to database: ${mongoose.connection.name}`);
-    console.log(`🌐 Database host: ${mongoose.connection.host}`);
-    console.log(`🔌 Database port: ${mongoose.connection.port}`);
-  })
-  .catch((error) => {
-    console.error('❌ MongoDB Connection Error:');
-    console.error('Error details:', error);
-    process.exit(1);
-  });
+// const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/fullstack-app';
 
-// Monitor database connection
-mongoose.connection.on('disconnected', () => {
-  console.log('❌ MongoDB Disconnected');
-});
+// mongoose.connect(MONGODB_URI)
+//   .then(() => {
+//     console.log('✅ MongoDB Connection Successful!');
+//     console.log(`📦 Connected to database: ${mongoose.connection.name}`);
+//     console.log(`🌐 Database host: ${mongoose.connection.host}`);
+//     console.log(`🔌 Database port: ${mongoose.connection.port}`);
+//   })
+//   .catch((error) => {
+//     console.error('❌ MongoDB Connection Error:');
+//     console.error('Error details:', error);
+//     process.exit(1);
+//   });
 
-mongoose.connection.on('error', (error) => {
-  console.error('❌ MongoDB Error:', error);
-});
+// // Monitor database connection
+// mongoose.connection.on('disconnected', () => {
+//   console.log('❌ MongoDB Disconnected');
+// });
 
-// Basic route to test API
-app.get('/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    dbConnection: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-    timestamp: new Date()
-  });
-});
+// mongoose.connection.on('error', (error) => {
+//   console.error('❌ MongoDB Error:', error);
+// });
 
-// Routes
-app.use('/api/items', itemRoutes);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`🔗 API URL: http://localhost:${PORT}`);
-  console.log(`💉 Health check: http://localhost:${PORT}/health`);
+
+app.use(cors(/** { origin: [domain] } */))
+app.use(express.json())
+app.use(routing)
+
+
+
+app.route('*').get((_, res: Response) => {res.send(`<h1>404 - Nothing here</h1>\n<p>Try <a href=\"${domain}/api/public/events\">${domain}/api/public/events</a> instead<p>`)})
+
+
+
+app.listen(port, () => {
+  console.log(`🔗 API URL: ${domain}`);
 });

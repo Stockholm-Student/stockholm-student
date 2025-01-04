@@ -7,7 +7,7 @@ import { Navigate, ToolbarProps } from 'react-big-calendar'
 import { Button } from './ui/button'
 
 const CalendarToolbar = (props: ToolbarProps) => {
-  const [viewState, setViewState] = useState('month')
+  const [, setViewState] = useState('month')
 
   const goToDayView = () => {
     props.onView('day')
@@ -40,7 +40,7 @@ const CalendarToolbar = (props: ToolbarProps) => {
   //   }
 
   return (
-    <div className="flex content-center items-center justify-between pb-2 text-center ml-12">
+    <div className="ml-12 flex content-center items-center justify-between pb-2 text-center">
       <div className="flex h-fit space-x-6">
         <Button className="" variant={'outline'} onClick={goToToday}>
           Today

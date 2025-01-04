@@ -8,9 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "format": "prettier --write ./src"
+    "format": "prettier --write \"**/*.{css,scss,json,js,jsx,ts,tsx,md}\"",
+    "format-check": "prettier --check \"**/*.{css,scss,json,js,jsx,ts,tsx,md}\""
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
@@ -23,6 +25,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.11",
     "lucide-react": "^0.456.0",
+    "mongoose": "^8.9.3",
     "react": "^18.3.1",
     "react-big-calendar": "^1.15.0",
     "react-dom": "^18.3.1",
@@ -33,10 +36,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@types/date-arithmetic": "^4.1.4",
     "@types/estree": "^1.0.6",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
-    "@types/react-big-calendar": "^1.15.0",
+    "@types/react-big-calendar": "^1.16.0",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",

@@ -3,19 +3,39 @@ import { useState } from 'react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 
-interface Filter {
-  showTitleBar: boolean
-}
-
-const CategoryFilter = ({
-  showTitleBar: showTitle = true,
-}: Partial<Filter>) => {
-  const [filterCategories, setFilterCategories] = useState(
-    categories.map((category) => ({
-      ...category,
+const CategoryFilter = () => {
+  const [categories, setCategories] = useState([
+    {
+      id: 1,
+      name: 'Technology',
+      icon: <CpuIcon className="mr-2 w-6" />,
       active: false,
-    }))
-  )
+    },
+    {
+      id: 2,
+      name: 'Science',
+      icon: <FlaskConicalIcon className="mr-2 w-6" />,
+      active: false,
+    },
+    {
+      id: 3,
+      name: 'Art',
+      icon: <VenetianMaskIcon className="mr-2 w-6" />,
+      active: false,
+    },
+    {
+      id: 4,
+      name: 'Sports',
+      icon: <BikeIcon className="mr-2 w-6" />,
+      active: false,
+    },
+    {
+      id: 5,
+      name: 'Music',
+      icon: <MusicIcon className="mr-2 w-6" />,
+      active: false,
+    },
+  ])
 
   const toggleCategory = (id: number) => {
     setFilterCategories(
@@ -38,18 +58,12 @@ const CategoryFilter = ({
 
   return (
     <div className="">
-      {showTitle && (
-        <div className="mb-4 flex flex-wrap justify-between">
-          <span className="text-2xl">Categories</span>
-          <Button
-            variant={'link'}
-            className="reset-button"
-            onClick={resetCategories}
-          >
-            Reset Categories
-          </Button>
-        </div>
-      )}
+      <div className="mb-4 flex justify-between">
+        <span className="text-2xl">Categories</span>
+        <Button variant={'link'} className="p-1" onClick={resetCategories}>
+          Reset Categories
+        </Button>
+      </div>
       <div className="flex flex-wrap">
         {filterCategories.map((category) => (
           <Badge
