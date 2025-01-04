@@ -1,30 +1,52 @@
 import { categoriesMap } from '@/types/types'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
 
-const CategoryFilter = () => {
-  const defaultCategoryLength = 4
-  const categoriesLength = Object.keys(categoriesMap).length
-  const [visible, setVisible] = useState<number>(defaultCategoryLength)
-  const [showMore, setShowMore] = useState<boolean>(false)
-  const [filterCategories, setFilterCategories] = useState<string[]>([])
+interface CategoryFilterProps {
+  selectedCategories: string[]
+  setSelectedCategories: Dispatch<SetStateAction<string[]>>
+  defaultCategoryLength: number
+}
+
+/**
+ * CategoryFilter component allows users to filter items by categories.
+ * It displays a list of categories with checkboxes to select or deselect them.
+ * Users can also clear all selected categories or toggle the visibility of additional categories.
+ *
+ * @param {Array<string>} selectedCategories - Array of selected categories by the user.
+ * @param {Function} setSelectedCategories - Function to set selected categories.
+ * @param {number} defaultCategoryLength - Number of categories to show by default.
+ *
+ * @returns {JSX.Element} The rendered CategoryFilter component.
+ */
+const CategoryFilter = ({
+  selectedCategories,
+  setSelectedCategories,
+  defaultCategoryLength,
+}: CategoryFilterProps) => {
+  const categoriesLength = Object.keys(categoriesMap).length //total number of categories (used to display how many categories are hidden from user)
+  const [visible, setVisible] = useState<number>(defaultCategoryLength) // number of categories visible to the user
+  const [showMore, setShowMore] = useState<boolean>(false) //bool to track show more button state
 
   const toggleCategory = (category: string) => {
-    if (filterCategories.includes(category)) {
-      setFilterCategories([
-        ...filterCategories.filter((item) => category !== item),
+    //add or remove category from selectedCategories
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories([
+        ...selectedCategories.filter((item) => category !== item),
       ])
     } else {
-      setFilterCategories([...filterCategories, category])
+      setSelectedCategories([...selectedCategories, category])
     }
   }
 
   const resetCategories = () => {
-    setFilterCategories([])
+    //clear all selected categories
+    setSelectedCategories([])
   }
 
   const toggleMore = () => {
+    //show all categories or back to the default number
     return () => {
       setVisible(
         visible === defaultCategoryLength
@@ -54,14 +76,14 @@ const CategoryFilter = () => {
             return (
               <div
                 key={category}
-                className="text-md flex w-full place-content-between items-center"
+                className="text-md flex w-full cursor-pointer place-content-between items-center"
+                onClick={() => toggleCategory(category)}
               >
                 <span className="flex flex-row items-center gap-1 [&_svg]:size-4">
                   {categoriesMap[category]} {category}
                 </span>
                 <Checkbox
-                  checked={filterCategories.includes(category) ? true : false}
-                  onClick={() => toggleCategory(category)}
+                  checked={selectedCategories.includes(category) ? true : false}
                 />
               </div>
             )
