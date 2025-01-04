@@ -56,6 +56,11 @@ export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        <DropdownMenuItem>
+          <UserIcon />
+          <span>Test</span>
+        </DropdownMenuItem>
+
         {logedIn && (
           <>
             <DropdownMenuItem>
