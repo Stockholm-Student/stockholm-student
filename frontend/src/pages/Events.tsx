@@ -7,7 +7,7 @@ import { Event } from '@/types/interfaces'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   CalendarIcon,
-  ListIcon,
+  Grid3X3Icon,
   MapPinIcon,
   PanelLeftCloseIcon,
   PanelLeftOpenIcon,
@@ -78,10 +78,10 @@ const sampleEvents: Event[] = [
   // Add more events here
 ]
 
-type ViewType = 'calendar' | 'list' | 'map'
+type ViewType = 'calendar' | 'grid' | 'map'
 
 const Events = () => {
-  const [currentView, setCurrentView] = useState<ViewType>('calendar')
+  const [currentView, setCurrentView] = useState<ViewType>('grid')
   const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
 
   return (
@@ -103,8 +103,8 @@ const Events = () => {
 
           <div className="flex h-fit gap-2 rounded-xl bg-muted p-2">
             {[
+              { type: 'grid', icon: Grid3X3Icon, label: 'Grid' },
               { type: 'calendar', icon: CalendarIcon, label: 'Calendar' },
-              { type: 'list', icon: ListIcon, label: 'List' },
               { type: 'map', icon: MapPinIcon, label: 'Map' },
             ].map((view) => (
               <Button
@@ -120,32 +120,41 @@ const Events = () => {
           </div>
         </div>
 
-        <div className="relative flex rounded-lg bg-muted p-6">
+        <div className="flex rounded-md bg-muted p-6">
+          <div className={`mr-3 border-r-2 ${drawerOpen && 'hidden'}`}>
+            <Button
+              variant={'ghost'}
+              size={'icon'}
+              onClick={() => setDrawerOpen(!drawerOpen)}
+              className="sticky top-20"
+            >
+              <PanelLeftOpenIcon className="!h-6 !w-6" />
+            </Button>
+          </div>
           <div
             className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
           >
+            <div className="sticky top-16 -mx-4 -mt-4 flex flex-row items-center gap-2 rounded-sm bg-muted p-4">
+              <Button
+                variant={'ghost'}
+                size={'icon'}
+                onClick={() => setDrawerOpen(!drawerOpen)}
+              >
+                <PanelLeftCloseIcon className="!h-6 !w-6" />
+              </Button>
+              <span className="text-2xl font-medium">Filters</span>
+              <Button variant={'outline'} className="reset-button ml-auto">
+                Reset all
+              </Button>
+            </div>
             <CategoryFilter></CategoryFilter>
           </div>
-          <div className="z-10">
-            <Button
-              variant={'icon'}
-              size={'icon'}
-              onClick={() => setDrawerOpen(!drawerOpen)}
-              className="-mr-12"
-            >
-              <PanelLeftCloseIcon
-                className={`${drawerOpen ? 'block' : 'hidden'}`}
-              />
-              <PanelLeftOpenIcon
-                className={`${drawerOpen ? 'hidden' : 'block'}`}
-              />
-            </Button>
-          </div>
+
           {/* Events Content */}
           <div className={`${drawerOpen ? 'w-4/5' : 'w-full'}`}>
             <AnimatePresence mode="wait">
-              {currentView === 'list' && (
-                <div className="grid grid-cols-3 gap-4">
+              {currentView === 'grid' && (
+                <div className="grid gap-4 sm:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                   {sampleEvents.map((event) => (
                     <EventCard
                       title={event.title}
