@@ -66,11 +66,7 @@ const CategoryFilter = () => {
     <div className="">
       <div className="mb-4 flex justify-between">
         <span className="text-2xl">Categories</span>
-        <Button
-          variant={'link'}
-          className="reset-button"
-          onClick={resetCategories}
-        >
+        <Button variant={'link'} className="p-1" onClick={resetCategories}>
           Reset Categories
         </Button>
       </div>
