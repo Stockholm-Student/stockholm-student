@@ -7,41 +7,37 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { BookmarkIcon, Clock3Icon, MapPinIcon, XIcon } from 'lucide-react'
-
-interface EventCardProps {
-  title: string
-  date: Date
-  time: string
-  description: string
-  location: string
-  imageUrl?: string
-}
+import { Event } from '@/types/interfaces'
+import { categoriesMap } from '@/types/types'
+import { BookmarkIcon, Clock3Icon, MapPinIcon, Share2Icon } from 'lucide-react'
+import { Badge } from './ui/badge'
 
 export function EventCard({
   title,
-  date,
-  time,
-  description,
-  location,
   imageUrl,
-}: EventCardProps) {
+  categories,
+  start,
+  location,
+  description,
+}: Event) {
   return (
     <Card className="w-full max-w-sm overflow-hidden p-3 transition-all hover:shadow-lg">
       {imageUrl && (
         <>
           <div className="relative h-48 w-full overflow-clip rounded-sm">
             <Button
-              variant={'transparent'}
-              className="absolute right-0 z-10 p-3"
+              variant={'icon_transparent'}
+              size={'icon'}
+              className="absolute bottom-1 left-1 z-10 p-2"
             >
-              <XIcon />
+              <Share2Icon className="" />
             </Button>
             <Button
-              variant={'transparent'}
-              className="absolute bottom-0 right-0 z-10 p-3"
+              variant={'icon_transparent'}
+              size={'icon'}
+              className="absolute bottom-1 right-1 z-10 p-2"
             >
-              <BookmarkIcon />
+              <BookmarkIcon className="" />
             </Button>
             <img
               src={imageUrl}
@@ -51,21 +47,34 @@ export function EventCard({
           </div>
         </>
       )}
-      <CardHeader>
-        <CardTitle className="text-xl">{title}</CardTitle>
+      <CardHeader className="px-3">
+        <CardTitle className="text-2xl">{title}</CardTitle>
+
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock3Icon className="h-4 w-4" />
-          {date.toLocaleDateString()}, {time}
+          {start.toLocaleDateString()},{' '}
+          {start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           <MapPinIcon className="h-4 w-4" />
           {location}
         </div>
+        <div className="flex gap-2 overflow-hidden pt-2">
+          {categories.slice(0, 3).map((category) => (
+            <Badge
+              key={category}
+              variant={'static'}
+              className="flex w-fit gap-2"
+            >
+              {categoriesMap[category]}
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </Badge>
+          ))}
+        </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-3">
         <CardDescription>{description}</CardDescription>
       </CardContent>
-      <CardFooter className="flex justify-end gap-2">
-        <Button variant="outline">Share</Button>
-        <Button>Register</Button>
+      <CardFooter className="flex-auto flex-grow items-end justify-end pb-4">
+        <Button>More info</Button>
       </CardFooter>
     </Card>
   )
