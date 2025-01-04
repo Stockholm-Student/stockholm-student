@@ -68,7 +68,7 @@ const CategoryFilter = () => {
         <span className="text-2xl">Categories</span>
         <Button
           variant={'link'}
-          className="reset-button"
+          className="p-1"
           onClick={resetCategories}
         >
           Reset Categories

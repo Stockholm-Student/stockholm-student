@@ -14,7 +14,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 
-const sampleEvents: Event[] = [
+const events: Event[] = [
   {
     title: 'Student Welcome Party',
     start: new Date('2025-09-01T21:00:00'),
@@ -27,7 +27,7 @@ const sampleEvents: Event[] = [
   },
   {
     title: 'International Food Festival',
-    start: new Date('2025-01-02T15:00:00'),
+    start: new Date('2025-01-07T15:00:00'),
     imageUrl:
       'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/samples/man-on-a-street.jpg',
     location: 'Student Union Building',
@@ -134,20 +134,22 @@ const Events = () => {
           <div
             className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
           >
-            <div className="sticky top-16 -mx-4 -mt-4 flex flex-row items-center gap-2 rounded-sm bg-muted p-4">
-              <Button
-                variant={'ghost'}
-                size={'icon'}
-                onClick={() => setDrawerOpen(!drawerOpen)}
-              >
-                <PanelLeftCloseIcon className="!h-6 !w-6" />
-              </Button>
-              <span className="text-2xl font-medium">Filters</span>
-              <Button variant={'outline'} className="reset-button ml-auto">
-                Reset all
-              </Button>
+            <div className="sticky top-20">
+              <div className="flex flex-row items-center gap-2 pb-4">
+                <Button
+                  variant={'ghost'}
+                  size={'icon'}
+                  onClick={() => setDrawerOpen(!drawerOpen)}
+                >
+                  <PanelLeftCloseIcon className="!h-6 !w-6" />
+                </Button>
+                <span className="text-2xl font-medium">Filters</span>
+                <Button variant={'outline'} className="ml-auto">
+                  Reset all
+                </Button>
+              </div>
+              <CategoryFilter></CategoryFilter>
             </div>
-            <CategoryFilter></CategoryFilter>
           </div>
 
           {/* Events Content */}
@@ -155,16 +157,20 @@ const Events = () => {
             <AnimatePresence mode="wait">
               {currentView === 'grid' && (
                 <div className="grid gap-4 sm:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                  {sampleEvents.map((event) => (
-                    <EventCard
-                      title={event.title}
-                      imageUrl={event.imageUrl}
-                      categories={event.categories}
-                      start={event.start}
-                      location={event.location}
-                      description={event.description}
-                    />
-                  ))}
+                  {events
+                    .filter((a) => a.start.getTime() >= new Date().getTime())
+                    .sort((a, b) => a.start.getTime() - b.start.getTime())
+                    .map((event) => (
+                      <EventCard
+                        key={event.title}
+                        title={event.title}
+                        imageUrl={event.imageUrl}
+                        categories={event.categories}
+                        start={event.start}
+                        location={event.location}
+                        description={event.description}
+                      />
+                    ))}
                 </div>
               )}
 
