@@ -1,86 +1,78 @@
-import {
-  BikeIcon,
-  CpuIcon,
-  FlaskConicalIcon,
-  MusicIcon,
-  VenetianMaskIcon,
-} from 'lucide-react'
+import { categoriesMap } from '@/types/types'
 import { useState } from 'react'
-import { Badge } from './ui/badge'
 import { Button } from './ui/button'
+import { Checkbox } from './ui/checkbox'
 
 const CategoryFilter = () => {
-  const [categories, setCategories] = useState([
-    {
-      id: 1,
-      name: 'Technology',
-      icon: <CpuIcon className="mr-2 w-6" />,
-      active: false,
-    },
-    {
-      id: 2,
-      name: 'Science',
-      icon: <FlaskConicalIcon className="mr-2 w-6" />,
-      active: false,
-    },
-    {
-      id: 3,
-      name: 'Art',
-      icon: <VenetianMaskIcon className="mr-2 w-6" />,
-      active: false,
-    },
-    {
-      id: 4,
-      name: 'Sports',
-      icon: <BikeIcon className="mr-2 w-6" />,
-      active: false,
-    },
-    {
-      id: 5,
-      name: 'Music',
-      icon: <MusicIcon className="mr-2 w-6" />,
-      active: false,
-    },
-  ])
+  const defaultCategoryLength = 4
+  const categoriesLength = Object.keys(categoriesMap).length
+  const [visible, setVisible] = useState<number>(defaultCategoryLength)
+  const [showMore, setShowMore] = useState<boolean>(false)
+  const [filterCategories, setFilterCategories] = useState<string[]>([])
 
-  const toggleCategory = (id: number) => {
-    setCategories(
-      categories.map((category) =>
-        category.id === id
-          ? { ...category, active: !category.active }
-          : category
-      )
-    )
+  const toggleCategory = (category: string) => {
+    if (filterCategories.includes(category)) {
+      setFilterCategories([
+        ...filterCategories.filter((item) => category !== item),
+      ])
+    } else {
+      setFilterCategories([...filterCategories, category])
+    }
   }
 
   const resetCategories = () => {
-    setCategories(
-      categories.map((category) => ({
-        ...category,
-        active: false,
-      }))
-    )
+    setFilterCategories([])
+  }
+
+  const toggleMore = () => {
+    return () => {
+      setVisible(
+        visible === defaultCategoryLength
+          ? categoriesLength
+          : defaultCategoryLength
+      )
+      setShowMore(!showMore)
+    }
   }
 
   return (
     <div className="">
-      <div className="mb-4 flex justify-between">
+      <div className="flex justify-between">
         <span className="text-2xl">Categories</span>
-        <Button variant={'link'} className="p-1" onClick={resetCategories}>
-          Reset Categories
+        <Button
+          variant={'ghost'}
+          className="p-1 underline"
+          onClick={resetCategories}
+        >
+          clear
         </Button>
       </div>
-      <div className="flex flex-wrap">
-        {categories.map((category) => (
-          <Badge
-            key={category.id}
-            variant={category.active ? 'default' : 'outline'}
-            className={`badge mb-2 mr-2 cursor-pointer ${category.active ? 'active' : ''}`}
-            onClick={() => toggleCategory(category.id)}
-          >
-            {category.icon} {category.name}
-          </Badge>
-        ))}
+      <div className="flex flex-col">
+        {Object.keys(categoriesMap)
+          .slice(0, visible)
+          .map((category) => {
+            return (
+              <div
+                key={category}
+                className="text-md flex w-full place-content-between items-center"
+              >
+                <span className="flex flex-row items-center gap-1 [&_svg]:size-4">
+                  {categoriesMap[category]} {category}
+                </span>
+                <Checkbox
+                  checked={filterCategories.includes(category) ? true : false}
+                  onClick={() => toggleCategory(category)}
+                />
+              </div>
+            )
+          })}
+        <Button
+          variant={'link'}
+          className="self-start pl-1 pt-0"
+          onClick={toggleMore()}
+        >
+          {showMore ? 'Show less' : `Show ${categoriesLength - visible} more`}
+        </Button>
       </div>
     </div>
   )

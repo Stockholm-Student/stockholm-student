@@ -2,6 +2,7 @@
 import CategoryFilter from '@/components/category-filter'
 import EventCalendar from '@/components/event-calender'
 import { EventCard } from '@/components/event-card'
+import EventDialog from '@/components/event-dialog'
 import { Button } from '@/components/ui/button'
 import { Event } from '@/types/interfaces'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -85,7 +86,10 @@ const Events = () => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
 
   return (
-    <div className="min-h-screen bg-background pt-48">
+    <div className="min-h-screen bg-background pt-36">
+      <div className="fixed bottom-6 right-6 z-20">
+        <EventDialog />
+      </div>
       <div className="px-4">
         {/* Header Section */}
         <div className="flex justify-between text-foreground">
@@ -132,7 +136,7 @@ const Events = () => {
             </Button>
           </div>
           <div
-            className={`mr-4 w-1/5 border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
+            className={`mr-4 w-[250px] border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
           >
             <div className="sticky top-20">
               <div className="flex flex-row items-center gap-2 pb-4">
