@@ -1,10 +1,12 @@
 // pages/Events.tsx
 import CategoryFilter from '@/components/category-filter'
+import DateRangeFilter from '@/components/date-range-filter'
 import EventCalendar from '@/components/event-calender'
 import { EventCard } from '@/components/event-card'
 import EventDialog from '@/components/event-dialog'
 import { Button } from '@/components/ui/button'
 import { Event } from '@/types/interfaces'
+import { addYears } from 'date-fns'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   CalendarIcon,
@@ -14,6 +16,7 @@ import {
   PanelLeftOpenIcon,
 } from 'lucide-react'
 import { useState } from 'react'
+import { DateRange } from 'react-day-picker'
 
 const events: Event[] = [
   {
@@ -82,8 +85,19 @@ const events: Event[] = [
 type ViewType = 'calendar' | 'grid' | 'map'
 
 const Events = () => {
-  const [currentView, setCurrentView] = useState<ViewType>('grid')
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
+  const defaultShownFilters: number = 4
+
+  const [currentView, setCurrentView] = useState<ViewType>('grid') //default view is grid
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(true) //default drawer state is open
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]) //array to store selected categories for filtering
+  const [selectedDateRange, setSelectedDateRange] = useState<
+    //default date range is one year, saves the value of the users selected date range for filtering
+    DateRange | undefined
+  >({
+    from: new Date(),
+    to: addYears(new Date(), 1),
+  })
 
   return (
     <div className="min-h-screen bg-background pt-36">
@@ -152,7 +166,15 @@ const Events = () => {
                   Reset all
                 </Button>
               </div>
-              <CategoryFilter></CategoryFilter>
+              <CategoryFilter
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+                defaultCategoryLength={defaultShownFilters}
+              ></CategoryFilter>
+              <DateRangeFilter
+                selectedDateRange={selectedDateRange}
+                setSelectedDateRange={setSelectedDateRange}
+              ></DateRangeFilter>
             </div>
           </div>
 
@@ -162,8 +184,27 @@ const Events = () => {
               {currentView === 'grid' && (
                 <div className="grid gap-4 sm:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                   {events
-                    .filter((a) => a.start.getTime() >= new Date().getTime())
+                    .filter(
+                      (
+                        a //filter events based on selected Date Range
+                      ) =>
+                        selectedDateRange != undefined &&
+                        selectedDateRange.from != undefined &&
+                        selectedDateRange.to != undefined
+                          ? a.start.getTime() >=
+                              selectedDateRange.from.setHours(0, 0, 0, 0) &&
+                            a.start.getTime() <=
+                              selectedDateRange.to.setHours(23, 59, 59, 0)
+                          : true
+                    )
                     .sort((a, b) => a.start.getTime() - b.start.getTime())
+                    .filter(
+                      (a) =>
+                        selectedCategories.length === 0 ||
+                        selectedCategories.every((r) =>
+                          a.categories.includes(r)
+                        )
+                    )
                     .map((event) => (
                       <EventCard
                         key={event.title}
