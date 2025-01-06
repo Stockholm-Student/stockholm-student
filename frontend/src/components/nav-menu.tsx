@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import {
   CalendarHeartIcon,
   LaptopIcon,
@@ -44,6 +45,8 @@ export function NavMenu({
   const { setTheme, theme } = useTheme()
 
   const [loggedIn, setLoggedIn] = useState<boolean>(false)
+
+  const { loginWithRedirect, isAuthenticated, isLoading, logout } = useAuth0()
 
   return (
     <DropdownMenu modal={false}>
@@ -102,24 +105,29 @@ export function NavMenu({
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {loggedIn ? (
-            <DropdownMenuItem onClick={() => setLoggedIn(!loggedIn)}>
-              <LogOutIcon />
-              <span>Log out</span>
-            </DropdownMenuItem>
+          {isAuthenticated ? (
+            <button
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
+            >
+              Log Out
+            </button>
           ) : (
             <>
-              {/* <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}> */}
               <DropdownMenuItem
-                onClick={() => {
-                  setLoginDialogOpen(true)
-                  setIsLogin(false)
-                }}
+                onClick={() =>
+                  loginWithRedirect({
+                    authorizationParams: {
+                      screen_hint: 'signup',
+                    },
+                  })
+                }
               >
                 <UserPlusIcon />
                 <span>Sign up</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setLoginDialogOpen(!loggedIn)}>
+              <DropdownMenuItem onClick={() => loginWithRedirect()}>
                 <LogOutIcon />
                 <span>Log in</span>
               </DropdownMenuItem>
