@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
-// just an interface for testing purposes
 function PreliminaryFEAuth() {
   const { isAuthenticated } = useAuth0()
 
@@ -16,7 +15,6 @@ function PreliminaryFEAuth() {
   )
 }
 
-// How to fetch from our api
 const PreliminaryAPIFetch = () => {
   const [msgText, setMsgText] = useState<null | string>('status')
 
@@ -76,9 +74,6 @@ const PreliminaryAPIFetch = () => {
   )
 }
 
-// How to call log in/sign up
-// Template for requiring additional data from users at sign up: 
-//    https://developer.auth0.com/resources/templates/forms/onboarding
 const PreliminaryLogin = () => {
   const { loginWithRedirect, isAuthenticated, isLoading, logout } = useAuth0()
 
