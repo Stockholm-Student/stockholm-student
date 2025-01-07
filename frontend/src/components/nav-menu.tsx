@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import {
   CalendarHeartIcon,
   LaptopIcon,
@@ -22,23 +23,22 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
-import { useState } from 'react'
 import { Button } from './ui/button'
 
-interface LoginMenuProps {
+interface NavMenuProps {
   isHomePage: boolean
   scrollY: number
   height: number
 }
 //TODO: Add a login form link, add link to profile page, replace Temporary state logedIn with real state provider when authentication available
 
-export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
+export function NavMenu({ isHomePage, scrollY, height }: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
-  const [logedIn, setLogedIn] = useState(false)
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0()
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
           size={'icon'}
@@ -56,12 +56,7 @@ export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
-          <UserIcon />
-          <span>Test</span>
-        </DropdownMenuItem>
-
-        {logedIn && (
+        {isAuthenticated && (
           <>
             <DropdownMenuItem>
               <UserIcon />
@@ -99,18 +94,29 @@ export function LoginMenu({ isHomePage, scrollY, height }: LoginMenuProps) {
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {logedIn ? (
-            <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}>
-              <LogOutIcon />
-              <span>Log out</span>
-            </DropdownMenuItem>
+          {isAuthenticated ? (
+            <button
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
+            >
+              Log Out
+            </button>
           ) : (
             <>
-              <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}>
+              <DropdownMenuItem
+                onClick={() =>
+                  loginWithRedirect({
+                    authorizationParams: {
+                      screen_hint: 'signup',
+                    },
+                  })
+                }
+              >
                 <UserPlusIcon />
                 <span>Sign up</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setLogedIn(!logedIn)}>
+              <DropdownMenuItem onClick={() => loginWithRedirect()}>
                 <LogOutIcon />
                 <span>Log in</span>
               </DropdownMenuItem>
