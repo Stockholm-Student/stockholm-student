@@ -179,7 +179,7 @@ const Events = () => {
           </div>
 
           {/* Events Content */}
-          <div className='w-full'>
+          <div className="w-full">
             <AnimatePresence mode="wait">
               {currentView === 'grid' && (
                 <div className="grid gap-4 sm:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
@@ -224,7 +224,7 @@ const Events = () => {
               {currentView === 'map' && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}  
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   className="h-[600px] rounded-md bg-card p-8 shadow-lg"
                 >

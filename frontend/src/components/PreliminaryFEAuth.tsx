@@ -77,7 +77,7 @@ const PreliminaryAPIFetch = () => {
 }
 
 // How to call log in/sign up
-// Template for requiring additional data from users at sign up: 
+// Template for requiring additional data from users at sign up:
 //    https://developer.auth0.com/resources/templates/forms/onboarding
 const PreliminaryLogin = () => {
   const { loginWithRedirect, isAuthenticated, isLoading, logout } = useAuth0()

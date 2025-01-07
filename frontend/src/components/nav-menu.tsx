@@ -23,30 +23,19 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
-import { SetStateAction, useState } from 'react'
 import { Button } from './ui/button'
 
 interface NavMenuProps {
   isHomePage: boolean
   scrollY: number
   height: number
-  setLoginOpen: React.Dispatch<SetStateAction<boolean>>
-  setIsLogin: React.Dispatch<SetStateAction<boolean>>
 }
 //TODO: Add a login form link, add link to profile page, replace Temporary state logedIn with real state provider when authentication available
 
-export function NavMenu({
-  isHomePage,
-  scrollY,
-  height,
-  setLoginOpen: setLoginDialogOpen,
-  setIsLogin,
-}: NavMenuProps) {
+export function NavMenu({ isHomePage, scrollY, height }: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
-  const [loggedIn, setLoggedIn] = useState<boolean>(false)
-
-  const { loginWithRedirect, isAuthenticated, isLoading, logout } = useAuth0()
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0()
 
   return (
     <DropdownMenu modal={false}>
@@ -67,7 +56,7 @@ export function NavMenu({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {loggedIn && (
+        {isAuthenticated && (
           <>
             <DropdownMenuItem>
               <UserIcon />
