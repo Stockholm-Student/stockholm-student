@@ -71,7 +71,7 @@ const CategoryFilter = ({
       </div>
       <div className="flex flex-col">
         {Object.keys(categoriesMap)
-          .slice(0, visible)
+          .slice(0, visible === 0 ? categoriesLength : visible)
           .map((category) => {
             return (
               <div
@@ -88,13 +88,17 @@ const CategoryFilter = ({
               </div>
             )
           })}
-        <Button
-          variant={'link'}
-          className="self-start pl-1 pt-0"
-          onClick={toggleMore()}
-        >
-          {showMore ? 'Show less' : `Show ${categoriesLength - visible} more`}
-        </Button>
+        {defaultCategoryLength != 0 && (
+          <Button
+            variant={'link'}
+            className="self-start pl-1 pt-0"
+            onClick={toggleMore()}
+          >
+            {showMore
+              ? 'Show less'
+              : `Show ${visible > 0 ? categoriesLength - visible : Math.abs(visible)} more`}
+          </Button>
+        )}
       </div>
     </div>
   )
