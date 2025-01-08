@@ -21,6 +21,8 @@ export default function EventDialog() {
   const [currentPage, setCurrentPage] = useState(1)
   const [, setIsPublished] = useState(true)
 
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]) //array to store selected categories for filtering
+
   function setEvent() {
     // Add event to database
   }
@@ -32,7 +34,10 @@ export default function EventDialog() {
           <PlusIcon /> Add new Event
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="sm:max-w-[425px]"
+        aria-describedby="dialog-description"
+      >
         <DialogHeader>
           <DialogTitle>Add new Event</DialogTitle>
         </DialogHeader>
@@ -75,7 +80,7 @@ export default function EventDialog() {
                 <textarea
                   id="description"
                   placeholder="Event Description (max 500 characters)"
-                  className="col-span-3 h-24 resize-none rounded-md border p-2"
+                  className="col-span-3 h-24 resize-none rounded-md border bg-background p-2"
                   maxLength={500}
                 />
               </div>
@@ -110,7 +115,11 @@ export default function EventDialog() {
                   Category
                 </Label>
                 <ScrollArea className="col-span-3 h-[7.5Rem] rounded-md border p-1.5 pb-0">
-                  <CategoryFilter />
+                  <CategoryFilter
+                    selectedCategories={selectedCategories}
+                    setSelectedCategories={setSelectedCategories}
+                    defaultCategoryLength={0}
+                  />
                 </ScrollArea>
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -152,7 +161,9 @@ export default function EventDialog() {
         </div>
 
         <DialogFooter>
-          <Button variant="outline">Cancel</Button>
+          <DialogClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DialogClose>
           {currentPage === 1 ? (
             <Button onClick={() => setCurrentPage(2)}>Next</Button>
           ) : (
