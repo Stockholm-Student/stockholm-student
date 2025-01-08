@@ -1,9 +1,10 @@
 // pages/Events.tsx
+import EventDialog from '@/components/add-event-dialog'
 import CategoryFilter from '@/components/category-filter'
 import DateRangeFilter from '@/components/date-range-filter'
 import EventCalendar from '@/components/event-calender'
 import { EventCard } from '@/components/event-card'
-import EventDialog from '@/components/event-dialog'
+import EventDetailDialog from '@/components/event-detail-dialog'
 import { Button } from '@/components/ui/button'
 import { Event } from '@/types/interfaces'
 import { addYears } from 'date-fns'
@@ -99,14 +100,28 @@ const Events = () => {
     to: addYears(new Date(), 1),
   })
 
+  const [detailOpen, setDetailOpen] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState<Event | undefined>(
+    undefined
+  )
+  const openDetailDialog = (event: Event) => {
+    setSelectedEvent(event)
+    setDetailOpen(true)
+  }
+
   return (
     <div className="min-h-screen bg-background pt-36">
       <div className="fixed bottom-6 right-6 z-20">
         <EventDialog />
       </div>
+      <EventDetailDialog
+        open={detailOpen}
+        setOpen={setDetailOpen}
+        event={selectedEvent}
+      />
       <div className="px-4">
         {/* Header Section */}
-        <div className="flex justify-between text-foreground">
+        <div className="mb-2 flex flex-col text-foreground md:justify-between">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -119,7 +134,7 @@ const Events = () => {
             </p>
           </motion.div>
 
-          <div className="flex h-fit gap-2 rounded-xl bg-muted p-2">
+          <div className="flex h-fit gap-2 rounded-md bg-muted p-2 justify-center">
             {[
               { type: 'grid', icon: Grid3X3Icon, label: 'Grid' },
               { type: 'calendar', icon: CalendarIcon, label: 'Calendar' },
@@ -207,13 +222,8 @@ const Events = () => {
                     )
                     .map((event) => (
                       <EventCard
-                        key={event.title}
-                        title={event.title}
-                        imageUrl={event.imageUrl}
-                        categories={event.categories}
-                        start={event.start}
-                        location={event.location}
-                        description={event.description}
+                        event={event}
+                        setDetailOpen={() => openDetailDialog(event)}
                       />
                     ))}
                 </div>
