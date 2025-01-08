@@ -134,7 +134,7 @@ const Events = () => {
             </p>
           </motion.div>
 
-          <div className="flex h-fit gap-2 rounded-md bg-muted p-2 justify-center">
+          <div className="flex h-fit justify-center gap-2 rounded-md bg-muted p-2">
             {[
               { type: 'grid', icon: Grid3X3Icon, label: 'Grid' },
               { type: 'calendar', icon: CalendarIcon, label: 'Calendar' },

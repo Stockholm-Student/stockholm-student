@@ -47,7 +47,6 @@ export function ResponsiveDialog({
             )}
           </DialogHeader>
           {children}
-          {sm ? 'hallo' : 'ne'}
         </DialogContent>
       </Dialog>
     )
