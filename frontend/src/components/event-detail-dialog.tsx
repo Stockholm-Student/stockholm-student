@@ -1,3 +1,4 @@
+import { useBreakpoints } from '@/lib/breakpoints'
 import { Event } from '@/types/interfaces'
 import { categoriesMap } from '@/types/types'
 import { BookmarkIcon, Clock3Icon, MapPinIcon, ShareIcon } from 'lucide-react'
@@ -17,63 +18,64 @@ const EventDetailDialog = ({
   setOpen,
   event,
 }: EventDetailDialogProps) => {
-  return (
-    <ResponsiveDialog
-      isOpen={open}
-      setIsOpen={setOpen}
-      title={event ? event?.title : ''}
-      large={true}
-    >
-      <div>
-        <div
-          className={`relative ${event?.imageUrl == '' && 'mb-3 flex h-12 w-full items-center gap-2'}`}
+  const { sm } = useBreakpoints()
+
+  const actionRow = () => {
+    //contains the actionable buttons
+    return (
+      <div className="flex gap-2">
+        <Button
+          variant={'icon'}
+          size={'icon'}
+          onClick={(e) => {
+            e.stopPropagation()
+            console.log('clickedshare')
+          }}
         >
-          {event?.imageUrl != '' && (
-            <img
-              src={event?.imageUrl}
-              alt=""
-              className="mb-4 max-h-48 w-full rounded-sm object-cover md:max-h-60 lg:max-h-80"
-            />
-          )}
-          <Button
-            variant={event?.imageUrl == '' ? 'icon' : 'icon_transparent'}
-            size={'icon'}
-            className={`exclude ${event?.imageUrl == '' ? '' : 'absolute bottom-1 left-1'}`} //exclude class is needed since the Button style is overwritten in the ResponsiveDialog component
-            onClick={(e) => {
-              e.stopPropagation()
-              console.log('clickedshare')
-            }}
-          >
-            <ShareIcon className="" />
-          </Button>
-          <Button
-            variant={event?.imageUrl == '' ? 'icon' : 'icon_transparent'}
-            size={'icon'}
-            className={`exclude ${event?.imageUrl == '' ? '' : 'absolute bottom-1 right-1'}`}
-          >
-            <BookmarkIcon className="" />
-          </Button>
-        </div>
-        <div className="mb-2 flex flex-wrap gap-x-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1">
-            <Clock3Icon className="h-4 w-4" />
-            {event?.start.toLocaleDateString()},{' '}
-            {event?.start.toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit',
-            })}
+          <ShareIcon className="" />
+        </Button>
+        <Button variant={'icon'} size={'icon'}>
+          <BookmarkIcon className="" />
+        </Button>
+        <Button className="exclude">Buy Ticket</Button>
+      </div>
+    )
+  }
+
+  return (
+    <ResponsiveDialog isOpen={open} setIsOpen={setOpen}>
+      <div className="flex flex-col gap-4">
+        {event?.imageUrl != '' && (
+          <img
+            src={event?.imageUrl}
+            alt=""
+            className="max-h-48 w-full rounded-sm object-cover md:max-h-60 lg:max-h-80"
+          />
+        )}
+
+        <div className="flex justify-between">
+          <div className="flex flex-col">
+            <h2 className="text-2xl font-bold">{event?.title}</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <Clock3Icon className="h-4 w-4" />
+                {event?.start.toLocaleDateString()},{' '}
+                {event?.start.toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
+              </div>
+              <div className="flex items-center gap-1">
+                <MapPinIcon className="h-4 w-4" />
+                {event?.location}
+              </div>
+            </div>{' '}
           </div>
-          <div className="flex items-center gap-1">
-            <MapPinIcon className="h-4 w-4" />
-            {event?.location}
-          </div>
+          {sm && actionRow()}
         </div>
-        <div className="mb-3 flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">{event?.title}</h1>
-          <Button className="exclude">Buy Ticket</Button>
-        </div>
-        <div className="mb-3 flex flex-wrap gap-2">
-          {event?.categories.slice(0, 3).map((category) => (
+
+        <div className="flex flex-wrap gap-2">
+          {event?.categories.map((category) => (
             <Badge
               key={category}
               variant={'static'}
@@ -85,6 +87,11 @@ const EventDetailDialog = ({
           ))}
         </div>
         <p>{event?.description}</p>
+        {!sm && (
+          <div className="item-center sticky bottom-1 flex w-full justify-end">
+            {actionRow()}
+          </div>
+        )}
       </div>
     </ResponsiveDialog>
   )

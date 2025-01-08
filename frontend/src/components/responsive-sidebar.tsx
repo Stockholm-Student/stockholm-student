@@ -24,8 +24,8 @@ const ResponsiveSidebar = ({
   resetAllFilters,
   children,
 }: ResponsiveSidebarProps) => {
-  const { sm } = useBreakpoints()
-  if (sm) {
+  const { md } = useBreakpoints()
+  if (md) {
     return (
       <>
         {/* Sidebar closed state */}
@@ -102,7 +102,7 @@ const ResponsiveSidebar = ({
         </Button>
       </div>
       <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-        <DrawerContent className="overflow-scroll px-4 pb-4 after:h-0">
+        <DrawerContent className="px-4 pb-4">
           <DrawerHeader className="px-0 text-left">
             <div className="space-between flex">
               <DrawerTitle className="font-serif text-3xl font-semibold">
@@ -117,7 +117,8 @@ const ResponsiveSidebar = ({
               </Button>
             </div>
           </DrawerHeader>
-          {children}
+          <div className="mb-2 max-h-[50vh] overflow-y-auto">{children}</div>
+          <hr className="-mx-4 w-[100vw]" />
           <Button className="mt-4 w-full" onClick={() => setDrawerOpen(false)}>
             Show {filterEvents().length} Results
           </Button>

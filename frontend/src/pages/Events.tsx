@@ -151,21 +151,16 @@ const Events = () => {
       />
       <div className="px-4">
         {/* Header Section */}
-        <div className="mb-4 flex flex-col text-foreground sm:flex-row sm:items-end md:justify-between">
+        <div className="mb-4 flex flex-row items-end justify-between">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="mb-6 md:mb-0"
           >
             <h1 className="mb-0 font-serif text-5xl font-bold">Events</h1>
-            <p>
-              Discover exciting events happening <wbr /> in the Stockholm
-              student community {sm.toString()}
-              {drawerOpen.toString()}
-            </p>
+            {sm && <p>Discover exciting events happening in Stockholm</p>}
           </motion.div>
 
-          <div className="flex h-fit w-full justify-around gap-2 rounded-md bg-muted p-2 sm:w-fit">
+          <div className="flex h-fit w-fit justify-around rounded-md border p-2 sm:gap-2 sm:border-none sm:bg-muted">
             {[
               {
                 type: 'grid',
@@ -178,17 +173,17 @@ const Events = () => {
               <Button
                 variant={currentView === view.type ? 'default' : 'ghost'}
                 key={view.type}
-                size={sm ? 'lg' : 'default'}
+                size={sm ? 'lg' : 'sm'}
                 onClick={() => setCurrentView(view.type as ViewType)}
                 className="w-full sm:w-auto"
               >
                 <view.icon />
-                {view.label}
+                {sm && view.label}
               </Button>
             ))}
           </div>
         </div>
-        <div className="flex flex-col rounded-md sm:flex-row sm:bg-muted sm:p-6">
+        <div className="flex flex-col rounded-md sm:bg-muted sm:p-4 md:flex-row md:p-6">
           {/* Filter Sidebar */}
           <ResponsiveSidebar
             drawerOpen={drawerOpen}
@@ -213,7 +208,9 @@ const Events = () => {
           <div className="w-full">
             <AnimatePresence mode="wait">
               {currentView === 'grid' && (
-                <div className="grid gap-4 sm:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                <div
+                  className={`grid gap-4 sm:grid-cols-2 ${drawerOpen ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'}`}
+                >
                   {filterEvents().map((event) => (
                     <EventCard
                       event={event}

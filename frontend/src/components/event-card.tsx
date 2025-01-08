@@ -19,7 +19,7 @@ interface EventCardProps {
 export function EventCard({ event, setDetailOpen }: EventCardProps) {
   return (
     <Card
-      className="group min-w-72 cursor-pointer overflow-hidden p-3 transition-all hover:shadow-lg"
+      className="group min-w-72 cursor-pointer overflow-hidden p-3 transition-all hover:shadow-lg sm:border"
       onClick={() => setDetailOpen(true)}
     >
       {event.imageUrl && (
@@ -72,8 +72,8 @@ export function EventCard({ event, setDetailOpen }: EventCardProps) {
             {event.location}
           </div>
         </div>
-        <div className="flex gap-2 overflow-hidden pt-2">
-          {event.categories.slice(0, 3).map((category) => (
+        <div className="no-scrollbar relative flex w-full gap-2 overflow-scroll pt-2">
+          {event.categories.map((category) => (
             <Badge
               key={category}
               variant={'static'}
@@ -83,9 +83,10 @@ export function EventCard({ event, setDetailOpen }: EventCardProps) {
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </Badge>
           ))}
+          <div className="sticky right-0 h-auto bg-gradient-to-r from-transparent to-white pl-6"></div>
         </div>
       </CardHeader>
-      <CardContent className="px-3">
+      <CardContent className="px-3 pb-2">
         <CardDescription className="line-clamp-3">
           {event.description}
         </CardDescription>
