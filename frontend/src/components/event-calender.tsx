@@ -55,6 +55,7 @@ export default function EventCalendar({ localizer = mLocalizer, ...props }) {
           events={events}
           localizer={localizer}
           components={{
+            //@ts-ignore
             toolbar: CalendarToolbar,
           }}
           showMultiDayTimes
