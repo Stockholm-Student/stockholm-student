@@ -1,20 +1,17 @@
 // pages/Events.tsx
+import EventDialog from '@/components/add-event-dialog'
 import CategoryFilter from '@/components/category-filter'
 import DateRangeFilter from '@/components/date-range-filter'
 import EventCalendar from '@/components/event-calender'
 import { EventCard } from '@/components/event-card'
-import EventDialog from '@/components/event-dialog'
+import EventDetailDialog from '@/components/event-detail-dialog'
+import ResponsiveSidebar from '@/components/responsive-sidebar'
 import { Button } from '@/components/ui/button'
+import { useBreakpoints } from '@/lib/breakpoints'
 import { Event } from '@/types/interfaces'
 import { addYears } from 'date-fns'
 import { AnimatePresence, motion } from 'framer-motion'
-import {
-  CalendarIcon,
-  Grid3X3Icon,
-  MapPinIcon,
-  PanelLeftCloseIcon,
-  PanelLeftOpenIcon,
-} from 'lucide-react'
+import { CalendarIcon, Grid3X3Icon, ListIcon, MapPinIcon } from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 
@@ -85,10 +82,12 @@ const events: Event[] = [
 type ViewType = 'calendar' | 'grid' | 'map'
 
 const Events = () => {
+  const { sm } = useBreakpoints()
+
   const defaultShownFilters: number = 4
 
   const [currentView, setCurrentView] = useState<ViewType>('grid') //default view is grid
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(true) //default drawer state is open
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false) //default drawer state is open for desktop but needs to be reversed since mobile drawer problems
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]) //array to store selected categories for filtering
   const [selectedDateRange, setSelectedDateRange] = useState<
@@ -99,123 +98,125 @@ const Events = () => {
     to: addYears(new Date(), 1),
   })
 
+  const [detailOpen, setDetailOpen] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState<Event | undefined>(
+    undefined
+  )
+  const openDetailDialog = (event: Event) => {
+    setSelectedEvent(event)
+    setDetailOpen(true)
+  }
+
+  const filterEvents = (): Event[] => {
+    //returns list of filtered events
+    return (
+      events //filter events based on selected Date Range
+        .filter((a) =>
+          selectedDateRange != undefined &&
+          selectedDateRange.from != undefined &&
+          selectedDateRange.to != undefined
+            ? a.start.getTime() >=
+                selectedDateRange.from.setHours(0, 0, 0, 0) &&
+              a.start.getTime() <= selectedDateRange.to.setHours(23, 59, 59, 0)
+            : true
+        )
+        //sort events based on start time
+        .sort((a, b) => a.start.getTime() - b.start.getTime())
+        //filter events based on selected categories, Elemtents must contain all selected categories
+        .filter(
+          (a) =>
+            selectedCategories.length === 0 ||
+            selectedCategories.every((r) => a.categories.includes(r))
+        )
+    )
+  }
+
+  const resetAllFilters = () => {
+    setSelectedCategories([])
+    setSelectedDateRange({
+      from: new Date(),
+      to: addYears(new Date(), 1),
+    })
+  }
+
   return (
     <div className="min-h-screen bg-background pt-36">
       <div className="fixed bottom-6 right-6 z-20">
         <EventDialog />
       </div>
+      <EventDetailDialog
+        open={detailOpen}
+        setOpen={setDetailOpen}
+        event={selectedEvent}
+      />
       <div className="px-4">
         {/* Header Section */}
-        <div className="flex justify-between text-foreground">
+        <div className="mb-4 flex flex-row items-end justify-between">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="mb-6"
           >
             <h1 className="mb-0 font-serif text-5xl font-bold">Events</h1>
-            <p>
-              Discover exciting events happening in the Stockholm student
-              community
-            </p>
+            {sm && <p>Discover exciting events happening in Stockholm</p>}
           </motion.div>
 
-          <div className="flex h-fit gap-2 rounded-xl bg-muted p-2">
+          <div className="flex h-fit w-fit justify-around rounded-md border p-2 sm:gap-2 sm:border-none sm:bg-muted">
             {[
-              { type: 'grid', icon: Grid3X3Icon, label: 'Grid' },
+              {
+                type: 'grid',
+                icon: sm ? Grid3X3Icon : ListIcon,
+                label: sm ? 'Grid' : 'List',
+              },
               { type: 'calendar', icon: CalendarIcon, label: 'Calendar' },
               { type: 'map', icon: MapPinIcon, label: 'Map' },
             ].map((view) => (
               <Button
                 variant={currentView === view.type ? 'default' : 'ghost'}
                 key={view.type}
-                size={'lg'}
+                size={sm ? 'lg' : 'sm'}
                 onClick={() => setCurrentView(view.type as ViewType)}
+                className="w-full sm:w-auto"
               >
                 <view.icon />
-                {view.label}
+                {sm && view.label}
               </Button>
             ))}
           </div>
         </div>
-
-        <div className="flex rounded-md bg-muted p-6">
-          <div className={`mr-3 border-r-2 ${drawerOpen && 'hidden'}`}>
-            <Button
-              variant={'ghost'}
-              size={'icon'}
-              onClick={() => setDrawerOpen(!drawerOpen)}
-              className="sticky top-20"
-            >
-              <PanelLeftOpenIcon className="!h-6 !w-6" />
-            </Button>
-          </div>
-          <div
-            className={`mr-4 w-[250px] border-r-2 ${!drawerOpen && 'hidden'} pr-4`}
+        <div className="flex flex-col rounded-md sm:bg-muted sm:p-4 md:flex-row md:p-6">
+          {/* Filter Sidebar */}
+          <ResponsiveSidebar
+            drawerOpen={drawerOpen}
+            setDrawerOpen={setDrawerOpen}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+            filterEvents={filterEvents}
+            resetAllFilters={resetAllFilters}
           >
-            <div className="sticky top-20">
-              <div className="flex flex-row items-center gap-2 pb-4">
-                <Button
-                  variant={'ghost'}
-                  size={'icon'}
-                  onClick={() => setDrawerOpen(!drawerOpen)}
-                >
-                  <PanelLeftCloseIcon className="!h-6 !w-6" />
-                </Button>
-                <span className="text-2xl font-medium">Filters</span>
-                <Button variant={'outline'} className="ml-auto">
-                  Reset all
-                </Button>
-              </div>
-              <CategoryFilter
-                selectedCategories={selectedCategories}
-                setSelectedCategories={setSelectedCategories}
-                defaultCategoryLength={defaultShownFilters}
-              ></CategoryFilter>
-              <DateRangeFilter
-                selectedDateRange={selectedDateRange}
-                setSelectedDateRange={setSelectedDateRange}
-              ></DateRangeFilter>
-            </div>
-          </div>
-
+            {/* Filter Components */}
+            <CategoryFilter
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              defaultCategoryLength={defaultShownFilters}
+            ></CategoryFilter>
+            <DateRangeFilter
+              selectedDateRange={selectedDateRange}
+              setSelectedDateRange={setSelectedDateRange}
+            ></DateRangeFilter>
+          </ResponsiveSidebar>
           {/* Events Content */}
           <div className="w-full">
             <AnimatePresence mode="wait">
               {currentView === 'grid' && (
-                <div className="grid gap-4 sm:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                  {events
-                    .filter(
-                      (
-                        a //filter events based on selected Date Range
-                      ) =>
-                        selectedDateRange != undefined &&
-                        selectedDateRange.from != undefined &&
-                        selectedDateRange.to != undefined
-                          ? a.start.getTime() >=
-                              selectedDateRange.from.setHours(0, 0, 0, 0) &&
-                            a.start.getTime() <=
-                              selectedDateRange.to.setHours(23, 59, 59, 0)
-                          : true
-                    )
-                    .sort((a, b) => a.start.getTime() - b.start.getTime())
-                    .filter(
-                      (a) =>
-                        selectedCategories.length === 0 ||
-                        selectedCategories.every((r) =>
-                          a.categories.includes(r)
-                        )
-                    )
-                    .map((event) => (
-                      <EventCard
-                        key={event.title}
-                        title={event.title}
-                        imageUrl={event.imageUrl}
-                        categories={event.categories}
-                        start={event.start}
-                        location={event.location}
-                        description={event.description}
-                      />
-                    ))}
+                <div
+                  className={`grid gap-4 sm:grid-cols-2 ${drawerOpen ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'}`}
+                >
+                  {filterEvents().map((event) => (
+                    <EventCard
+                      event={event}
+                      setDetailOpen={() => openDetailDialog(event)}
+                    />
+                  ))}
                 </div>
               )}
 
