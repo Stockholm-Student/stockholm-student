@@ -2,37 +2,29 @@ import HomeEventsSection from '@/components/home-events-section'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRightIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StockholmImage from '../assets/stockholm-night-day.jpeg'
 
 const Home = () => {
   const navigate = useNavigate()
-  const [scrollY, setScrollY] = useState(0)
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  useEffect(() => {}, [])
 
   return (
-    <div className="relative min-h-screen scroll-smooth bg-background">
+    <div className="relative scroll-smooth bg-green-100">
       {/* Background with parallax effect */}
       <div className="relative h-screen overflow-hidden">
-        <motion.div
-          className={`absolute inset-0 transition-all ${scrollY == 0 ? 'p-8' : 'p-0'}`}
-          style={{ y: scrollY * 0.5 }}
-        >
+        <motion.div className="fixed">
           <img
             src={StockholmImage}
             alt="Stockholm"
-            className={`h-full w-full object-cover ${scrollY == 0 ? 'rounded-xl' : ''}`}
+            className="h-[100vh] w-full object-cover"
           />
         </motion.div>
 
         {/* Title and Button */}
-        <div className="relative z-20 flex h-full flex-col justify-center px-4 text-neutral-100">
+        <div className="relative flex h-full flex-col justify-center px-4 text-neutral-100">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -69,10 +61,10 @@ const Home = () => {
       <HomeEventsSection />
       {/* <HomeQuestionsSection /> */}
 
-      <div className="flex flex-col justify-center p-10">
+      <div className="relative flex flex-col justify-center bg-background p-10">
         <span className="text-2xl">Components Showcase:</span>
         <span className="mb-2 mt-5 text-lg">Buttons:</span>
-        <div className="flex w-full justify-around">
+        <div className="flex w-full flex-wrap gap-2 sm:justify-around">
           <Button>
             Default
             <ArrowRightIcon />
@@ -88,8 +80,8 @@ const Home = () => {
           <Button variant={'destructive'}>Destructive</Button>
         </div>
         <span className="my-4 text-lg">Colors:</span>
-        <div className="flex space-x-4">
-          <div className="rounded-xl bg-white p-5 text-black">
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="rounded-xl bg-neutral-200 p-5 text-black">
             <span>Lightmode:</span>
             <div className="flex space-x-2">
               <div className="h-5 w-5 bg-background"></div>
@@ -238,8 +230,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* Enhanced gradient overlay */}
-      {/* <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/30 to-transparent" /> */}
     </div>
   )
 }
