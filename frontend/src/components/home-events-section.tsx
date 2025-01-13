@@ -10,11 +10,10 @@ const ScrollSection = () => {
 
   return (
     <>
-      <div className="relative -mt-4 h-10 w-full rounded-t-2xl bg-background"></div>
-
-      <section className="relative flex min-h-screen items-center justify-center">
+      <section className="relative flex min-h-screen items-center justify-center rounded-t-2xl bg-background">
         {/* Content */}
-        <div className="mx-auto flex w-full max-w-screen-xl flex-row space-x-12 px-6 py-20">
+
+        <div className="mx-auto flex w-full max-w-screen-xl flex-col gap-12 px-6 py-8 sm:flex-row sm:py-20">
           <div className="flex w-full flex-col items-start justify-center space-y-10 lg:w-8/12">
             {/* Title Section */}
             <motion.div
@@ -51,15 +50,21 @@ const ScrollSection = () => {
               Next Event:
             </p>
             <div className="rounded-xl border border-white/10 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 p-4 backdrop-blur-sm">
-              <div className="relative flex h-[600px] w-full flex-col justify-center overflow-clip rounded-lg bg-white text-center">
-                <img src={image} alt="Event" className="absolute object-fill" />
+              <div className="relative flex h-fit w-full flex-col justify-center overflow-clip rounded-lg bg-white text-center">
+                <img
+                  src={image}
+                  alt="Event"
+                  className="min-h-28 object-fill sm:min-h-48"
+                />
                 <div className="absolute bottom-0 top-0 w-full bg-black opacity-40"></div>
-                <p className="relative text-4xl font-bold text-white">
-                  Event Card Here
-                </p>
-                <p className="relative text-2xl font-semibold text-white">
-                  Event Description
-                </p>
+                <div className="absolute w-full justify-center">
+                  <p className="text-4xl font-bold text-white">
+                    Event Card Here
+                  </p>
+                  <p className="text-2xl font-semibold text-white">
+                    Event Description
+                  </p>
+                </div>
               </div>
             </div>
           </div>

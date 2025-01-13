@@ -22,6 +22,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useBreakpoints } from '@/lib/breakpoints'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import { Button } from './ui/button'
 
@@ -36,6 +37,7 @@ export function NavMenu({ isHomePage, scrollY, height }: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0()
+  const { sm } = useBreakpoints()
 
   return (
     <DropdownMenu modal={false}>
@@ -43,13 +45,13 @@ export function NavMenu({ isHomePage, scrollY, height }: NavMenuProps) {
         <Button
           size={'icon'}
           variant={'icon'}
-          className={`fixed bg-foreground p-0 hover:bg-foreground/70 ${isHomePage && scrollY < height && '!bg-background'} ${isHomePage && scrollY == 0 ? 'right-12 top-12' : 'right-4 top-3'}`}
+          className={`fixed p-0 transition-all ${isHomePage && scrollY < height ? 'bg-background hover:bg-background/70 dark:bg-foreground dark:hover:bg-foreground/70' : 'bg-foreground hover:bg-foreground/70'} ${isHomePage && sm && scrollY == 0 ? 'right-4 top-16' : 'right-4 top-3'} `}
         >
           <Avatar>
             <AvatarImage src="" />
             <AvatarFallback>
               <UserIcon
-                className={`text-background ${isHomePage && scrollY < height && '!text-foreground'}`}
+                className={` ${isHomePage && scrollY < height ? 'text-foreground' : 'text-background'} dark:text-background`}
               ></UserIcon>
             </AvatarFallback>
           </Avatar>{' '}
