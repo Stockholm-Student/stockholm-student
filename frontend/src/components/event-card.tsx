@@ -83,7 +83,8 @@ export function EventCard({ event, setDetailOpen }: EventCardProps) {
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </Badge>
           ))}
-          <div className="sticky right-0 h-auto bg-gradient-to-r from-transparent to-white pl-6"></div>
+          {/* Small shade over the end of badge row to make overflowing badges fade and not a hard cut */}
+          <div className="sticky right-0 h-auto bg-gradient-to-r from-transparent to-card pl-6 transition-all"></div>
         </div>
       </CardHeader>
       <CardContent className="px-3 pb-2">
