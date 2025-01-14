@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import {
   CalendarHeartIcon,
   LaptopIcon,
+  LogInIcon,
   LogOutIcon,
   MoonIcon,
   SunIcon,
@@ -33,11 +34,17 @@ interface NavMenuProps {
 }
 //TODO: Add a login form link, add link to profile page, replace Temporary state logedIn with real state provider when authentication available
 
-export function NavMenu({ isHomePage, scrollY, height }: NavMenuProps) {
+export function UserMenu({ isHomePage, scrollY, height }: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0()
   const { sm } = useBreakpoints()
+
+  const user = {
+    name: 'John Doe',
+    email: '',
+    image: '',
+  }
 
   return (
     <DropdownMenu modal={false}>
@@ -48,13 +55,21 @@ export function NavMenu({ isHomePage, scrollY, height }: NavMenuProps) {
           className={`fixed p-0 transition-all ${isHomePage && scrollY < height ? 'bg-background hover:bg-background/70 dark:bg-foreground dark:hover:bg-foreground/70' : 'bg-foreground hover:bg-foreground/70'} ${isHomePage && sm && scrollY == 0 ? 'right-4 top-16' : 'right-4 top-3'} `}
         >
           <Avatar>
-            <AvatarImage src="" />
+            <AvatarImage src={user.image} />
             <AvatarFallback>
-              <UserIcon
-                className={` ${isHomePage && scrollY < height ? 'text-foreground' : 'text-background'} dark:text-background`}
-              ></UserIcon>
+              {isAuthenticated ? (
+                <span
+                  className={` ${isHomePage && scrollY < height ? 'text-foreground' : 'text-background'} dark:text-background`}
+                >
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
+              ) : (
+                <UserIcon
+                  className={` ${isHomePage && scrollY < height ? 'text-foreground' : 'text-background'} dark:text-background`}
+                ></UserIcon>
+              )}
             </AvatarFallback>
-          </Avatar>{' '}
+          </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -97,13 +112,14 @@ export function NavMenu({ isHomePage, scrollY, height }: NavMenuProps) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {isAuthenticated ? (
-            <button
+            <DropdownMenuItem
               onClick={() =>
                 logout({ logoutParams: { returnTo: window.location.origin } })
               }
             >
-              Log Out
-            </button>
+              <LogOutIcon />
+              <span>Log out</span>
+            </DropdownMenuItem>
           ) : (
             <>
               <DropdownMenuItem
@@ -119,7 +135,7 @@ export function NavMenu({ isHomePage, scrollY, height }: NavMenuProps) {
                 <span>Sign up</span>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => loginWithRedirect()}>
-                <LogOutIcon />
+                <LogInIcon />
                 <span>Log in</span>
               </DropdownMenuItem>
             </>
