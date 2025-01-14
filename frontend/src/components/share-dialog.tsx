@@ -1,49 +1,31 @@
 import { CopyIcon, ShareIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-interface ShareDialogProps {
+interface SharePopoverProps {
   shareLink: string
 }
 
-export function ShareDialog({ shareLink }: ShareDialogProps) {
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+
+export function SharePopover({ shareLink }: SharePopoverProps) {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        {/* <Button variant="outline">Share</Button> */}
-        <Button
-          aria-label="Share Event"
-          variant={'icon'}
-          size={'icon'}
-          onClick={(e) => {
-            e.stopPropagation()
-            console.log('clickedshare')
-          }}
-        >
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button aria-label="Share Event" variant={'icon'} size={'icon'}>
           <ShareIcon className="" />
         </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="sm:max-w-md"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <DialogHeader>
-          <DialogTitle>Share link</DialogTitle>
-          <DialogDescription>
-            Anyone who has this link will be able to view this.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex items-center space-x-2">
+      </PopoverTrigger>
+      <PopoverContent usePortal={false} side="top" className="w-auto">
+        <div className="text-2xl">Share link</div>
+        Anyone who has this link will be able to view this.
+        <div className="mt-4 flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
             <Label htmlFor="link" className="sr-only">
               Link
@@ -61,8 +43,8 @@ export function ShareDialog({ shareLink }: ShareDialogProps) {
             <span className="sr-only">Copy</span>
             <CopyIcon />
           </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+        </div>{' '}
+      </PopoverContent>
+    </Popover>
   )
 }

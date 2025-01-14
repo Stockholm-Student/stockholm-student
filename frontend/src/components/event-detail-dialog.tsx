@@ -4,7 +4,7 @@ import { categoriesMap } from '@/types/types'
 import { BookmarkIcon, Clock3Icon, MapPinIcon } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
 import { ResponsiveDialog } from './responsive-dialog'
-import { ShareDialog } from './share-dialog'
+import { SharePopover } from './share-dialog'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 
@@ -25,7 +25,7 @@ const EventDetailDialog = ({
     //contains the actionable buttons
     return (
       <div className="flex gap-2">
-        <ShareDialog shareLink="https://stockholmstudent.com" />
+        <SharePopover shareLink="https://stockholmstudent.com" />
 
         <Button variant={'icon'} size={'icon'} aria-label="Bookmark Event">
           <BookmarkIcon className="" />

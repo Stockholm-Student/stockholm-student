@@ -9,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { useBreakpoints } from '@/lib/breakpoints'
 import { cn } from '@/lib/utils'
 
 interface DateRangeFilterProps {
@@ -34,6 +35,8 @@ export function DateRangeFilter({
     //clear selected date range to the standard one year range
     setSelectedDateRange({ from: new Date(), to: addYears(new Date(), 1) })
   }
+
+  const { sm } = useBreakpoints()
 
   return (
     <div className={cn('grid gap-2')}>
@@ -72,14 +75,18 @@ export function DateRangeFilter({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent
+          usePortal={sm ? true : false}
+          className="w-auto p-0"
+          align="start"
+        >
           <Calendar
             initialFocus
             mode="range"
             defaultMonth={selectedDateRange?.from}
             selected={selectedDateRange}
             onSelect={setSelectedDateRange}
-            numberOfMonths={2}
+            numberOfMonths={sm ? 2 : 1}
           />
         </PopoverContent>
       </Popover>
