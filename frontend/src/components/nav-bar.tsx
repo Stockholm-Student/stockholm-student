@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import MobileNavitem from './MobileNavItem'
-import { NavMenu } from './nav-menu'
+import { UserMenu } from './user-menu'
 
 import logo from '@/assets/logo/horizontal-logo.svg'
 
@@ -115,7 +115,7 @@ const Navbar = () => {
                 </td>
 
                 <td>
-                  <NavMenu
+                  <UserMenu
                     isHomePage={isHomePage}
                     scrollY={scrollY}
                     height={height}
@@ -139,7 +139,7 @@ const Navbar = () => {
             className={`${isHomePage && scrollY < height && 'invert'} h-12 fill-background dark:invert`}
           />
         </Link>
-        <NavMenu isHomePage={isHomePage} scrollY={scrollY} height={height} />
+        <UserMenu isHomePage={isHomePage} scrollY={scrollY} height={height} />
       </div>
 
       <nav className="fixed bottom-0 z-50 flex w-full justify-between bg-muted px-2 py-4">
