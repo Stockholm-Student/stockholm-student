@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   CalendarHeartIcon,
+  CheckIcon,
   LaptopIcon,
   LogInIcon,
   LogOutIcon,
@@ -96,15 +97,26 @@ export function UserMenu({ isHomePage, scrollY, height }: NavMenuProps) {
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
-              <DropdownMenuItem onClick={() => setTheme('light')}>
-                <SunIcon />
+              <DropdownMenuItem
+                className={`${theme === 'light' && 'border border-l-foreground'}`}
+                onClick={() => setTheme('light')}
+              >
+                {theme === 'light' ? <CheckIcon /> : <SunIcon />}
                 Light
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme('dark')}>
-                <MoonIcon /> Dark
+              <DropdownMenuItem
+                className={`${theme === 'dark' && 'border border-l-foreground'}`}
+                onClick={() => setTheme('dark')}
+              >
+                {theme === 'dark' ? <CheckIcon /> : <MoonIcon />}
+                Dark
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme('system')}>
-                <LaptopIcon /> System
+              <DropdownMenuItem
+                className={`${theme === 'system' && 'border border-l-foreground'}`}
+                onClick={() => setTheme('system')}
+              >
+                {theme === 'system' ? <CheckIcon /> : <LaptopIcon />}
+                System
               </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
