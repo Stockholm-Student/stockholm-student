@@ -8,7 +8,8 @@ import {
 } from '@/components/ui/card'
 import { Event } from '@/types/interfaces'
 import { categoriesMap } from '@/types/types'
-import { BookmarkIcon, Clock3Icon, MapPinIcon, ShareIcon } from 'lucide-react'
+import { useAuth0 } from '@auth0/auth0-react'
+import { BookmarkIcon, Clock3Icon, MapPinIcon } from 'lucide-react'
 import { Badge } from './ui/badge'
 
 interface EventCardProps {
@@ -17,6 +18,15 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, setDetailOpen }: EventCardProps) {
+  const { isAuthenticated } = useAuth0()
+
+  const saveEvent = (event: Event) => {
+    if (!isAuthenticated) {
+      console.log('not authenticated')
+      return
+    }
+    console.log('save event', event)
+  }
   return (
     <Card
       className="group min-w-72 cursor-pointer overflow-hidden p-3 transition-all hover:shadow-lg sm:border"
@@ -24,29 +34,20 @@ export function EventCard({ event, setDetailOpen }: EventCardProps) {
     >
       {event.imageUrl && (
         <>
-          <div className="relative h-48 w-full overflow-clip rounded-sm">
-            <Button
-              variant={'icon_transparent'}
-              size={'icon'}
-              className="absolute bottom-1 left-1 z-10"
-              onClick={(e) => {
-                e.stopPropagation()
-                console.log('clickedshare')
-              }}
-            >
-              <ShareIcon className="" />
-            </Button>
-            <Button
-              variant={'icon_transparent'}
-              size={'icon'}
-              className="absolute bottom-1 right-1 z-10"
-              onClick={(e) => {
-                e.stopPropagation()
-                console.log('clickedsave')
-              }}
-            >
-              <BookmarkIcon className="" />
-            </Button>
+          <div className="relative aspect-video w-full overflow-clip rounded-sm">
+            {isAuthenticated && (
+              <Button
+                variant={'icon_transparent'}
+                size={'icon'}
+                className="absolute bottom-1 right-1 z-10"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  saveEvent(event)
+                }}
+              >
+                <BookmarkIcon className="" />
+              </Button>
+            )}
             <img
               src={event.imageUrl}
               alt={event.title}
