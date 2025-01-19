@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const OrgModel = mongoose.model(
+export const RoleModel = mongoose.model(
   "Role", // name of collection
   new mongoose.Schema({
     name: {

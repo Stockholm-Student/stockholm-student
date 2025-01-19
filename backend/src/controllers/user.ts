@@ -1,6 +1,3 @@
-// import bcrypt from "bcrypt";
-
-
 import { Request, Response } from 'express';
 import { UserModel } from '../models/user';
 import { dbConnection } from '../db/dbConnect';
@@ -23,7 +20,7 @@ export const postUser = async (req: Request, res: Response) => {
     await newUser.save();
     res.json({ msg: "success", data: newUser })
   } catch (error) {
-    res.status(500).send(error);
+    res.status(400).send({error : (error as Error)?.message || ""});
   }
 }
 

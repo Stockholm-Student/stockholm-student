@@ -3,8 +3,8 @@ import { dbConnection } from '../../db/dbConnect';
 
 
 const connection = dbConnection
-
 export const publicTestEP = express.Router();
+
 
 publicTestEP.route('/health')
   .get(async (_, res) => {
