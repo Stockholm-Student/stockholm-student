@@ -1,30 +1,64 @@
+import mongoose from "mongoose";
+  
+export const EventModel = mongoose.model(
+  "Event", // name of collection
+  new mongoose.Schema({
+    eventId: {
+      type: mongoose.Schema.Types.UUID,
+      required: true,
+    },
+    creatorId: {
+      type: mongoose.Schema.Types.UUID,
+      ref: "User",
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      required: false,
+    },
+    updatedAt: {
+      type: Date,
+      required: true,
+    },
+    start: {
+      type: Date,
+      required: true,
+    },
+    end: {
+      type: Date,
+      required: false,
+      
+    },
+    location: {
+      type: JSON,
+      required: true,
+    },
+    IsPublished: {
+      type: Boolean,
+      required: true,
+    },
 
-export interface IEvent {
-  // _id: string,
-  // creatorId: string
-  name: string, 
-  // title: string,
-  // description: string,
-  // date: Date,
-  // time: string, // should be part of date object?
-  // location: string, // geoJSON?
-  // categories: string, // string[]?
-  // maxAttendees: number,
-  // images: string[], // string[] of uri:s?
-  // isPublished: boolean,
-  // createdAt: Date,
-  // lastUpdatedAt: Date,
-}
-
-
-
-
-
-export const mockDBEvents: IEvent[] = [
-  { name: "party 1" },
-  { name: "party 2" },
-  { name: "party 3" },
-  { name: "party 4" },
-]
-
-
+    // from relations
+    community: {
+      type: mongoose.Schema.Types.UUID,
+      ref: "Community",
+      required: false,
+      default: "",
+    },
+    categories: {
+      type: [mongoose.Schema.Types.UUID],
+      ref: "Category",
+      required: true,
+    },
+    // add image
+  })
+);

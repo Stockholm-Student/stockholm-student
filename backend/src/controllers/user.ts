@@ -2,30 +2,35 @@
 
 
 import { Request, Response } from 'express';
-import { mockDBUsers } from '../models/user';
+import { UserModel } from '../models/user';
+import { dbConnection } from '../db/dbConnect';
+
+
+const connection = dbConnection
+
+export const postUser = async (req: Request, res: Response) => {
+  try {
+
+    const newUUID = crypto.randomUUID()
+    console.log(newUUID);
+
+    const newUser = new UserModel({
+      userId: newUUID, 
+      ...req.body
+    });
+    
+
+    await newUser.save();
+    res.json({ msg: "success", data: newUser })
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
 
 export const getOneUser = async (req: Request, res: Response) => {
-  res.json(mockDBUsers[Math.floor(Math.random() * (mockDBUsers.length - 1))])
+  res.json({})
 }
 
 export const getAllUsers = async (req: Request, res: Response) => {
-  res.json(mockDBUsers)
+  res.json({})
 }
-
-
-
-
-// export default class User {
-//   users: IUser[] = [];
-
-//   async initUsers() {
-//     const p = await bcrypt.hash("abc", 10);
-//     this.users = [
-//       {email: "bojack@wesleyan.com", password: p, username: "horse_professor"}
-//     ];
-//   }
-
-//   findUser(email: string) {
-//     return this.users.find(u => u.email === email);
-//   } 
-// }

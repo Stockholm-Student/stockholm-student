@@ -5,7 +5,7 @@ import { jwtCheck } from '../../auth/auth';
 export const secureEndpoints = express.Router();
 
 
-secureEndpoints.use(jwtCheck)
+//secureEndpoints.use(jwtCheck)
 secureEndpoints.use('/secure/',
   secureEventEndpoints
 )
