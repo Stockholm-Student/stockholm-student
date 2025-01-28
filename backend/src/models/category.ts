@@ -6,6 +6,7 @@ export const CategoryModel = mongoose.model(
     name: {
       type: String,
       required: true,
+      unique: true,
     }
   })
 );

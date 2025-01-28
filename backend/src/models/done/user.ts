@@ -1,17 +1,18 @@
 import mongoose, { Mongoose, Schema } from "mongoose";
 import { CountryModel, UniversityModel } from "./powerTypes";
-import { RoleModel } from "./role";
-import { EventModel } from "./event";
-import { ArticleModel } from "./article";
-import { CategoryModel } from "./category";
-import { validateDocumentRef, validateDocumentRefList } from "../db/schemaValidation";
+import { RoleModel } from "../role";
+import { EventModel } from "../event";
+import { ArticleModel } from "../article";
+import { CategoryModel } from "../category";
+import { validateDocumentOneRef, validateDocumentRefList } from "../../db/schemaValidation";
 
 
 
 const UserSchema = new mongoose.Schema({
   userId: {
-    type: String,
-    default: mongoose.Schema.Types.UUID,
+    // type: String,
+    // default: mongoose.Schema.Types.UUID,
+    type: mongoose.Schema.Types.UUID, 
     unique: true,
     required: true,
   },
@@ -84,13 +85,13 @@ UserSchema.pre(
   async function (next) {
     try {   
       await Promise.all([
+        validateDocumentOneRef(this.country, CountryModel, {name: this.country}),
+        validateDocumentOneRef(this.university, UniversityModel, {name: this.university}),
+
         validateDocumentRefList(this.roles, RoleModel, role => { return { name: role }}),
         validateDocumentRefList(this.bookmarkedEvents, EventModel, uuid => { return { eventId: uuid }}),
         validateDocumentRefList(this.bookmarkedWikiArticles, ArticleModel, uuid => { return { articleId: uuid }}),
         validateDocumentRefList(this.interests, CategoryModel, category => { return { name: category }}),
-  
-        validateDocumentRef(this.country, CountryModel),
-        validateDocumentRef(this.university, UniversityModel),
       ])
     } catch(err) {
       next(err as mongoose.CallbackError)
@@ -99,10 +100,9 @@ UserSchema.pre(
 )
 
 
+
+
 export const UserModel = mongoose.model(
   "User", // name of collection
   UserSchema
 );
-
-
-

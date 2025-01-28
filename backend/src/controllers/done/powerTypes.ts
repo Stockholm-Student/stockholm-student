@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { } from '../models/user';
-import { dbConnection } from '../db/dbConnect';
-import { CountryModel, UniversityModel } from '../models/powerTypes';
+import { } from '../../models/done/user';
+import { dbConnection } from '../../db/dbConnect';
+import { CountryModel, UniversityModel } from '../../models/done/powerTypes';
 
 
 const connection = dbConnection

@@ -6,6 +6,7 @@ export const UniversityModel = mongoose.model(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
 }))
 
@@ -16,6 +17,7 @@ export const CountryModel = mongoose.model(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
 }))
 
@@ -26,5 +28,6 @@ export const CommunityStatus = mongoose.model(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
 }))

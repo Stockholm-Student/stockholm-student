@@ -3,10 +3,10 @@ import { dbConnection } from '../../db/dbConnect';
 
 
 const connection = dbConnection
-export const publicTestEP = express.Router();
+export const publicHealth = express.Router();
 
 
-publicTestEP.route('/health')
+publicHealth.route('/health')
   .get(async (_, res) => {
     res.json({
       status: 'ok',
