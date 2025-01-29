@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { secureEventEndpoints } from './eventEndpoints';
-import { jwtCheck } from '../../auth/auth';
+// import { jwtCheck } from '../../auth/authAuthO';
 
 export const secureEndpoints = express.Router();
 
