@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-import { dbConnection } from "../db/dbConnect"
 import { CategoryModel } from "../models/category"
-
-const connection = dbConnection
 
 
 export const postCategory = async(req: Request, res: Response) => {

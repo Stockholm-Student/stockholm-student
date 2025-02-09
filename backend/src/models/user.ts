@@ -1,10 +1,10 @@
 import mongoose, { Mongoose, Schema } from "mongoose";
 import { CountryModel, UniversityModel } from "./powerTypes";
-import { RoleModel } from "../role";
-import { EventModel } from "../event";
-import { ArticleModel } from "../article";
-import { CategoryModel } from "../category";
-import { validateDocumentOneRef, validateDocumentRefList } from "../../db/schemaValidation";
+import { RoleModel } from "./role";
+import { EventModel } from "./event";
+import { ArticleModel } from "./article";
+import { CategoryModel } from "./category";
+import { validateDocumentOneRef, validateDocumentRefList } from "../db/schemaValidation";
 
 
 

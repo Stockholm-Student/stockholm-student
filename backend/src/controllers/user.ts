@@ -1,10 +1,5 @@
 import { Request, Response } from 'express';
-import { UserModel } from '../../models/done/user';
-import { dbConnection } from '../../db/dbConnect';
-import {v4 as uuidv4} from 'uuid';
-
-
-const connection = dbConnection
+import { UserModel } from '../models/user';
 
 
 export const postUser = async (req: Request, res: Response) => {

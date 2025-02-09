@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
-import { } from '../../models/done/user';
-import { dbConnection } from '../../db/dbConnect';
-import { CountryModel, UniversityModel } from '../../models/done/powerTypes';
+import { } from '../models/user';
+import { CountryModel, UniversityModel } from '../models/powerTypes';
 
-
-const connection = dbConnection
 
 
 export const getOneUniversity = async (req: Request, res: Response) => {

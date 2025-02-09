@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
-import { dbConnection } from '../db/dbConnect';
 import { EventModel } from '../models/event';
 
-
-const connection = dbConnection
 
 export const postEvent = async (req: Request, res: Response) => {
   try {

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { validateDocumentOneRef, validateDocumentRefList } from "../db/schemaValidation";
 import { CommunityModel } from "./community";
 import { CategoryModel } from "./category";
-import { UserModel } from "./done/user";
+import { UserModel } from "./user";
 
 
 const EventSchema = new mongoose.Schema({
@@ -74,7 +74,6 @@ EventSchema.pre(
       await Promise.all([  
         validateDocumentOneRef(this.community, CommunityModel, { communityId: this.community}),
         validateDocumentOneRef(this.creatorId, UserModel, { userId: this.creatorId }),
-
         validateDocumentRefList(this.categories, CategoryModel, (category) => { return { name: category }}),
       ])
     } catch(err) {
