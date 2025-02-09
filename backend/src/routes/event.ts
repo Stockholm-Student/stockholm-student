@@ -1,11 +1,8 @@
-import express from 'express';
-import { getAllEvents, getOneEvent, postEvent } from '../controllers/event';
+import express from 'express'
+import { getAllEvents, getOneEvent, postEvent } from '../controllers/event'
 
-export const eventEndpoints = express.Router();
+export const eventEndpoints = express.Router()
 
-eventEndpoints.route('/events')
-  .get(getAllEvents)
-  .post(postEvent)
+eventEndpoints.route('/events').get(getAllEvents).post(postEvent)
 
-eventEndpoints.route('/events/:eventId')
-  .get(getOneEvent)
+eventEndpoints.route('/events/:eventId').get(getOneEvent)

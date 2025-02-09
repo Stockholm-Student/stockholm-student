@@ -1,18 +1,19 @@
-import mongoose, { Mongoose, Schema } from "mongoose";
-import { CountryModel, UniversityModel } from "./powerTypes";
-import { RoleModel } from "./role";
-import { EventModel } from "./event";
-import { ArticleModel } from "./article";
-import { CategoryModel } from "./category";
-import { validateDocumentOneRef, validateDocumentRefList } from "../db/schemaValidation";
-
-
+import mongoose from 'mongoose'
+import { CountryModel, UniversityModel } from './powerTypes'
+import { RoleModel } from './role'
+import { EventModel } from './event'
+import { ArticleModel } from './article'
+import { CategoryModel } from './category'
+import {
+  validateDocumentOneRef,
+  validateDocumentRefList,
+} from '../db/schemaValidation'
 
 const UserSchema = new mongoose.Schema({
   userId: {
     // type: String,
     // default: mongoose.Schema.Types.UUID,
-    type: mongoose.Schema.Types.UUID, 
+    type: mongoose.Schema.Types.UUID,
     unique: true,
     required: true,
   },
@@ -44,65 +45,74 @@ const UserSchema = new mongoose.Schema({
   // from relations
   roles: {
     type: [String],
-    ref: "Role",
+    ref: 'Role',
     required: false,
     default: [],
   },
   bookmarkedEvents: {
     type: [mongoose.Schema.Types.UUID],
-    ref: "Event",
+    ref: 'Event',
     required: false,
     default: [],
   },
   bookmarkedWikiArticles: {
     type: [mongoose.Schema.Types.UUID],
-    ref: "Article",
+    ref: 'Article',
     required: false,
     default: [],
   },
   interests: {
     type: [String],
-    ref: "Category",
+    ref: 'Category',
     required: false,
-    default: []
+    default: [],
   },
   country: {
     type: String,
-    ref: "Country",
+    ref: 'Country',
     required: false,
-    default: "Not entered"
+    default: 'Not entered',
   },
   university: {
     type: String,
-    ref: "University",
+    ref: 'University',
     required: true,
+  },
+})
+
+UserSchema.pre('save', async function (next) {
+  try {
+    await Promise.all([
+      validateDocumentOneRef(this.country, CountryModel, {
+        name: this.country,
+      }),
+      validateDocumentOneRef(this.university, UniversityModel, {
+        name: this.university,
+      }),
+
+      validateDocumentRefList(this.roles, RoleModel, (role) => {
+        return { name: role }
+      }),
+      validateDocumentRefList(this.bookmarkedEvents, EventModel, (uuid) => {
+        return { eventId: uuid }
+      }),
+      validateDocumentRefList(
+        this.bookmarkedWikiArticles,
+        ArticleModel,
+        (uuid) => {
+          return { articleId: uuid }
+        }
+      ),
+      validateDocumentRefList(this.interests, CategoryModel, (category) => {
+        return { name: category }
+      }),
+    ])
+  } catch (err) {
+    next(err as mongoose.CallbackError)
   }
 })
 
-
-UserSchema.pre(
-  "save",
-  async function (next) {
-    try {   
-      await Promise.all([
-        validateDocumentOneRef(this.country, CountryModel, {name: this.country}),
-        validateDocumentOneRef(this.university, UniversityModel, {name: this.university}),
-
-        validateDocumentRefList(this.roles, RoleModel, role => { return { name: role }}),
-        validateDocumentRefList(this.bookmarkedEvents, EventModel, uuid => { return { eventId: uuid }}),
-        validateDocumentRefList(this.bookmarkedWikiArticles, ArticleModel, uuid => { return { articleId: uuid }}),
-        validateDocumentRefList(this.interests, CategoryModel, category => { return { name: category }}),
-      ])
-    } catch(err) {
-      next(err as mongoose.CallbackError)
-    }
-  }
-)
-
-
-
-
 export const UserModel = mongoose.model(
-  "User", // name of collection
+  'User', // name of collection
   UserSchema
-);
+)

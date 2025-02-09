@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export const ArticleModel = mongoose.model(
-  "Article", // name of collection
+  'Article', // name of collection
   new mongoose.Schema({
     articleId: {
       type: String,
@@ -27,16 +27,16 @@ export const ArticleModel = mongoose.model(
       default: Date.now,
     },
 
-
     // from relations
     authorId: {
       type: mongoose.Schema.Types.UUID,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     wikiCategories: {
       type: [String],
-      ref: "wikiCategory",
+      ref: 'wikiCategory',
       required: true,
-    }
-}))
+    },
+  })
+)

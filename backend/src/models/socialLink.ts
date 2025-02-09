@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export const SocialLinkModel = mongoose.model(
-  "SocialLink", // name of collection
+  'SocialLink', // name of collection
   new mongoose.Schema({
     link: {
       type: String,
@@ -11,4 +11,4 @@ export const SocialLinkModel = mongoose.model(
     // from relations
     // icon
   })
-);
+)

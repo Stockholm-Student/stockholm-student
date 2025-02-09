@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{css,scss,json,js,jsx,ts,tsx,md}\""
   },
   "keywords": [],
   "author": "",
@@ -34,6 +36,10 @@
     "@types/passport-jwt": "^4.0.1",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "eslint": "^9.13.0",
+    "typescript-eslint": "^8.11.0",
+    "prettier": "^3.3.3",
+    "@eslint/js": "^9.13.0"
   }
 }

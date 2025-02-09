@@ -1,9 +1,11 @@
-import mongoose from "mongoose";
-import { validateDocumentOneRef, validateDocumentRefList } from "../db/schemaValidation";
-import { CommunityModel } from "./community";
-import { CategoryModel } from "./category";
-import { UserModel } from "./user";
-
+import mongoose from 'mongoose'
+import {
+  validateDocumentOneRef,
+  validateDocumentRefList,
+} from '../db/schemaValidation'
+import { CommunityModel } from './community'
+import { CategoryModel } from './category'
+import { UserModel } from './user'
 
 const EventSchema = new mongoose.Schema({
   eventId: {
@@ -49,41 +51,42 @@ const EventSchema = new mongoose.Schema({
   // from relations
   creatorId: {
     type: mongoose.Schema.Types.UUID,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   community: {
     type: mongoose.Schema.Types.UUID,
-    ref: "Community",
+    ref: 'Community',
     required: false,
     default: null,
   },
   categories: {
     type: [String],
-    ref: "Category",
+    ref: 'Category',
     required: true,
   },
   // add image
 })
 
-
-EventSchema.pre(
-  "save", 
-  async function (next) {
-    try {   
-      await Promise.all([  
-        validateDocumentOneRef(this.community, CommunityModel, { communityId: this.community}),
-        validateDocumentOneRef(this.creatorId, UserModel, { userId: this.creatorId }),
-        validateDocumentRefList(this.categories, CategoryModel, (category) => { return { name: category }}),
-      ])
-    } catch(err) {
-      next(err as mongoose.CallbackError)
-    }
+EventSchema.pre('save', async function (next) {
+  try {
+    await Promise.all([
+      validateDocumentOneRef(this.community, CommunityModel, {
+        communityId: this.community,
+      }),
+      validateDocumentOneRef(this.creatorId, UserModel, {
+        userId: this.creatorId,
+      }),
+      validateDocumentRefList(this.categories, CategoryModel, (category) => {
+        return { name: category }
+      }),
+    ])
+  } catch (err) {
+    next(err as mongoose.CallbackError)
   }
-)
-
+})
 
 export const EventModel = mongoose.model(
-  "Event", // name of collection
+  'Event', // name of collection
   EventSchema
-);
+)

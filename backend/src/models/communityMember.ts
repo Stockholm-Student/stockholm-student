@@ -1,16 +1,16 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export const CommunityMemberModel = mongoose.model(
-  "CommunityMember", // name of collection
+  'CommunityMember', // name of collection
   new mongoose.Schema({
     userId: {
       type: mongoose.Schema.Types.UUID,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     communityId: {
       type: mongoose.Schema.Types.UUID,
-      ref: "Community",
+      ref: 'Community',
       required: true,
     },
     joinedAt: {
@@ -21,9 +21,9 @@ export const CommunityMemberModel = mongoose.model(
     // from relations
     roles: {
       type: [String],
-      ref: "Role",
+      ref: 'Role',
       required: true,
-      default: []
-    }
+      default: [],
+    },
   })
-);
+)

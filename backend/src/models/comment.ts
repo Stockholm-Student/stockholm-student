@@ -1,8 +1,7 @@
-
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export const CommentModel = mongoose.model(
-  "Comment", // name of collection
+  'Comment', // name of collection
   new mongoose.Schema({
     commentId: {
       type: String,
@@ -36,13 +35,13 @@ export const CommentModel = mongoose.model(
     // from relations
     parentId: {
       type: mongoose.Schema.Types.UUID,
-      ref: "Comment",
-      required: false
+      ref: 'Comment',
+      required: false,
     },
     creatorId: {
       type: mongoose.Schema.Types.UUID,
-      ref: "User",
-      required: true
-    }
+      ref: 'User',
+      required: true,
+    },
   })
-);
+)

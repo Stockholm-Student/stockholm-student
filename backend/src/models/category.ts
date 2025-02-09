@@ -1,12 +1,12 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export const CategoryModel = mongoose.model(
-  "Category", // name of collection
+  'Category', // name of collection
   new mongoose.Schema({
     name: {
       type: String,
       required: true,
       unique: true,
-    }
+    },
   })
-);
+)

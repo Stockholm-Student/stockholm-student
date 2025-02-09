@@ -1,8 +1,7 @@
-
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export const CommunityModel = mongoose.model(
-  "Community", // name of collection
+  'Community', // name of collection
   new mongoose.Schema({
     communityId: {
       type: String,
@@ -34,24 +33,23 @@ export const CommunityModel = mongoose.model(
     //   default: 'public',
     // },
 
-
     // from relations
     categories: {
       type: [String],
-      ref: "Category",
+      ref: 'Category',
       required: true,
     },
     status: {
       type: String,
-      ref: "CommunityStatus",
+      ref: 'CommunityStatus',
       required: true,
     },
     socialLinks: {
       type: [mongoose.Schema.Types.UUID],
-      ref: "SocialLink",
+      ref: 'SocialLink',
       required: false,
       default: [],
     },
     // add image
   })
-);
+)
