@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import { UserModel } from "../models/user";
 import { generateAccessToken } from "../auth/accessToken";
+import { comparePassword } from "../auth/hashing";
 
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +13,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       return
     }
 
-    if (userIfFound.hashedPwd !== req.body.hashedPwd){
+    if (!comparePassword(req.body.password, userIfFound.hashedPwd)){
       res.status(400).json({ msg: "incorrect password" });
       return
     }
