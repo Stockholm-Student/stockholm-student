@@ -1,8 +1,18 @@
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 
-export const CommunityMemberModel = mongoose.model(
+export interface ICommunityMember extends Document {
+  userId: mongoose.Schema.Types.UUID,
+  communityId: mongoose.Schema.Types.UUID,
+  joinedAt: Date,
+
+  // from relations
+  roles: string[],
+}
+
+
+export const CommunityMemberModel = mongoose.model<ICommunityMember>(
   'CommunityMember', // name of collection
-  new mongoose.Schema({
+  new mongoose.Schema<ICommunityMember>({
     userId: {
       type: mongoose.Schema.Types.UUID,
       ref: 'User',

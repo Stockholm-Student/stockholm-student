@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Document, Model } from 'mongoose'
 import { CountryModel, UniversityModel } from './powerTypes'
 import { RoleModel } from './role'
 import { EventModel } from './event'
@@ -9,7 +9,27 @@ import {
   validateDocumentRefList,
 } from '../db/schemaValidation'
 
-const UserSchema = new mongoose.Schema({
+
+
+export interface IUser extends Document {
+  userId: mongoose.Schema.Types.UUID
+  email: string,
+  hashedPwd: string,
+  userName: string,
+  bio: string,
+  createdAt: Date,
+
+  // from relations
+  roles: string[],
+  bookmarkedEvents: mongoose.Schema.Types.UUID[],
+  bookmarkedWikiArticles: mongoose.Schema.Types.UUID[],
+  interests: string[],
+  country: string,
+  university: string,
+}
+
+
+const UserSchema = new mongoose.Schema<IUser>({
   userId: {
     // type: String,
     // default: mongoose.Schema.Types.UUID,
@@ -112,7 +132,7 @@ UserSchema.pre('save', async function (next) {
   }
 })
 
-export const UserModel = mongoose.model(
+export const UserModel: Model<IUser> = mongoose.model<IUser>(
   'User', // name of collection
   UserSchema
 )

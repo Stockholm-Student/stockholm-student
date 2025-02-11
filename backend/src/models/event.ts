@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 import {
   validateDocumentOneRef,
   validateDocumentRefList,
@@ -7,7 +7,27 @@ import { CommunityModel } from './community'
 import { CategoryModel } from './category'
 import { UserModel } from './user'
 
-const EventSchema = new mongoose.Schema({
+
+export interface IEvent extends Document {
+  eventId: mongoose.Schema.Types.UUID,
+  title: string,
+  description: string,
+  createdAt: Date,
+  updatedAt: Date,
+  start: Date,
+  end: Date,
+  location: JSON,
+  isPublished: boolean,
+
+  // from relations
+  creatorId: mongoose.Schema.Types.UUID,
+  community: mongoose.Schema.Types.UUID,
+  categories: string[],
+  // add image
+}
+
+
+const EventSchema = new mongoose.Schema<IEvent>({
   eventId: {
     type: mongoose.Schema.Types.UUID,
     required: true,
@@ -86,7 +106,7 @@ EventSchema.pre('save', async function (next) {
   }
 })
 
-export const EventModel = mongoose.model(
+export const EventModel = mongoose.model<IEvent>(
   'Event', // name of collection
   EventSchema
 )

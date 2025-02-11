@@ -10,7 +10,7 @@ export const generateAccessToken = (idObj: {[key: string]: string}) => jwt.sign(
 );
 
 
-export const userIdFromToken = (authHeader: string  | undefined) => {
+export const getUserIdFromToken = (authHeader: string  | undefined) => {
   if(!authHeader)
     throw new Error("No authorization header")
 

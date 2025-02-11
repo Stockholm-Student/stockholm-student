@@ -1,5 +1,5 @@
-import { useState, useEffect, FormEvent } from 'react';
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import { useState, FormEvent } from 'react';
+// import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 
@@ -26,12 +26,17 @@ const LoggedInView = ({setToken, token} : {
   setToken: React.Dispatch<React.SetStateAction<string | null>>,
   token: null | string
 }) => {
+
+  const [ infoMessage, setInfoMessage ] = useState<string>("")
+
   return (
-    <div>
+    <div>      
       <h2>logged in!</h2>
       <p>{`token: ${token}`}</p>
+      <p>{infoMessage}</p>
 
-      <button onClick={() => {setToken(null)}}>Log out</button>
+      <button style={{ border: "1px solid black" }} onClick={() => {setToken(null)}}>Log out</button>
+      {/* <button style={{ border: "1px solid black" }} onClick={() => {setToken(null)}}>Test api access by role</button> */}
     </div>
   )
 }
