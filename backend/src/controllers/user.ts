@@ -1,11 +1,13 @@
 import { Request, Response } from 'express'
 import { UserModel } from '../models/user'
+import { hashPassword } from '../auth/hashing'
 
 export const postUser = async (req: Request, res: Response) => {
   try {
     const newUser = new UserModel({
       userId: crypto.randomUUID(),
       ...req.body,
+      hashedPwd: await hashPassword(req.body.password), 
     })
     console.log({ name: newUser.userName, userId: newUser.userId })
 
