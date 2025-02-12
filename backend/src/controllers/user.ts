@@ -1,31 +1,52 @@
-// import bcrypt from "bcrypt";
+import { Request, Response } from 'express'
+import { UserModel } from '../models/user'
 
+export const postUser = async (req: Request, res: Response) => {
+  try {
+    const newUser = new UserModel({
+      userId: crypto.randomUUID(),
+      ...req.body,
+    })
+    console.log({ name: newUser.userName, userId: newUser.userId })
 
-import { Request, Response } from 'express';
-import { mockDBUsers } from '../models/user';
+    await newUser.save()
 
-export const getOneUser = async (req: Request, res: Response) => {
-  res.json(mockDBUsers[Math.floor(Math.random() * (mockDBUsers.length - 1))])
+    res.json({ msg: 'success', data: newUser })
+  } catch (error) {
+    res.status(400).send({ error: (error as Error)?.message || '' })
+  }
 }
 
 export const getAllUsers = async (req: Request, res: Response) => {
-  res.json(mockDBUsers)
+  try {
+    const foundUsers = (await UserModel.find()).map((userDoc) => {
+      return {
+        ...userDoc.toObject(),
+        userId: userDoc.userId.toString(),
+      }
+    })
+
+    res.json({
+      msg: 'success',
+      data: foundUsers,
+    })
+  } catch (error) {
+    res.json({ msg: 'error', data: String(error) })
+  }
 }
 
+export const getOneUser = async (req: Request, res: Response) => {
+  const foundDoc = await UserModel.findOne({ userId: req.params.userId })
 
-
-
-// export default class User {
-//   users: IUser[] = [];
-
-//   async initUsers() {
-//     const p = await bcrypt.hash("abc", 10);
-//     this.users = [
-//       {email: "bojack@wesleyan.com", password: p, username: "horse_professor"}
-//     ];
-//   }
-
-//   findUser(email: string) {
-//     return this.users.find(u => u.email === email);
-//   } 
-// }
+  try {
+    res.json({
+      msg: 'success',
+      data: {
+        ...foundDoc?.toObject(),
+        userId: foundDoc?.userId.toString(),
+      },
+    })
+  } catch (error) {
+    res.json({ msg: 'error', data: String(error) })
+  }
+}
