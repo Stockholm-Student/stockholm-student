@@ -11,7 +11,6 @@ import {
   UserPlusIcon,
 } from 'lucide-react'
 
-import { useTheme } from '@/components/theme-provider'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,6 +24,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useBreakpoints } from '@/lib/breakpoints'
+import { useTheme } from '@/provider/theme-provider'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import { Button } from './ui/button'
 
