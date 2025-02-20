@@ -73,6 +73,7 @@ const CategoryFilter = ({
         {Object.keys(categoriesMap)
           .slice(0, visible === 0 ? categoriesLength : visible)
           .map((category) => {
+            const IconComponent = categoriesMap[category]
             return (
               <div
                 key={category}
@@ -80,7 +81,8 @@ const CategoryFilter = ({
                 onClick={() => toggleCategory(category)}
               >
                 <span className="flex flex-row items-center gap-1 [&_svg]:size-4">
-                  {categoriesMap[category]} {category}
+                  <IconComponent key={category} className="mr-2 h-4 w-4" />{' '}
+                  {category}
                 </span>
                 <Checkbox
                   checked={selectedCategories.includes(category) ? true : false}
