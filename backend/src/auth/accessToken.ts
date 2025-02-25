@@ -14,10 +14,12 @@ export const getUserIdFromToken = (authHeader: string  | undefined) => {
   if(!authHeader)
     throw new Error("No authorization header")
 
-  const tokenArray = authHeader.split(/s+/);
+  const tokenArray = authHeader.split(/\s+/);
 
-  if(tokenArray.length !== 2)
+  if(tokenArray.length !== 2){
+    console.log(tokenArray)
     throw new Error("Invalid token")
+  }
   
   if(tokenArray[0].toLowerCase() !== "bearer")
     throw new Error("Invalid token")

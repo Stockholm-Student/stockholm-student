@@ -1,12 +1,12 @@
 import express, { NextFunction, Request, Response } from "express";
 import { UserModel } from "../models/user";
-import { userIdFromToken } from "./accessToken";
+import { getUserIdFromToken } from "./accessToken";
 
 
 export const accessGlobal  = (role: string): (req: Request, res: Response, next: NextFunction) => void => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = userIdFromToken(req.headers.authorization)
+      const userId = getUserIdFromToken(req.headers.authorization)
 
       const userIfFound = await UserModel.findOne({userId})
 

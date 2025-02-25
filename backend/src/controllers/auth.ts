@@ -55,62 +55,17 @@ export const googleCallback = async (req: Request, res: Response, next: NextFunc
 }
 
 
-export const isEventCreator = async (userId: string, eventId: string) => {
-  const foundEvent = await EventModel.findById({ eventId })
-
-  if(!foundEvent)
-    return false;
-
-  const foundUser = await UserModel.findOne({ userId })
-
-  if(!foundUser)
-    return false;
-
-  if(foundEvent.creatorId.toString() !== userId)
-    return false;
-
-  return true;
-}
-
-
-export const hasCommunityRole = async (userId: string, communityId: string, role: string) => {
-  const foundCommunityMember = await CommunityMemberModel.findOne({ userId, communityId })
-
-  if(!foundCommunityMember)
-    return false;
-
-  if(!foundCommunityMember.roles.some(r => r !== role))
-    return false;
-
-  return true
-}
-
-
-export const hasGlobalRole = async (userId: string, role: string) => {
-  const foundUser = await UserModel.findOne({ userId })
-
-  if(!foundUser)
-    return false;
-
-  if(!foundUser.roles?.some(r => r !== role))
-    return false;
-
-  return true;
-}
-
 
 interface IOptions {
   hasGlobalRole: string
   hasCommunityRole: string,
   isEventCreator: boolean
 }
-
 export class Validator {
   private foundUser: IUser | null | undefined;
   private foundCommunityMember: ICommunityMember | null | undefined;
   private foundEvent: IEvent | null | undefined;
   private errorMsg = "";
-
 
 
   public validate(typeOfValidations: Partial<IOptions>) {
@@ -123,10 +78,19 @@ export class Validator {
         return
       }
 
-      const userId = getUserIdFromToken(authHeader)
+      let userId = "";
+      try {
+        userId = getUserIdFromToken(authHeader)
+      } catch (err) {
+        res.status(403).json({ msg: (err as Error).message, token: authHeader })
+        return
+      }
+      
       const communityId = req.body.communityId
       const eventId = req.body.eventId
+      console.log({body: req.body})
 
+      // Check for global role - should probably always check for god user
       if(!!typeOfValidations.hasGlobalRole) {
         if(await this.hasGlobalRole(userId, typeOfValidations.hasGlobalRole)) {
           next()
@@ -136,6 +100,7 @@ export class Validator {
         this.errorMsg = "missing global role."
       }
 
+      // Check for community role
       if(!!typeOfValidations.hasCommunityRole) {
         if(!communityId) {
           res.status(403).json({ msg: "No communityId was provided." })
@@ -150,6 +115,7 @@ export class Validator {
         this.errorMsg = "missing community role."
       }
 
+      // Check if user is the eventCreator for specified event
       if(!!typeOfValidations.isEventCreator) {
         if(!eventId) {
           res.status(403).json({ msg: "No eventId was provided." })
@@ -213,21 +179,44 @@ export class Validator {
 
 
   private isEventCreator = async (userId: string, eventId: string) => {
+
+
+
+    if(!this.foundUser)
+      await this.setFoundUser(userId);
+
+    console.log("hey", userId, this.foundUser?.userId)
+
+    if(!this.foundUser)
+      return false;
+
     if(!this.foundEvent)
       await this.setFoundEvent(eventId);
 
     if(!this.foundEvent)
       return false;
   
-    if(!this.foundUser)
-      await this.setFoundUser(userId);
+    console.log(this.foundEvent.creatorId.toString(), userId)
 
-    if(!this.foundUser)
-      return false;
-  
     if(this.foundEvent.creatorId.toString() !== userId)
       return false;
   
     return true;
   }
+}
+
+
+
+// Dev test controllers
+
+export const testUserRole = async (req: Request, res: Response, next: NextFunction) => {
+  res.json({ msg: "success"})
+}
+
+export const testIsEventCreator = async (req: Request, res: Response, next: NextFunction) => {
+  res.json({ msg: "success"})
+}
+
+export const testCommunityRole = async (req: Request, res: Response, next: NextFunction) => {
+  res.json({ msg: "success"})
 }
