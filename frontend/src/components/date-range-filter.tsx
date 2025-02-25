@@ -39,12 +39,14 @@ export function DateRangeFilter({
   const { sm } = useBreakpoints()
 
   return (
-    <div className={cn('grid gap-2')}>
+    <div className={cn('grid')}>
       <div className="flex justify-between">
-        <span className="text-2xl">Date Range</span>
+        <span className="text-xl font-medium uppercase text-card-foreground/30">
+          Date Range
+        </span>
         <Button
           variant={'ghost'}
-          className="p-1 underline"
+          className="p-1 text-card-foreground/30 underline"
           onClick={resetDateRange}
         >
           clear

@@ -11,7 +11,13 @@ import { useBreakpoints } from '@/lib/breakpoints'
 import { Event } from '@/types/interfaces'
 import { addYears } from 'date-fns'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CalendarIcon, Grid3X3Icon, ListIcon, MapPinIcon } from 'lucide-react'
+import {
+  CalendarIcon,
+  Grid3X3Icon,
+  ListIcon,
+  MapPinIcon,
+  SearchIcon,
+} from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 
@@ -199,6 +205,7 @@ const Events = () => {
               setSelectedCategories={setSelectedCategories}
               defaultCategoryLength={defaultShownFilters}
             ></CategoryFilter>
+            <hr className="my-3 border-t border-border" />
             <DateRangeFilter
               selectedDateRange={selectedDateRange}
               setSelectedDateRange={setSelectedDateRange}
@@ -208,16 +215,32 @@ const Events = () => {
           <div className="w-full">
             <AnimatePresence mode="wait">
               {currentView === 'grid' && (
-                <div
-                  className={`grid gap-4 sm:grid-cols-2 ${drawerOpen ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'}`}
-                >
-                  {filterEvents().map((event) => (
-                    <EventCard
-                      event={event}
-                      setDetailOpen={() => openDetailDialog(event)}
-                    />
-                  ))}
-                </div>
+                <>
+                  <div
+                    className={`grid gap-4 sm:grid-cols-2 ${drawerOpen ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'}`}
+                  >
+                    {filterEvents().map((event) => (
+                      <EventCard
+                        event={event}
+                        setDetailOpen={() => openDetailDialog(event)}
+                      />
+                    ))}
+                  </div>
+                  {filterEvents().length == 0 && (
+                    <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+                      <p className="flex">
+                        No events match that filter
+                      </p>
+                      <Button
+                        variant={'outline'}
+                        onClick={resetAllFilters}
+                        className=""
+                      >
+                        Reset all Filters
+                      </Button>
+                    </div>
+                  )}
+                </>
               )}
 
               {currentView === 'calendar' && <EventCalendar />}

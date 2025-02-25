@@ -60,10 +60,12 @@ const CategoryFilter = ({
   return (
     <div className="">
       <div className="flex justify-between">
-        <span className="text-2xl">Categories</span>
+        <span className="text-xl font-medium uppercase text-card-foreground/30">
+          Categories
+        </span>
         <Button
           variant={'ghost'}
-          className="p-1 underline"
+          className="p-1 text-card-foreground/30 underline"
           onClick={resetCategories}
         >
           clear
@@ -93,7 +95,7 @@ const CategoryFilter = ({
         {defaultCategoryLength != 0 && (
           <Button
             variant={'link'}
-            className="self-start pl-1 pt-0"
+            className="self-start py-0 pl-1"
             onClick={toggleMore()}
           >
             {showMore
