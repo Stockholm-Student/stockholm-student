@@ -35,7 +35,6 @@ import {
 } from './ui/form'
 import { Switch } from './ui/switch'
 import { Textarea } from './ui/textarea'
-import { create } from 'domain'
 
 //palceholder until ready
 const communities: Community[] = [
@@ -129,7 +128,7 @@ export default function EventDialog() {
       // categories: values.categories,
       images: values.images,
       isPublished: values.isPublished,
-      creatorId: '8a0ada31-a37c-459f-98e3-44367fc755e3',
+      creatorId: 'adf83b22-09a7-467b-b5c1-3f14f659a3c5',
     }
 
     // Now you can use the event object to send to your API
@@ -218,7 +217,7 @@ export default function EventDialog() {
               <>
                 <FormField
                   control={addEventForm.control}
-                  name="community"
+                  name="communityId"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Community*</FormLabel>

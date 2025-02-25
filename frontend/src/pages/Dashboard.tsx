@@ -1,9 +1,6 @@
 // pages/Events.tsx
-import { useBreakpoints } from '@/lib/breakpoints'
 
 const Events = () => {
-  const { sm } = useBreakpoints()
-
   return (
     <div className="min-h-screen bg-background pt-36">
       <div className="px-4">
