@@ -46,7 +46,7 @@ const EventDetailDialog = ({
           />
         )}
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mr-2">
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-lg text-muted-foreground">
             <div className="flex items-center gap-1">
               <Clock3Icon className="h-4 w-4" />
@@ -65,16 +65,19 @@ const EventDetailDialog = ({
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {event?.categories.map((category) => (
-            <Badge
-              key={category}
-              variant={'static'}
-              className="flex w-fit gap-2"
-            >
-              {categoriesMap[category]}
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </Badge>
-          ))}
+          {event?.categories.map((category) => {
+            const IconComponent = categoriesMap[category]
+            return (
+              <Badge
+                key={category}
+                variant={'static'}
+                className="flex w-fit gap-2"
+              >
+                <IconComponent key={category} className="h-4 w-4" />
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </Badge>
+            )
+          })}
         </div>
         <p>{event?.description}</p>
         {!sm && (
