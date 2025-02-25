@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <React.StrictMode>
-    <Auth0Provider
+    {/* <Auth0Provider
       domain={import.meta.env.VITE_AUTH_DOMAIN}
       clientId={import.meta.env.VITE_CLIENT_ID}
       authorizationParams={{
@@ -16,8 +16,8 @@ root.render(
         audience: import.meta.env.VITE_API_AUDIENCE,
         scope: import.meta.env.VITE_ALLOWED_SCOPES,
       }}
-    >
+    > */}
       <App />
-    </Auth0Provider>
+    {/* </Auth0Provider> */}
   </React.StrictMode>
 )
