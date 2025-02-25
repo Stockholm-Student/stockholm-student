@@ -54,3 +54,13 @@ export interface WikiArticle {
   updatedAt: Date
   isPublished: boolean
 }
+
+export interface Community {
+  communityId: string
+  name: string
+  // desc: string
+  // createdAt: Date
+  // categories: string[]
+  // status: string
+  // socialLinks: string[]
+}

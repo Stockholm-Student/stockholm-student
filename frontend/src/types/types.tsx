@@ -29,21 +29,24 @@ export type Role =
   | 'community_moderator'
   | 'wiki_moderator'
 
-export const categoriesMap: Record<string, JSX.Element> = {
-  sport: <DumbbellIcon key="sport" className="h-5 w-5" />,
-  party: <PartyPopperIcon key="party" className="h-5 w-5" />,
-  culture: <DramaIcon key="culture" className="h-5 w-5" />,
-  university: <GraduationCap key="university" className="h-5 w-5" />,
-  music: <MusicIcon key="music" className="h-5 w-5" />,
-  food: <UtensilsIcon key="food" className="h-5 w-5" />,
-  technology: <CpuIcon key="technology" className="h-5 w-5" />,
-  health: <DnaIcon key="health" className="h-5 w-5" />,
-  nature: <LeafIcon key="nature" className="h-5 w-5" />,
-  social: <UsersIcon key="networking" className="h-5 w-5" />,
-  career: <BriefcaseBusinessIcon key="career" className="h-5 w-5" />,
-  art: <PaletteIcon key="art" className="h-5 w-5" />,
-  travel: <GlobeIcon key="travel" className="h-5 w-5" />,
-  entertainment: <ClapperboardIcon key="entertainment" className="h-5 w-5" />,
+export const categoriesMap: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
+  art: PaletteIcon,
+  career: BriefcaseBusinessIcon,
+  culture: DramaIcon,
+  entertainment: ClapperboardIcon,
+  food: UtensilsIcon,
+  health: DnaIcon,
+  music: MusicIcon,
+  nature: LeafIcon,
+  party: PartyPopperIcon,
+  social: UsersIcon,
+  sport: DumbbellIcon,
+  technology: CpuIcon,
+  travel: GlobeIcon,
+  university: GraduationCap,
 }
 
 export const organizationsMap: Record<string, JSX.Element> = {

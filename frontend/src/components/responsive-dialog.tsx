@@ -26,7 +26,7 @@ export function ResponsiveDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
-        className={`max-h-[98vh] max-w-[98vw] overflow-scroll rounded-md p-4 sm:p-5 md:h-fit md:max-w-[600px] lg:max-w-[750px]`}
+        className={`max-h-[98vh] max-w-[98vw] overflow-auto rounded-md p-4 sm:p-5 md:h-fit md:max-w-[600px] lg:max-w-[750px]`}
       >
         <DialogHeader>
           <DialogTitle className="text-2xl">{title}</DialogTitle>

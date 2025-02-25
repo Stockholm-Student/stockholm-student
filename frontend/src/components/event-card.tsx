@@ -74,17 +74,20 @@ export function EventCard({ event, setDetailOpen }: EventCardProps) {
           </div>
         </div>
         <div className="no-scrollbar relative flex w-full gap-2 overflow-scroll pt-2">
-          {event.categories.map((category) => (
-            <Badge
-              key={category}
-              variant={'static'}
-              className="flex w-fit gap-2"
-            >
-              {categoriesMap[category]}
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </Badge>
-          ))}
-          <div className="sticky right-0 h-auto bg-gradient-to-r from-transparent to-white pl-6"></div>
+          {event.categories.map((category) => {
+            const IconComponent = categoriesMap[category]
+            return (
+              <Badge
+                key={category}
+                variant={'static'}
+                className="flex w-fit gap-2"
+              >
+                <IconComponent key={category} className="h-4 w-4" />
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </Badge>
+            )
+          })}
+          <div className="sticky right-0 h-auto bg-gradient-to-r from-transparent to-card pl-6"></div>
         </div>
       </CardHeader>
       <CardContent className="px-3 pb-2">

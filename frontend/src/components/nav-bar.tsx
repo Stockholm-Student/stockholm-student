@@ -144,7 +144,10 @@ const Navbar = () => {
 
       <nav className="fixed bottom-0 z-50 flex w-full justify-between bg-muted px-2 py-4">
         {navItems.map((item) => (
-          <div className="flex w-1/5 items-center justify-center">
+          <div
+            className="flex w-1/5 items-center justify-center"
+            key={item.title}
+          >
             <MobileNavitem
               title={item.title}
               link={item.link}

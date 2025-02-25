@@ -60,10 +60,12 @@ const CategoryFilter = ({
   return (
     <div className="">
       <div className="flex justify-between">
-        <span className="text-2xl">Categories</span>
+        <span className="text-xl font-medium uppercase text-card-foreground/30">
+          Categories
+        </span>
         <Button
           variant={'ghost'}
-          className="p-1 underline"
+          className="p-1 text-card-foreground/30 underline"
           onClick={resetCategories}
         >
           clear
@@ -73,6 +75,7 @@ const CategoryFilter = ({
         {Object.keys(categoriesMap)
           .slice(0, visible === 0 ? categoriesLength : visible)
           .map((category) => {
+            const IconComponent = categoriesMap[category]
             return (
               <div
                 key={category}
@@ -80,7 +83,8 @@ const CategoryFilter = ({
                 onClick={() => toggleCategory(category)}
               >
                 <span className="flex flex-row items-center gap-1 [&_svg]:size-4">
-                  {categoriesMap[category]} {category}
+                  <IconComponent key={category} className="mr-2 h-4 w-4" />{' '}
+                  {category}
                 </span>
                 <Checkbox
                   checked={selectedCategories.includes(category) ? true : false}
@@ -91,7 +95,7 @@ const CategoryFilter = ({
         {defaultCategoryLength != 0 && (
           <Button
             variant={'link'}
-            className="self-start pl-1 pt-0"
+            className="self-start py-0 pl-1"
             onClick={toggleMore()}
           >
             {showMore
