@@ -13,24 +13,20 @@ import AuthenticationProvider from './provider/auth-provider'
 
 function App() {
   return (
-    <AuthenticationProvider>
-      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-        <Router>
-          <div className="relative min-h-screen">
-            <Navbar />
-            <Toaster />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/wiki" element={<Wiki />} />
-              <Route path="/more" element={<More />} />
-            </Routes>
-            <Footer></Footer>
-          </div>
-        </Router>
-      </ThemeProvider>
-    </AuthenticationProvider>
+    <Router>
+      <div className="relative min-h-screen">
+        <Navbar />
+        <Toaster />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/wiki" element={<Wiki />} />
+          <Route path="/more" element={<More />} />
+        </Routes>
+        <Footer></Footer>
+      </div>
+    </Router>
   )
 }
 

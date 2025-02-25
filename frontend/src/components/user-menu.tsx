@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react'
 import {
   CalendarHeartIcon,
   CheckIcon,
@@ -38,7 +37,7 @@ interface NavMenuProps {
 export function UserMenu({ isHomePage, scrollY, height }: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
-  const { loginWithRedirect, isAuthenticated, logout } = useAuth0()
+  const isAuthenticated = false
   const { sm } = useBreakpoints()
 
   const user = {
@@ -124,29 +123,17 @@ export function UserMenu({ isHomePage, scrollY, height }: NavMenuProps) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {isAuthenticated ? (
-            <DropdownMenuItem
-              onClick={() =>
-                logout({ logoutParams: { returnTo: window.location.origin } })
-              }
-            >
+            <DropdownMenuItem>
               <LogOutIcon />
               <span>Log out</span>
             </DropdownMenuItem>
           ) : (
             <>
-              <DropdownMenuItem
-                onClick={() =>
-                  loginWithRedirect({
-                    authorizationParams: {
-                      screen_hint: 'signup',
-                    },
-                  })
-                }
-              >
+              <DropdownMenuItem>
                 <UserPlusIcon />
                 <span>Sign up</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => loginWithRedirect()}>
+              <DropdownMenuItem>
                 <LogInIcon />
                 <span>Log in</span>
               </DropdownMenuItem>

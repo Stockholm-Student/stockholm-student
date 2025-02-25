@@ -54,7 +54,7 @@ const EventSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  community: {
+  communityId: {
     type: mongoose.Schema.Types.UUID,
     ref: 'Community',
     required: false,
@@ -63,7 +63,7 @@ const EventSchema = new mongoose.Schema({
   categories: {
     type: [String],
     ref: 'Category',
-    required: true,
+    required: false,
   },
   // add image
 })
@@ -71,8 +71,8 @@ const EventSchema = new mongoose.Schema({
 EventSchema.pre('save', async function (next) {
   try {
     await Promise.all([
-      validateDocumentOneRef(this.community, CommunityModel, {
-        communityId: this.community,
+      validateDocumentOneRef(this.communityId, CommunityModel, {
+        communityId: this.communityId,
       }),
       validateDocumentOneRef(this.creatorId, UserModel, {
         userId: this.creatorId,

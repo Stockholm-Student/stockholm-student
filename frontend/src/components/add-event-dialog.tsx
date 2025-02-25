@@ -44,7 +44,7 @@ const communities: Community[] = [
 
 const formSchema = z
   .object({
-    community: z.string().uuid(),
+    communityId: z.string().uuid(),
     title: z
       .string()
       .min(3, 'Title must be at least 3 characters long')
@@ -103,7 +103,7 @@ export default function EventDialog() {
   const addEventForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      community: '',
+      communityId: '',
       title: '',
       description: '',
       startDate: '',
@@ -119,7 +119,7 @@ export default function EventDialog() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Create event object from form values
     const event = {
-      community: values.community,
+      communityId: values.communityId,
       title: values.title,
       description: values.description,
       start: `${values.startDate}T${values.startTime}`,
@@ -133,7 +133,7 @@ export default function EventDialog() {
     // Now you can use the event object to send to your API
     console.log('Event object:', event)
     // Send the event data to the backend
-    fetch(`${import.meta.env.VITE_AUTH_DOMAIN}/api/event`, {
+    fetch(`${import.meta.env.VITE_API_DOMAIN}/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -216,7 +216,7 @@ export default function EventDialog() {
               <>
                 <FormField
                   control={addEventForm.control}
-                  name="community"
+                  name="communityId"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Community*</FormLabel>
