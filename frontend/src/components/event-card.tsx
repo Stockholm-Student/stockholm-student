@@ -87,7 +87,7 @@ export function EventCard({ event, setDetailOpen }: EventCardProps) {
               </Badge>
             )
           })}
-          <div className="sticky right-0 h-auto bg-gradient-to-r from-transparent to-white pl-6"></div>
+          <div className="sticky right-0 h-auto bg-gradient-to-r from-transparent to-card pl-6"></div>
         </div>
       </CardHeader>
       <CardContent className="px-3 pb-2">
