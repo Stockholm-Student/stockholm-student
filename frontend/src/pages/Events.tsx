@@ -11,13 +11,7 @@ import { useBreakpoints } from '@/lib/breakpoints'
 import { Event } from '@/types/interfaces'
 import { addYears } from 'date-fns'
 import { AnimatePresence, motion } from 'framer-motion'
-import {
-  CalendarIcon,
-  Grid3X3Icon,
-  ListIcon,
-  MapPinIcon,
-  SearchIcon,
-} from 'lucide-react'
+import { CalendarIcon, Grid3X3Icon, ListIcon, MapPinIcon } from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 
@@ -228,9 +222,7 @@ const Events = () => {
                   </div>
                   {filterEvents().length == 0 && (
                     <div className="flex h-full w-full flex-col items-center justify-center gap-4">
-                      <p className="flex">
-                        No events match that filter
-                      </p>
+                      <p className="flex">No events match that filter</p>
                       <Button
                         variant={'outline'}
                         onClick={resetAllFilters}

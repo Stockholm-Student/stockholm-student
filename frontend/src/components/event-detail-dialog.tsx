@@ -46,7 +46,7 @@ const EventDetailDialog = ({
           />
         )}
 
-        <div className="flex items-center justify-between mr-2">
+        <div className="mr-2 flex items-center justify-between">
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-lg text-muted-foreground">
             <div className="flex items-center gap-1">
               <Clock3Icon className="h-4 w-4" />
