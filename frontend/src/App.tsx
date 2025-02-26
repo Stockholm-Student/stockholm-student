@@ -5,11 +5,9 @@ import Events from '@/pages/Events'
 import Home from '@/pages/Home'
 import More from '@/pages/More'
 import Wiki from '@/pages/Wiki'
-import { ThemeProvider } from '@/provider/theme-provider'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Footer from './components/Footer'
 import { Toaster } from './components/ui/toaster'
-import AuthenticationProvider from './provider/auth-provider'
 
 function App() {
   return (

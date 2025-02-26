@@ -59,7 +59,7 @@ const Home = () => {
         </div>
       </div>
       <div
-        className="relative flex items flex-col gap-36 rounded-t-lg bg-background py-12 lg:py-48 p-6"
+        className="items relative flex flex-col gap-36 rounded-t-lg bg-background p-6 py-12 lg:py-48"
         style={{
           backgroundImage: `radial-gradient(circle, hsl(var(--foreground) / 0.1) 1px, transparent 1px)`,
           backgroundSize: '20px 20px',

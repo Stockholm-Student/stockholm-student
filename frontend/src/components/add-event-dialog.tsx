@@ -384,7 +384,11 @@ export default function EventDialog() {
                     )}
                   />
                   <div className="flex gap-2">
-                    <Button variant="outline" className='w-1/2' onClick={() => setCurrentPage(1)}>
+                    <Button
+                      variant="outline"
+                      className="w-1/2"
+                      onClick={() => setCurrentPage(1)}
+                    >
                       back
                     </Button>
                     <Button
@@ -475,8 +479,12 @@ export default function EventDialog() {
                       </FormItem>
                     )}
                   />
-                  <div className="gap-2 flex">
-                    <Button variant="outline" className='w-1/2' onClick={() => setCurrentPage(2)}>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      className="w-1/2"
+                      onClick={() => setCurrentPage(2)}
+                    >
                       back
                     </Button>
                     {Object.keys(addEventForm.formState.errors).some((key) =>
@@ -500,8 +508,8 @@ export default function EventDialog() {
                           Add Event
                         </Button>
                         <FormDescription className="!mt-2 text-red-500">
-                          There are errors on page 1 and 2. Please fix them before
-                          you can continue
+                          There are errors on page 1 and 2. Please fix them
+                          before you can continue
                         </FormDescription>
                       </>
                     ) : (

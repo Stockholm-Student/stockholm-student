@@ -83,7 +83,7 @@ export function AuthDialog({
         <DialogHeader className="hidden">
           <DialogTitle>{login ? 'Login' : 'Sign Up'}</DialogTitle>
         </DialogHeader>
-        <div className="p-6 flex flex-col justify-center">
+        <div className="flex flex-col justify-center p-6">
           <h2 className="mb-6 text-2xl font-bold">
             {login ? 'Login' : 'Sign Up'}
           </h2>
@@ -118,7 +118,11 @@ export function AuthDialog({
                     <FormItem>
                       <FormLabel>Password*</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="**********" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="**********"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -179,7 +183,11 @@ export function AuthDialog({
                     <FormItem>
                       <FormLabel>Password*</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="**********" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="**********"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
