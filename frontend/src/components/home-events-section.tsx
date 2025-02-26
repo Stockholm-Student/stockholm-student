@@ -1,72 +1,125 @@
-// components/ScrollSection.tsx
+// components/HomeEventsSection.tsx
 import { Button } from '@/components/ui/button'
-import { motion } from 'framer-motion'
-import { ArrowRightIcon } from 'lucide-react'
+import { Event } from '@/types/interfaces'
+import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import image from '../assets/stockholm-gamla-stan-0.jpeg'
+import { EventCard } from './event-card'
+import EventDetailDialog from './event-detail-dialog'
 
-const ScrollSection = () => {
+const events: Event[] = [
+  {
+    title: 'Student Welcome Party',
+    start: new Date('2025-09-01T21:00:00'),
+    imageUrl:
+      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/cld-sample-3.jpg',
+    location: 'KTH Campus Main Hall',
+    categories: ['party', 'social', 'university', 'art', 'travel'],
+    description:
+      "Join us for the biggest welcome party of the semester! Meet new friends, enjoy great music, and dance the night away. There will be food and drinks available. Don't miss out on this unforgettable event!",
+  },
+  {
+    title: 'International Food Festival',
+    start: new Date('2025-01-07T15:00:00'),
+    imageUrl:
+      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/samples/man-on-a-street.jpg',
+    location: 'Student Union Building',
+    categories: ['culture', 'food', 'health'],
+    description:
+      'Taste dishes from around the world prepared by international students.',
+  },
+  {
+    title: 'Tech Talk: Future of AI',
+    start: new Date('2025-03-15T10:00:00'),
+    imageUrl:
+      'https://res.cloudinary.com/dwarbciwt/image/upload/v1735656649/samples/woman-on-a-football-field.jpg',
+    location: 'KTH Innovation Hub',
+    categories: ['technology', 'university'],
+    description:
+      'Join us for an insightful talk on the future of AI and its impact on various industries.',
+  },
+]
+
+const HomeEventsSection = () => {
   const navigate = useNavigate()
+  const [frontCard, setFrontCard] = useState(0)
+
+  const [detailOpen, setDetailOpen] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState<Event | undefined>(
+    undefined
+  )
+  const openDetailDialog = (event: Event) => {
+    setSelectedEvent(event)
+    setDetailOpen(true)
+  }
 
   return (
     <>
-      <section className="relative flex min-h-screen items-center justify-center rounded-t-2xl bg-background">
+      <section className="relative flex items-center justify-center rounded-t-2xl bg-background py-32"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #e5e5e5 1px, transparent 1px)',
+          backgroundSize: '20px 20px',
+        }}
+      >
         {/* Content */}
-
-        <div className="mx-auto flex w-full max-w-screen-xl flex-col gap-12 px-6 py-8 sm:flex-row sm:py-20">
-          <div className="flex w-full flex-col items-start justify-center space-y-10 lg:w-8/12">
-            {/* Title Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="max-w-2xl space-y-4"
-            >
-              <h2 className="text-5xl font-bold text-foreground">
-                Having a hard time to keep track of all the Events?
-              </h2>
-              <h3 className="text-4xl text-foreground">We got you covered!</h3>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="max-w-2xl space-y-6"
-            >
-              <p className="text-xl text-foreground">
-                We teamed up with the organizers of the major student events to
-                collect all the Events in one place. No need for countless
-                WhatsApp groups, Websites, Newsletters and Instagram posts to
-                stay up to date. Find the events that you are looking for.
-              </p>
-              <Button size={'xl'} onClick={() => navigate('/events')}>
-                Events <ArrowRightIcon />
-              </Button>
-            </motion.div>
+        <EventDetailDialog
+          open={detailOpen}
+          setOpen={setDetailOpen}
+          event={selectedEvent}
+        />
+        <div className="flex items-center justify-center gap-x-24">
+          <div className="flex items-center gap-4">
+        <Button
+          variant={'icon_transparent'}
+          className="rounded-full p-3 hover:bg-muted"
+          size={'lg'}
+          onClick={() => setFrontCard((frontCard + 1) % 3)}
+        >
+          <ArrowLeftIcon className="!size-6 text-muted-foreground" />
+        </Button>
+        <div className="relative flex h-[calc(22rem+100px)] w-[calc(20rem+100px)]">
+          {events.map((event, index) => {
+            const cardIndex = (index + frontCard) % 3
+            return (
+          <div
+            key={index}
+            className="absolute w-80 transform transition-all duration-300"
+            style={{
+              left: `${cardIndex * 50}px`,
+              top: `${cardIndex * 30}px`,
+              zIndex: cardIndex,
+            }}
+          >
+            <div
+              className="pointer-events-none absolute z-10 h-full w-full bg-white"
+              style={{
+            opacity: `${(events.length - cardIndex - 1) * 20}%`,
+              }}
+            ></div>
+            <EventCard
+              event={event}
+              setDetailOpen={() => openDetailDialog(event)}
+            />
           </div>
-          <div className="h-full w-full lg:w-4/12">
-            <p className="mb-4 font-serif text-4xl font-semibold">
-              Next Event:
-            </p>
-            <div className="rounded-xl border border-white/10 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 p-4 backdrop-blur-sm">
-              <div className="relative flex h-fit w-full flex-col justify-center overflow-clip rounded-lg bg-white text-center">
-                <img
-                  src={image}
-                  alt="Event"
-                  className="min-h-28 object-fill sm:min-h-48"
-                />
-                <div className="absolute bottom-0 top-0 w-full bg-black opacity-40"></div>
-                <div className="absolute w-full justify-center">
-                  <p className="text-4xl font-bold text-white">
-                    Event Card Here
-                  </p>
-                  <p className="text-2xl font-semibold text-white">
-                    Event Description
-                  </p>
-                </div>
-              </div>
-            </div>
+            )
+          })}
+        </div>
+        <Button
+          variant={'icon_transparent'}
+          className="rounded-full p-3 hover:bg-muted"
+          size={'lg'}
+          onClick={() => setFrontCard((frontCard + 1) % 3)}
+        >
+          <ArrowRightIcon className="!size-6 text-muted-foreground" />
+        </Button>
+          </div>
+          <div className="flex flex-col text-4xl font-semibold">
+        <span>All Events.</span>
+        <span>One Place.</span>
+
+        <Button className='mt-8' size={'xl'} onClick={() => navigate('/events')}>
+          Events
+        </Button>
           </div>
         </div>
       </section>
@@ -74,4 +127,4 @@ const ScrollSection = () => {
   )
 }
 
-export default ScrollSection
+export default HomeEventsSection

@@ -62,24 +62,7 @@ const Home = () => {
       {/* <HomeQuestionsSection /> */}
 
       <div className="relative flex flex-col justify-center bg-background p-10">
-        <span className="text-2xl">Components Showcase:</span>
-        <span className="mb-2 mt-5 text-lg">Buttons:</span>
-        <div className="flex w-full flex-wrap gap-2 sm:justify-around">
-          <Button>
-            Default
-            <ArrowRightIcon />
-          </Button>
-          <Button variant={'outline'}>
-            Outline
-            <ArrowRightIcon />
-          </Button>
-          <Button variant={'transparent'}>Transparent</Button>
-          <Button variant={'secondary'}>Secondary</Button>
-          <Button variant={'ghost'}>Ghost</Button>
-          <Button variant={'link'}>Link</Button>
-          <Button variant={'destructive'}>Destructive</Button>
-        </div>
-        <span className="my-4 text-lg">Colors:</span>
+        <span className="my-4 text-lg">Dev Colors:</span>
         <div className="flex flex-col gap-2 sm:flex-row">
           <div className="rounded-xl bg-neutral-200 p-5 text-black">
             <span>Lightmode:</span>
