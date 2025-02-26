@@ -40,13 +40,13 @@ const cardContents: ValueCardProps[] = [
 const HomePartnersSection = () => {
   return (
     <section className="relative m-auto flex max-w-screen-xl flex-col items-center justify-center gap-4">
-      <p className="text-3xl font-medium">Our Partners</p>
-      <p className="mb-6 w-3/5 min-w-56 text-center">
+      <p className="w-full text-3xl font-medium lg:text-center">Our Partners</p>
+      <p className="mb-6 min-w-56 lg:w-3/5 lg:text-center">
         Are you an Organization or company that hosts student Events and want to
         publish them on our platform? <br></br> Feel free to contact us and we
         look forward to work with you!
       </p>
-      <div className="flex flex-col justify-around px-4 sm:flex-row">
+      <div className="flex flex-col justify-around gap-4 sm:flex-row">
         {cardContents.map((card, index) => (
           <Card
             key={index}
