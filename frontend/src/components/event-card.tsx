@@ -8,7 +8,6 @@ import {
 } from '@/components/ui/card'
 import { Event } from '@/types/interfaces'
 import { categoriesMap } from '@/types/types'
-import { useAuth0 } from '@auth0/auth0-react'
 import { BookmarkIcon, Clock3Icon, MapPinIcon } from 'lucide-react'
 import { Badge } from './ui/badge'
 
@@ -18,7 +17,7 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, setDetailOpen }: EventCardProps) {
-  const { isAuthenticated } = useAuth0()
+  const isAuthenticated = true
 
   const saveEvent = (event: Event) => {
     if (!isAuthenticated) {

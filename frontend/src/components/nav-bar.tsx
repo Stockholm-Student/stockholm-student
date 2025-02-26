@@ -14,11 +14,15 @@ import MobileNavitem from './MobileNavItem'
 import { UserMenu } from './user-menu'
 
 import logo from '@/assets/logo/horizontal-logo.svg'
+import { AuthDialog } from './login-signup-dialog'
 
 const Navbar = () => {
   const { sm } = useBreakpoints()
   const location = useLocation()
   const isHomePage = location.pathname === '/'
+
+  const [authDialogOpen, setAuthDialogOpen] = useState(false)
+  const [login, setLogin] = useState(true)
 
   const [scrollY, setScrollY] = useState(0)
 
@@ -57,6 +61,12 @@ const Navbar = () => {
   if (sm) {
     return (
       <>
+        <AuthDialog
+          open={authDialogOpen}
+          setOpen={setAuthDialogOpen}
+          login={login}
+          setLogin={setLogin}
+        />
         <nav
           className={`fixed left-0 right-0 z-50 px-4 py-2 text-foreground backdrop-blur-md transition-all ${scrollY < height && isHomePage && 'text-white backdrop-blur-none'} ${scrollY == 0 ? 'top-8' : 'top-0'} `}
         >
@@ -119,6 +129,8 @@ const Navbar = () => {
                     isHomePage={isHomePage}
                     scrollY={scrollY}
                     height={height}
+                    setAuthDialogOpen={setAuthDialogOpen}
+                    setLogin={setLogin}
                   />
                 </td>
               </tr>
@@ -139,7 +151,14 @@ const Navbar = () => {
             className={`${isHomePage && scrollY < height && 'invert'} h-12 fill-background dark:invert`}
           />
         </Link>
-        <UserMenu isHomePage={isHomePage} scrollY={scrollY} height={height} />
+
+        <UserMenu
+          isHomePage={isHomePage}
+          scrollY={scrollY}
+          height={height}
+          setAuthDialogOpen={setAuthDialogOpen}
+          setLogin={setLogin}
+        />
       </div>
 
       <nav className="fixed bottom-0 z-50 flex w-full justify-between bg-muted px-2 py-4">

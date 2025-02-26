@@ -1,4 +1,5 @@
 import HomeEventsSection from '@/components/home-events-section'
+import HomePartnersSection from '@/components/home-partners-section'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRightIcon } from 'lucide-react'
@@ -12,14 +13,14 @@ const Home = () => {
   useEffect(() => {}, [])
 
   return (
-    <div className="relative scroll-smooth bg-green-100">
+    <div className="relative scroll-smooth">
       {/* Background with parallax effect */}
       <div className="relative h-screen overflow-hidden">
         <motion.div className="fixed">
           <img
             src={StockholmImage}
             alt="Stockholm"
-            className="h-[100vh] w-full object-cover"
+            className="min-h-[100vh] w-[100vw] overflow-hidden object-cover"
           />
         </motion.div>
 
@@ -57,29 +58,18 @@ const Home = () => {
           </motion.div>
         </div>
       </div>
-
-      <HomeEventsSection />
-      {/* <HomeQuestionsSection /> */}
-
-      <div className="relative flex flex-col justify-center bg-background p-10">
-        <span className="text-2xl">Components Showcase:</span>
-        <span className="mb-2 mt-5 text-lg">Buttons:</span>
-        <div className="flex w-full flex-wrap gap-2 sm:justify-around">
-          <Button>
-            Default
-            <ArrowRightIcon />
-          </Button>
-          <Button variant={'outline'}>
-            Outline
-            <ArrowRightIcon />
-          </Button>
-          <Button variant={'transparent'}>Transparent</Button>
-          <Button variant={'secondary'}>Secondary</Button>
-          <Button variant={'ghost'}>Ghost</Button>
-          <Button variant={'link'}>Link</Button>
-          <Button variant={'destructive'}>Destructive</Button>
-        </div>
-        <span className="my-4 text-lg">Colors:</span>
+      <div
+        className="items relative flex flex-col gap-36 rounded-t-lg bg-background p-6 py-12 lg:py-48"
+        style={{
+          backgroundImage: `radial-gradient(circle, hsl(var(--foreground) / 0.1) 1px, transparent 1px)`,
+          backgroundSize: '20px 20px',
+        }}
+      >
+        <HomeEventsSection />
+        <HomePartnersSection />
+      </div>
+      <div className="relative flex hidden flex-col justify-center bg-background p-10">
+        <span className="my-4 text-lg">Dev Colors:</span>
         <div className="flex flex-col gap-2 sm:flex-row">
           <div className="rounded-xl bg-neutral-200 p-5 text-black">
             <span>Lightmode:</span>

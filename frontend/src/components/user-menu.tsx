@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react'
 import {
   CalendarHeartIcon,
   CheckIcon,
@@ -26,19 +25,28 @@ import {
 import { useBreakpoints } from '@/lib/breakpoints'
 import { useTheme } from '@/provider/theme-provider'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
+import { Dispatch, SetStateAction } from 'react'
 import { Button } from './ui/button'
 
 interface NavMenuProps {
   isHomePage: boolean
   scrollY: number
   height: number
+  setAuthDialogOpen: Dispatch<SetStateAction<boolean>>
+  setLogin: Dispatch<SetStateAction<boolean>>
 }
 //TODO: Add a login form link, add link to profile page, replace Temporary state logedIn with real state provider when authentication available
 
-export function UserMenu({ isHomePage, scrollY, height }: NavMenuProps) {
+export function UserMenu({
+  isHomePage,
+  scrollY,
+  height,
+  setAuthDialogOpen,
+  setLogin,
+}: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
-  const { loginWithRedirect, isAuthenticated, logout } = useAuth0()
+  const isAuthenticated = false
   const { sm } = useBreakpoints()
 
   const user = {
@@ -124,32 +132,32 @@ export function UserMenu({ isHomePage, scrollY, height }: NavMenuProps) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {isAuthenticated ? (
-            <DropdownMenuItem
-              onClick={() =>
-                logout({ logoutParams: { returnTo: window.location.origin } })
-              }
-            >
+            <DropdownMenuItem>
               <LogOutIcon />
               <span>Log out</span>
             </DropdownMenuItem>
           ) : (
             <>
-              <DropdownMenuItem
-                onClick={() =>
-                  loginWithRedirect({
-                    authorizationParams: {
-                      screen_hint: 'signup',
-                    },
-                  })
-                }
-              >
-                <UserPlusIcon />
-                <span>Sign up</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => loginWithRedirect()}>
-                <LogInIcon />
-                <span>Log in</span>
-              </DropdownMenuItem>
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setAuthDialogOpen(true)
+                    setLogin(false)
+                  }}
+                >
+                  <UserPlusIcon />
+                  <span>Sign up</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setAuthDialogOpen(true)
+                    setLogin(true)
+                  }}
+                >
+                  <LogInIcon />
+                  <span>Log in</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
             </>
           )}
         </DropdownMenuGroup>
