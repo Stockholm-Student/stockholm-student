@@ -1,4 +1,5 @@
 import HomeEventsSection from '@/components/home-events-section'
+import HomeOrganizationsSection from '@/components/home-organizations-section'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRightIcon } from 'lucide-react'
@@ -12,14 +13,14 @@ const Home = () => {
   useEffect(() => {}, [])
 
   return (
-    <div className="relative scroll-smooth bg-green-100">
+    <div className="relative scroll-smooth">
       {/* Background with parallax effect */}
       <div className="relative h-screen overflow-hidden">
         <motion.div className="fixed">
           <img
             src={StockholmImage}
             alt="Stockholm"
-            className="h-[100vh] w-full object-cover"
+            className="min-h-[100vh] w-[100vw] object-cover overflow-hidden"
           />
         </motion.div>
 
@@ -57,11 +58,14 @@ const Home = () => {
           </motion.div>
         </div>
       </div>
-
-      <HomeEventsSection />
-      {/* <HomeQuestionsSection /> */}
-
-      <div className="relative flex flex-col justify-center bg-background p-10">
+      <div className='bg-background relative gap-36 py-48 flex flex-col' style={{
+          backgroundImage: 'radial-gradient(circle, #e5e5e5 1px, transparent 1px)',
+          backgroundSize: '20px 20px',
+        }}>
+        <HomeEventsSection />
+        <HomeOrganizationsSection />
+      </div>
+      <div className="relative hidden flex flex-col justify-center bg-background p-10">
         <span className="my-4 text-lg">Dev Colors:</span>
         <div className="flex flex-col gap-2 sm:flex-row">
           <div className="rounded-xl bg-neutral-200 p-5 text-black">

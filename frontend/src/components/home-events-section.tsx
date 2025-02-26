@@ -55,12 +55,7 @@ const HomeEventsSection = () => {
 
   return (
     <>
-      <section className="relative flex items-center justify-center rounded-t-2xl bg-background py-32"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #e5e5e5 1px, transparent 1px)',
-          backgroundSize: '20px 20px',
-        }}
-      >
+      <section className="relative flex items-center justify-center rounded-t-2xl">
         {/* Content */}
         <EventDetailDialog
           open={detailOpen}
@@ -68,58 +63,62 @@ const HomeEventsSection = () => {
           event={selectedEvent}
         />
         <div className="flex items-center justify-center gap-x-24">
-          <div className="flex items-center gap-4">
-        <Button
-          variant={'icon_transparent'}
-          className="rounded-full p-3 hover:bg-muted"
-          size={'lg'}
-          onClick={() => setFrontCard((frontCard + 1) % 3)}
-        >
-          <ArrowLeftIcon className="!size-6 text-muted-foreground" />
-        </Button>
-        <div className="relative flex h-[calc(22rem+100px)] w-[calc(20rem+100px)]">
-          {events.map((event, index) => {
-            const cardIndex = (index + frontCard) % 3
-            return (
-          <div
-            key={index}
-            className="absolute w-80 transform transition-all duration-300"
-            style={{
-              left: `${cardIndex * 50}px`,
-              top: `${cardIndex * 30}px`,
-              zIndex: cardIndex,
-            }}
-          >
-            <div
-              className="pointer-events-none absolute z-10 h-full w-full bg-white"
-              style={{
-            opacity: `${(events.length - cardIndex - 1) * 20}%`,
-              }}
-            ></div>
-            <EventCard
-              event={event}
-              setDetailOpen={() => openDetailDialog(event)}
-            />
-          </div>
-            )
-          })}
-        </div>
-        <Button
-          variant={'icon_transparent'}
-          className="rounded-full p-3 hover:bg-muted"
-          size={'lg'}
-          onClick={() => setFrontCard((frontCard + 1) % 3)}
-        >
-          <ArrowRightIcon className="!size-6 text-muted-foreground" />
-        </Button>
+          <div className="flex items-center">
+            <Button
+              variant={'icon_transparent'}
+              className="rounded-full p-3 hover:bg-muted mb-[75px]"
+              size={'lg'}
+              onClick={() => setFrontCard((frontCard + 1) % 3)}
+            >
+              <ArrowLeftIcon className="!size-6 text-muted-foreground" />
+            </Button>
+            <div className="relative flex h-[calc(22rem+100px)] w-[calc(20rem+100px)]">
+              {events.map((event, index) => {
+                const cardIndex = (index + frontCard) % 3
+                return (
+                  <div
+                    key={index}
+                    className="absolute w-80 transform transition-all duration-300"
+                    style={{
+                      left: `${cardIndex * 50}px`,
+                      top: `${cardIndex * 30}px`,
+                      zIndex: cardIndex,
+                    }}
+                  >
+                    <div
+                      className="pointer-events-none absolute z-10 h-full w-full bg-white"
+                      style={{
+                        opacity: `${(events.length - cardIndex - 1) * 20}%`,
+                      }}
+                    ></div>
+                    <EventCard
+                      event={event}
+                      setDetailOpen={() => openDetailDialog(event)}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+            <Button
+              variant={'icon_transparent'}
+              className="rounded-full p-3 hover:bg-muted mt-[75px]"
+              size={'lg'}
+              onClick={() => setFrontCard((frontCard + 1) % 3)}
+            >
+              <ArrowRightIcon className="!size-6 text-muted-foreground" />
+            </Button>
           </div>
           <div className="flex flex-col text-4xl font-semibold">
-        <span>All Events.</span>
-        <span>One Place.</span>
+            <span>All Events.</span>
+            <span>One Place.</span>
 
-        <Button className='mt-8' size={'xl'} onClick={() => navigate('/events')}>
-          Events
-        </Button>
+            <Button
+              className="mt-8"
+              size={'xl'}
+              onClick={() => navigate('/events')}
+            >
+              Events
+            </Button>
           </div>
         </div>
       </section>
