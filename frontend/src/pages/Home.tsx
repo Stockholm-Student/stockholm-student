@@ -1,5 +1,5 @@
 import HomeEventsSection from '@/components/home-events-section'
-import HomeOrganizationsSection from '@/components/home-organizations-section'
+import HomePartnersSection from '@/components/home-partners-section'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRightIcon } from 'lucide-react'
@@ -20,7 +20,7 @@ const Home = () => {
           <img
             src={StockholmImage}
             alt="Stockholm"
-            className="min-h-[100vh] w-[100vw] object-cover overflow-hidden"
+            className="min-h-[100vh] w-[100vw] overflow-hidden object-cover"
           />
         </motion.div>
 
@@ -58,14 +58,17 @@ const Home = () => {
           </motion.div>
         </div>
       </div>
-      <div className='bg-background relative gap-36 py-48 flex flex-col' style={{
-          backgroundImage: 'radial-gradient(circle, #e5e5e5 1px, transparent 1px)',
+      <div
+        className="relative flex flex-col gap-36 rounded-t-lg bg-background py-48"
+        style={{
+          backgroundImage: `radial-gradient(circle, hsl(var(--foreground) / 0.1) 1px, transparent 1px)`,
           backgroundSize: '20px 20px',
-        }}>
+        }}
+      >
         <HomeEventsSection />
-        <HomeOrganizationsSection />
+        <HomePartnersSection />
       </div>
-      <div className="relative hidden flex flex-col justify-center bg-background p-10">
+      <div className="relative flex hidden flex-col justify-center bg-background p-10">
         <span className="my-4 text-lg">Dev Colors:</span>
         <div className="flex flex-col gap-2 sm:flex-row">
           <div className="rounded-xl bg-neutral-200 p-5 text-black">
