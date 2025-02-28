@@ -3,9 +3,9 @@ import { useBreakpoints } from '@/lib/breakpoints'
 import {
   BookOpenIcon,
   CalendarIcon,
-  EllipsisIcon,
   HomeIcon,
   MessageCircleIcon,
+  UserIcon,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -35,6 +35,7 @@ const Navbar = () => {
   }, [])
 
   const navItems = [
+    { title: 'Home', link: '/', icon: <HomeIcon className="h-6 w-6" /> },
     {
       title: 'Events',
       link: '/events',
@@ -45,17 +46,17 @@ const Navbar = () => {
       link: '/community',
       icon: <MessageCircleIcon className="h-6 w-6" />,
     },
-    { title: 'Home', link: '/', icon: <HomeIcon className="h-6 w-6" /> },
+
     {
       title: 'Wiki',
       link: '/wiki',
       icon: <BookOpenIcon className="h-6 w-6" />,
     },
     {
-      title: 'More',
-      link: '/more',
-      icon: <EllipsisIcon className="h-6 w-6" />,
-    },
+      title: 'Profile',
+      link: '/dashboard',
+      icon: <UserIcon className="h-6 w-6" />,
+    }
   ]
 
   if (sm) {
@@ -113,16 +114,7 @@ const Navbar = () => {
                     Wiki
                   </Link>
                 </td>
-                <td className="w-1/6">
-                  <Link
-                    to="/more"
-                    className={`font-serif text-xl font-bold transition-all hover:underline ${
-                      location.pathname === '/more' && 'underline'
-                    }`}
-                  >
-                    More
-                  </Link>
-                </td>
+                <td className="w-1/6"></td>
 
                 <td>
                   <UserMenu
