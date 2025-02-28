@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { RefAttributes } from 'react'
 import { Card, CardContent, CardDescription, CardHeader } from './ui/card'
+import { useBreakpoints } from '@/lib/breakpoints'
 
 interface ValueCardProps {
   title: string
@@ -38,29 +39,30 @@ const cardContents: ValueCardProps[] = [
 ]
 
 const HomePartnersSection = () => {
+  const { sm } = useBreakpoints()
   return (
-    <section className="relative m-auto flex max-w-screen-xl flex-col items-center justify-center gap-4">
+    <section className="relative m-auto flex max-w-screen-xl w-full flex-col items-center justify-center gap-4">
       <p className="w-full text-3xl font-medium lg:text-center">Our Partners</p>
-      <p className="mb-6 min-w-56 lg:w-3/5 lg:text-center">
+      <p className="mb-6 min-w-56 w-full lg:w-3/5 lg:text-center">
         Are you an Organization or company that hosts student Events and want to
         publish them on our platform? <br></br> Feel free to contact us and we
         look forward to work with you!
       </p>
-      <div className="flex flex-col justify-around gap-4 sm:flex-row">
+      <div className="flex flex-col w-full justify-between lg:justify-around gap-4 sm:flex-row items-center sm:items-stretch">
         {cardContents.map((card, index) => (
           <Card
             key={index}
-            className="flex max-w-[400px] flex-col rounded-md border border-muted shadow-sm hover:shadow-lg sm:w-[30%] lg:w-1/4"
+            className="flex flex-row sm:max-w-[350px] w-full sm:flex-col flex-1 rounded-md border border-muted shadow-sm hover:shadow-lg"
           >
             <CardHeader>
               <card.icon
-                size={64}
-                strokeWidth={1.6}
+                size={sm? 64 : 48}
+                strokeWidth={sm? 1.6 : 1.3}
                 className="mb-2 text-foreground/90"
               />
             </CardHeader>
-            <CardContent>
-              <p className="mb-2 text-xl font-bold text-muted-foreground/20">
+            <CardContent className={`${!sm && 'pl-0'}`}>
+              <p className="mb-2 text-xl mt-4 md:mt-0 font-bold text-muted-foreground/20">
                 0{index + 1}
               </p>
               <p className="mb-2 text-lg font-medium">{card.title}</p>

@@ -14,9 +14,10 @@ import { Badge } from './ui/badge'
 interface EventCardProps {
   event: Event
   setDetailOpen: (open: boolean) => void
+  classes?: string
 }
 
-export function EventCard({ event, setDetailOpen }: EventCardProps) {
+export function EventCard({ event, setDetailOpen, classes }: EventCardProps) {
   const isAuthenticated = true
 
   const saveEvent = (event: Event) => {
@@ -28,7 +29,7 @@ export function EventCard({ event, setDetailOpen }: EventCardProps) {
   }
   return (
     <Card
-      className="group min-w-72 cursor-pointer overflow-hidden p-3 transition-all hover:shadow-lg sm:border"
+      className={`group min-w-72 cursor-pointer overflow-hidden p-3 transition-all hover:shadow-lg border ${classes}`}
       onClick={() => setDetailOpen(true)}
     >
       {event.imageUrl && (

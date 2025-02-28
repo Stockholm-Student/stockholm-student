@@ -217,6 +217,7 @@ const Events = () => {
                       <EventCard
                         event={event}
                         setDetailOpen={() => openDetailDialog(event)}
+                        classes="bg-muted sm:bg-card border-0 sm:border"
                       />
                     ))}
                   </div>

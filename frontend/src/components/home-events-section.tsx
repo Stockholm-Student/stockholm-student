@@ -65,19 +65,22 @@ const HomeEventsSection = () => {
           setOpen={setDetailOpen}
           event={selectedEvent}
         />
-        <div className="absolute -top-48 left-0 z-0 hidden h-full w-full lg:flex">
-          <svg
-            width="2000"
-            height="1020"
-            viewBox="0 0 2000 1020"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fill-muted"
-          >
-            <path d="M736.091 0H2000V512H1322.27V522.182C1614.64 587.636 1560.82 1019.64 1267 1019.64H0V512H714.273V501.818C571.727 474.182 483 385.455 483 253.091C483 122.182 596.455 0 736.091 0Z" />
-          </svg>
+        <div className="absolute inset-0 -mx-6 hidden items-center justify-center overflow-hidden md:flex">
+          <div className="relative min-h-full w-full">
+            <svg
+              width="5120"
+              height="1020"
+              viewBox="0 0 5120 1020"
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute left-1/2 top-1/2 max-h-full min-h-full w-auto -translate-x-1/2 -translate-y-1/2 fill-muted"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <path d="M2296.09 0H5120V512H2882.27V522.182C3174.64 587.636 3120.82 1019.64 2827 1019.64H0V512H2274.27V501.818C2131.73 474.182 2043 385.455 2043 253.091C2043 122.182 2156.45 0 2296.09 0Z" />
+            </svg>
+          </div>
         </div>
-        <div className="z-[1] max-w-full lg:max-w-screen-xl">
-          <div className="m-auto mb-12 lg:w-[350px]">
+        <div className="z-[1] mt-12 flex max-w-full flex-col md:max-w-screen-xl">
+          <div className="m-auto mb-10 flex flex-col justify-center md:mb-0 md:min-h-[350px] md:w-[350px]">
             <p className="mb-2 text-3xl font-semibold">
               Having a hard time to keep track of all the Events?
             </p>
@@ -87,12 +90,12 @@ const HomeEventsSection = () => {
             groups, Websites, Newsletters and Instagram posts to stay up to
             date. Find the events that you are looking for.
           </div>
-          <div className="flex flex-col items-center justify-center lg:mt-48 lg:flex-row lg:gap-x-24">
-            <div className="relative flex w-full items-center lg:w-[calc(20rem+200px)]">
+          <div className="flex min-h-[550px] flex-col items-center justify-center md:flex-row md:gap-x-12 lg:gap-x-24">
+            <div className="relative flex items-center md:w-[calc(20rem+200px)]">
               {sm && (
                 <Button
                   variant={'icon_transparent'}
-                  className="mb-[75px] rounded-full p-3 hover:bg-muted"
+                  className="mb-[75px] rounded-full bg-transparent p-3 hover:bg-muted"
                   size={'lg'}
                   onClick={() => setFrontCard((frontCard + 1) % 3)}
                 >
@@ -129,7 +132,7 @@ const HomeEventsSection = () => {
               {sm && (
                 <Button
                   variant={'icon_transparent'}
-                  className="mt-[75px] rounded-full p-3 hover:bg-muted"
+                  className="mt-[75px] rounded-full bg-transparent p-3 hover:bg-muted"
                   size={'lg'}
                   onClick={() => setFrontCard((frontCard + 1) % 3)}
                 >
@@ -137,9 +140,11 @@ const HomeEventsSection = () => {
                 </Button>
               )}
             </div>
-            <div className="mt-20 flex flex-col text-4xl font-semibold lg:mt-0">
-              <span>All Events.</span>
-              <span>One Place.</span>
+            <div className="mt-20 flex flex-col items-center text-4xl font-semibold md:mt-0">
+              <div className="flex min-w-[155px] gap-4 md:flex-col md:gap-0">
+                <span>All Events.</span>
+                <span>One Place.</span>
+              </div>
               <Button
                 className="mt-8"
                 size={'xl'}
