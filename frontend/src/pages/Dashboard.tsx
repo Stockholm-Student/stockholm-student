@@ -1,5 +1,3 @@
-// pages/Events.tsx
-
 export function Dashboard() {
   return (
     <div className="min-h-screen bg-background pt-36">
