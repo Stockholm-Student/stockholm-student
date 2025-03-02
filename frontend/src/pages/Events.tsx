@@ -1,17 +1,23 @@
 // pages/Events.tsx
 import EventDialog from '@/components/add-event-dialog'
-import CategoryFilter from '@/components/category-filter'
-import DateRangeFilter from '@/components/date-range-filter'
 import EventCalendar from '@/components/event-calender'
 import { EventCard } from '@/components/event-card'
 import EventDetailDialog from '@/components/event-detail-dialog'
-import ResponsiveSidebar from '@/components/responsive-sidebar'
+import { FilterSidebar } from '@/components/filter-sidebar'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useBreakpoints } from '@/lib/breakpoints'
 import { Event } from '@/types/interfaces'
 import { addYears } from 'date-fns'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CalendarIcon, Grid3X3Icon, ListIcon, MapPinIcon } from 'lucide-react'
+import {
+  CalendarIcon,
+  FilterIcon,
+  Grid3X3Icon,
+  ListIcon,
+  MapPinIcon,
+  XIcon,
+} from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 
@@ -82,7 +88,7 @@ const events: Event[] = [
 type ViewType = 'calendar' | 'grid' | 'map'
 
 const Events = () => {
-  const { sm } = useBreakpoints()
+  const { sm, md } = useBreakpoints()
 
   const defaultShownFilters: number = 4
 
@@ -185,26 +191,49 @@ const Events = () => {
         </div>
         <div className="flex flex-col rounded-md sm:bg-muted sm:p-4 md:flex-row md:p-6">
           {/* Filter Sidebar */}
-          <ResponsiveSidebar
+          {!md && (
+            <div className="flex w-full items-center justify-between">
+              <div>
+                {selectedCategories.map((category) => (
+                  <Badge
+                    key={category}
+                    className="mb-2 mr-2 inline-block rounded-full bg-primary px-2 py-1 text-sm font-medium text-white"
+                  >
+                    {category}
+                    <XIcon
+                      className="inline-block h-4 w-4 cursor-pointer"
+                      onClick={() =>
+                        setSelectedCategories(
+                          selectedCategories.filter(
+                            (categoryName) => categoryName !== category
+                          )
+                        )
+                      }
+                    />
+                  </Badge>
+                ))}
+              </div>
+              <Button
+                variant={'outline'}
+                className="mb-4 w-fit"
+                onClick={() => setDrawerOpen(!drawerOpen)}
+              >
+                <FilterIcon />
+                Filter
+              </Button>
+            </div>
+          )}
+          <FilterSidebar
             drawerOpen={drawerOpen}
             setDrawerOpen={setDrawerOpen}
             selectedCategories={selectedCategories}
             setSelectedCategories={setSelectedCategories}
             filterEvents={filterEvents}
             resetAllFilters={resetAllFilters}
-          >
-            {/* Filter Components */}
-            <CategoryFilter
-              selectedCategories={selectedCategories}
-              setSelectedCategories={setSelectedCategories}
-              defaultCategoryLength={defaultShownFilters}
-            ></CategoryFilter>
-            <hr className="my-3 border-t border-border" />
-            <DateRangeFilter
-              selectedDateRange={selectedDateRange}
-              setSelectedDateRange={setSelectedDateRange}
-            ></DateRangeFilter>
-          </ResponsiveSidebar>
+            defaultShownFilters={defaultShownFilters}
+            selectedDateRange={selectedDateRange}
+            setSelectedDateRange={setSelectedDateRange}
+          ></FilterSidebar>
           {/* Events Content */}
           <div className="w-full">
             <AnimatePresence mode="wait">

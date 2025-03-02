@@ -1,28 +1,28 @@
 import { useBreakpoints } from '@/lib/breakpoints'
-import { Event } from '@/types/interfaces'
-import { PanelLeftCloseIcon, PanelLeftOpenIcon, XIcon } from 'lucide-react'
-import { Badge } from './ui/badge'
+import { PanelLeftCloseIcon, PanelLeftOpenIcon } from 'lucide-react'
 import { Button } from './ui/button'
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from './ui/drawer'
 
 interface ResponsiveSidebarProps {
+  title: string
   drawerOpen: boolean
   setDrawerOpen: (open: boolean) => void
-  selectedCategories: string[]
-  setSelectedCategories: (categories: string[]) => void
-  filterEvents: () => Event[]
-  resetAllFilters: () => void
+  buttonFunction: () => void
   children: React.ReactNode
+  titleBarButton?: boolean
+  buttonText?: string
+  drawerContent: React.ReactNode
 }
 
 const ResponsiveSidebar = ({
+  title,
   drawerOpen,
   setDrawerOpen,
-  selectedCategories,
-  setSelectedCategories,
-  filterEvents,
-  resetAllFilters,
+  buttonFunction,
   children,
+  titleBarButton = false,
+  buttonText,
+  drawerContent,
 }: ResponsiveSidebarProps) => {
   const { md } = useBreakpoints()
   if (md) {
@@ -54,13 +54,15 @@ const ResponsiveSidebar = ({
                 <PanelLeftCloseIcon className="!h-6 !w-6" />
               </Button>
               <span className="text-2xl font-medium">Filters</span>
-              <Button
-                variant={'outline'}
-                className="ml-auto"
-                onClick={resetAllFilters}
-              >
-                Reset all
-              </Button>
+              {titleBarButton && (
+                <Button
+                  variant={'outline'}
+                  className="ml-auto"
+                  onClick={buttonFunction}
+                >
+                  {buttonText}
+                </Button>
+              )}
             </div>
             {/* Filter Components */}
             {children}
@@ -72,56 +74,26 @@ const ResponsiveSidebar = ({
 
   return (
     <>
-      <div className="flex w-full items-center justify-between">
-        <div>
-          {selectedCategories.map((category) => (
-            <Badge
-              key={category}
-              className="mb-2 mr-2 inline-block rounded-full bg-primary px-2 py-1 text-sm font-medium text-white"
-            >
-              {category}{' '}
-              <XIcon
-                className="inline-block h-4 w-4 cursor-pointer"
-                onClick={() =>
-                  setSelectedCategories(
-                    selectedCategories.filter(
-                      (categoryName) => categoryName !== category
-                    )
-                  )
-                }
-              />
-            </Badge>
-          ))}
-        </div>
-        <Button
-          variant={'outline'}
-          className="mb-4 w-fit"
-          onClick={() => setDrawerOpen(!drawerOpen)}
-        >
-          Filter
-        </Button>
-      </div>
       <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
         <DrawerContent className="px-4 pb-4">
           <DrawerHeader className="px-0 text-left">
             <div className="space-between flex">
               <DrawerTitle className="font-serif text-3xl font-semibold">
-                Filters
+                {title}
               </DrawerTitle>
-              <Button
-                variant={'outline'}
-                className="ml-auto"
-                onClick={resetAllFilters}
-              >
-                Reset all
-              </Button>
+              {titleBarButton && (
+                <Button
+                  variant={'outline'}
+                  className="ml-auto"
+                  onClick={buttonFunction}
+                >
+                  {buttonText}
+                </Button>
+              )}
             </div>
           </DrawerHeader>
           <div className="mb-2 max-h-[50vh] overflow-y-auto">{children}</div>
-          <hr className="-mx-4 w-[100vw]" />
-          <Button className="mt-4 w-full" onClick={() => setDrawerOpen(false)}>
-            Show {filterEvents().length} Results
-          </Button>
+          {drawerContent}
         </DrawerContent>
       </Drawer>
     </>

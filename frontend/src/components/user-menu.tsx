@@ -2,6 +2,7 @@ import {
   CalendarHeartIcon,
   CheckIcon,
   LaptopIcon,
+  LayoutDashboardIcon,
   LogInIcon,
   LogOutIcon,
   MoonIcon,
@@ -26,6 +27,7 @@ import { useBreakpoints } from '@/lib/breakpoints'
 import { useTheme } from '@/provider/theme-provider'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import { Dispatch, SetStateAction } from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from './ui/button'
 
 interface NavMenuProps {
@@ -46,11 +48,11 @@ export function UserMenu({
 }: NavMenuProps) {
   const { setTheme, theme } = useTheme()
 
-  const isAuthenticated = false
+  const isAuthenticated = true
   const { sm } = useBreakpoints()
 
   const user = {
-    name: 'John Doe',
+    name: 'John Doe mc guiver',
     email: '',
     image: '',
   }
@@ -70,7 +72,17 @@ export function UserMenu({
                 <span
                   className={` ${isHomePage && scrollY < height ? 'text-foreground' : 'text-background'} dark:text-background`}
                 >
-                  {user.name.charAt(0).toUpperCase()}
+                  {/* Select first Letter in uppercase from username. If username has at least one space take the first letter of the last part aswell. Examples: Carl Powers --> CP, John doe mc Guiver --> JG */}
+                  {(() => {
+                    const nameParts = user.name.split(' ')
+                    if (nameParts.length === 1) {
+                      return nameParts[0].charAt(0).toUpperCase()
+                    }
+                    return (
+                      nameParts[0].charAt(0).toUpperCase() +
+                      nameParts[nameParts.length - 1].charAt(0).toUpperCase()
+                    )
+                  })()}
                 </span>
               ) : (
                 <UserIcon
@@ -84,6 +96,12 @@ export function UserMenu({
       <DropdownMenuContent align="end">
         {isAuthenticated && (
           <>
+            <Link to="/dashboard">
+              <DropdownMenuItem>
+                <LayoutDashboardIcon />
+                <span>Dashboard</span>
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem>
               <UserIcon />
               <span>Profile</span>
@@ -92,6 +110,7 @@ export function UserMenu({
               <CalendarHeartIcon />
               <span>My Events</span>
             </DropdownMenuItem>
+            <DropdownMenuSeparator />
           </>
         )}
         <DropdownMenuSub>

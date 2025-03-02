@@ -1,6 +1,6 @@
 // pages/Events.tsx
 
-const Events = () => {
+export function Dashboard() {
   return (
     <div className="min-h-screen bg-background pt-36">
       <div className="px-4">
@@ -15,5 +15,3 @@ const Events = () => {
     </div>
   )
 }
-
-export default Events
