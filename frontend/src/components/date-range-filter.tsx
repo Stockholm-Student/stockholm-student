@@ -40,7 +40,7 @@ export function DateRangeFilter({
 
   return (
     <div className={cn('grid')}>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <span className="text-xl font-medium uppercase text-card-foreground/30">
           Date Range
         </span>

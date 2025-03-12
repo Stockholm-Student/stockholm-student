@@ -66,7 +66,7 @@ export function UserMenu({
           className={`fixed p-0 transition-all ${isHomePage && scrollY < height ? 'bg-background hover:bg-background/70 dark:bg-foreground dark:hover:bg-foreground/70' : 'bg-foreground hover:bg-foreground/70'} ${isHomePage && sm && scrollY == 0 ? 'right-4 top-16' : 'right-4 top-3'} `}
         >
           <Avatar>
-            <AvatarImage src={user.image} />
+            <AvatarImage src={user.image} alt={user.name} />
             <AvatarFallback>
               {isAuthenticated ? (
                 <span

@@ -16,9 +16,10 @@ export interface Event {
 
 export interface User {
   _id: Types.ObjectId
+  userName: string
   email: string
   password: string
-  userName: string
+  image: string
   bio: string
   university?: string
   country?: string
@@ -63,4 +64,9 @@ export interface Community {
   // categories: string[]
   // status: string
   // socialLinks: string[]
+}
+
+export interface MenuGroup {
+  title: string
+  items: string[]
 }

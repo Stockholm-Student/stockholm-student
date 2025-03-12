@@ -13,7 +13,7 @@ const Home = () => {
   useEffect(() => {}, [])
 
   return (
-    <div className="relative scroll-smooth">
+    <div className="relative scroll-smooth -mt-36">
       {/* Background with parallax effect */}
       <div className="relative h-screen overflow-hidden">
         <motion.div className="fixed">

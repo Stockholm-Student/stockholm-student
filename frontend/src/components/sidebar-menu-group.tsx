@@ -1,23 +1,35 @@
 import { Link } from 'react-router-dom'
 
 interface SidebarMenuGroupProps {
-  title: string
-  menuItemList: Array<[string, string]>
+  menuGroup: {
+    title: string
+    items: string[]
+  }
+  active: string
+  setActive: (active: string) => void
 }
 
 export function SidebarMenuGroup({
-  title,
-  menuItemList,
+  menuGroup,
+  active,
+  setActive,
 }: SidebarMenuGroupProps) {
   return (
-    <div className="flex flex-col">
+    <div className="my-4 flex flex-col">
       <div className="text-2xl font-bold uppercase text-muted-foreground">
-        {title}
+        {menuGroup.title}
       </div>
-      <div className="flex flex-col">
-        {menuItemList.map((item) => (
+      <div className="mt-3 flex flex-col gap-2">
+        {menuGroup.items.map((item) => (
           <div className="flex flex-row text-foreground">
-            <Link to={item[1]}>{item[0]}</Link>
+            {/*remove all spaces and link to anchor */}
+            <Link
+              to={item.toLowerCase().replace(/\s+/g, '')}
+              className={`${active == menuGroup.title + item && 'underline'} hover:underline`}
+              onClick={() => setActive(menuGroup.title + item)}
+            >
+              {item}
+            </Link>
           </div>
         ))}
       </div>

@@ -30,7 +30,7 @@ const ResponsiveSidebar = ({
       <>
         {/* Sidebar closed state */}
         {/* invert drawerOpen here since the filters should be open by default but otherwise problems with the mobile drawer emerge*/}
-        <div className={`mr-3 border-r-2 ${!drawerOpen && 'hidden'}`}>
+        <div className={`mr-3 ${!drawerOpen && 'hidden'}`}>
           <Button
             variant={'ghost'}
             size={'icon'}
@@ -41,9 +41,7 @@ const ResponsiveSidebar = ({
           </Button>
         </div>
         {/* Sidebar open state */}
-        <div
-          className={`mr-4 w-[250px] border-r-2 ${drawerOpen && 'hidden'} pr-4`}
-        >
+        <div className={`mr-4 w-[250px] ${drawerOpen && 'hidden'} pr-4`}>
           <div className="sticky top-20">
             <div className="flex flex-row items-center gap-2 pb-4">
               <Button
@@ -53,7 +51,7 @@ const ResponsiveSidebar = ({
               >
                 <PanelLeftCloseIcon className="!h-6 !w-6" />
               </Button>
-              <span className="text-2xl font-medium">Filters</span>
+              <span className="text-2xl font-medium">{title}</span>
               {titleBarButton && (
                 <Button
                   variant={'outline'}

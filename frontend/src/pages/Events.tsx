@@ -146,7 +146,7 @@ const Events = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-36">
+    <div className="min-h-screen bg-background">
       <div className="fixed bottom-6 right-6 z-20">
         <EventDialog />
       </div>

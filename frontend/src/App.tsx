@@ -13,17 +13,19 @@ import Dashboard from './pages/Dashboard'
 function App() {
   return (
     <Router>
-      <div className="relative min-h-screen">
+      <div className="relative flex min-h-screen flex-col">
         <Navbar />
         <Toaster />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/wiki" element={<Wiki />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <main className="mt-36 flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/wiki" element={<Wiki />} />
+            <Route path="/dashboard/*" element={<Dashboard />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
         <Footer></Footer>
       </div>
     </Router>
